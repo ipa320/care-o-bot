@@ -4,7 +4,7 @@
      powercube_chain
 
   </description>
-  <author>Florian Weisshardt mail:florian.weisshardt@ipa.fhg.de</author>
+  <author>Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/powercube_chain</url>
