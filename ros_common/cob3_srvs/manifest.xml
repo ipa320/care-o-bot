@@ -1,0 +1,22 @@
+<package>
+  <description brief="cob3_srvs">
+
+     cob3_srvs
+
+  </description>
+  <author>Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://pr.willowgarage.com/wiki/cob3_srvs</url>
+  
+  <depend package="std_srvs"/>
+  <depend package="std_msgs"/>
+  <depend package="sensor_msgs"/>
+
+  <export>
+    <cpp cflags="-I${prefix}/srv/cpp"/>
+  </export>
+
+</package>
+
+
