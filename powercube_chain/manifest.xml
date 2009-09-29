@@ -1,13 +1,13 @@
 <package>
-  <description brief="cob3_arm">
+  <description brief="powercube_chain">
 
-     cob3_arm
+     powercube_chain
 
   </description>
-  <author></author>
+  <author>Florian Weisshardt mail:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_arm</url>
+  <url>http://ros.org/wiki/powercube_chain</url>
   
   <depend package="roscpp"/>
   <depend package="std_msgs"/>
