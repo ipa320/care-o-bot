@@ -1,0 +1,16 @@
+<package>
+  <description brief="cob3_arm">
+
+     cob3_arm
+
+  </description>
+  <author></author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/cob3_arm</url>
+  
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="std_srvs"/>
+
+</package>
