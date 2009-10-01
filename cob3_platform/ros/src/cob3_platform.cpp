@@ -14,9 +14,10 @@
 // ROS service includes
 #include <cob3_srvs/Init.h>
 #include <cob3_srvs/Stop.h>
+#include <cob3_srvs/Shutdown.h>
 
 // external includes
-#include <../include/PlatformHardware.h>
+#include <PlatformHardware.h>
 
 //####################
 //#### node class ####
@@ -37,33 +38,35 @@ class NodeClass
         ros::ServiceServer srvServer_Init;
         ros::ServiceServer srvServer_Home;
         ros::ServiceServer srvServer_Stop;
+        ros::ServiceServer srvServer_Shutdown;
             
         // service clients
         //--
         
         // global variables
-        //--
+        PlatformHardware* pltf;
 
         // Constructor
         NodeClass()
-        {
-        	PlatformHardware* pltf;
-        	pltf = new PlatformHardware();
-        
-	        // implementation of topics to publish
+        {        	
+        	// implementation of topics to publish
             topicPub_Pose2D = n.advertise<geometry_msgs::Pose2D>("cob3/platform/Pose2D", 1);
             
             // implementation of topics to subscribe
             topicSub_CmdVel = n.subscribe("cob3/platform/CmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
             
             // implementation of service servers
-            srvServer_Init = n.advertiseService("cob3/arm/Init", &NodeClass::srvCallback_Init, this);
-            srvServer_Stop = n.advertiseService("cob3/arm/Stop", &NodeClass::srvCallback_Stop, this);
+            srvServer_Init = n.advertiseService("cob3/platform/Init", &NodeClass::srvCallback_Init, this);
+            srvServer_Stop = n.advertiseService("cob3/platform/Stop", &NodeClass::srvCallback_Stop, this);
+            srvServer_Shutdown = n.advertiseService("cob3/platform/Shutdown", &NodeClass::srvCallback_Shutdown, this);
         }
         
         // Destructor
         ~NodeClass() 
         {
+            pltf->setVelPltf(0, 0, 0, 0);
+            pltf->shutdownPltf();
+            delete pltf;
         }
 
         // topic callback functions 
@@ -72,6 +75,8 @@ class NodeClass
         {
             ROS_INFO("received new velocity command [linX=%3.2f,linY=%3.2f,angZ=%3.2f]", 
                      msg->linear.x, msg->linear.y, msg->angular.z);
+
+            pltf->setVelPltf(msg->linear.x, msg->linear.y, msg->angular.z, 0);
         }
 
         // service callback functions
@@ -80,6 +85,8 @@ class NodeClass
                               cob3_srvs::Init::Response &res )
         {
             ROS_INFO("This is srvCallback_Init");
+            pltf = new PlatformHardware();
+            pltf->initPltf();
             res.success = 0; // 0 = true, else = false
             return true;
         }
@@ -88,6 +95,16 @@ class NodeClass
                               cob3_srvs::Stop::Response &res )
         {
             ROS_INFO("This is srvCallback_Stop");
+            pltf->setVelPltf(0, 0, 0, 0);
+            res.success = 0; // 0 = true, else = false
+            return true;
+        }
+
+        bool srvCallback_Shutdown(cob3_srvs::Shutdown::Request &req,
+                                  cob3_srvs::Shutdown::Response &res )
+        {
+            ROS_INFO("This is srvCallback_Shutdown");
+            pltf->shutdownPltf();
             res.success = 0; // 0 = true, else = false
             return true;
         }

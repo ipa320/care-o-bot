@@ -15,6 +15,7 @@
 // ROS service includes
 #include <cob3_srvs/Init.h>
 #include <cob3_srvs/Stop.h>
+#include <cob3_srvs/Shutdown.h>
 
 // external includes
 //--
@@ -53,8 +54,9 @@ int main(int argc, char** argv)
     //--
         
     // service clients
-    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("cob3/arm/Init");
-    ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("cob3/arm/Stop");
+    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("cob3/platform/Init");
+    ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("cob3/platform/Stop");
+    ros::ServiceClient srvClient_Shutdown = n.serviceClient<cob3_srvs::Shutdown>("cob3/platform/Shutdown");
     
     // external code
 	bool srv_querry = false;
@@ -66,7 +68,7 @@ int main(int argc, char** argv)
     while(n.ok())
     {
         // process user inputs
-        std::cout << "Choose service to test ([s]top, [i]nit, send[C]ommand, [e]xit): ";
+        std::cout << "Choose service to test ([s]top, [i]nit, shut[d]own, send[C]ommand, [e]xit): ";
         
         std::cin >> c;
 
@@ -80,10 +82,19 @@ int main(int argc, char** argv)
                 srv_execute = srv.response.success;
               	break;
             }
+
+            case 'd':
+            {
+                //ROS_INFO("querry service [cob3/platform/Shutdown]");
+                cob3_srvs::Shutdown srv;
+                srv_querry = srvClient_Shutdown.call(srv);
+                srv_execute = srv.response.success;
+              	break;
+            }
             
             case 'i':
             {
-            	//ROS_INFO("querry service [cob3/platform/Stop]");
+            	//ROS_INFO("querry service [cob3/platform/Init]");
                 cob3_srvs::Init srv;
                 srv_querry = srvClient_Init.call(srv);
                 srv_execute = srv.response.success;

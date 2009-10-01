@@ -33,5 +33,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 rospack_add_executable(${PROJECT_NAME} ros/src/${PROJECT_NAME}.cpp)
 rospack_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
 
+# add include search paths
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common)
+
 # link libraries
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/libPlatformHardwareCOb3.so)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/libPlatformHardwareCOb3.so pcan ntcan)
