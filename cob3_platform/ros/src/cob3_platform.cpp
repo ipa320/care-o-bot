@@ -45,10 +45,15 @@ class NodeClass
         
         // global variables
         PlatformHardware* pltf;
+        bool isInitialized;
+        double velX,velY,angZ;
 
         // Constructor
         NodeClass()
         {        	
+            isInitialized = false;
+            velX = velY = angZ = 0;
+
         	// implementation of topics to publish
             topicPub_Pose2D = n.advertise<geometry_msgs::Pose2D>("cob3/platform/Pose2D", 1);
             
@@ -66,6 +71,7 @@ class NodeClass
         {
             pltf->setVelPltf(0, 0, 0, 0);
             pltf->shutdownPltf();
+            isInitialized = false;
             delete pltf;
         }
 
@@ -73,10 +79,12 @@ class NodeClass
         // function will be called when a new message arrives on a topic
         void topicCallback_CmdVel(const geometry_msgs::Twist::ConstPtr& msg)
         {
-            ROS_INFO("received new velocity command [linX=%3.2f,linY=%3.2f,angZ=%3.2f]", 
+            ROS_INFO("received new velocity command [linX=%3.5f,linY=%3.5f,angZ=%3.5f]", 
                      msg->linear.x, msg->linear.y, msg->angular.z);
 
-            pltf->setVelPltf(msg->linear.x, msg->linear.y, msg->angular.z, 0);
+            velX = msg->linear.x;
+            velY = msg->linear.y;
+            angZ = msg->angular.z;
         }
 
         // service callback functions
@@ -87,6 +95,7 @@ class NodeClass
             ROS_INFO("This is srvCallback_Init");
             pltf = new PlatformHardware();
             pltf->initPltf();
+            isInitialized = true;
             res.success = 0; // 0 = true, else = false
             return true;
         }
@@ -95,7 +104,9 @@ class NodeClass
                               cob3_srvs::Stop::Response &res )
         {
             ROS_INFO("This is srvCallback_Stop");
-            pltf->setVelPltf(0, 0, 0, 0);
+            velX = 0;
+            velY = 0;
+            angZ = 0;
             res.success = 0; // 0 = true, else = false
             return true;
         }
@@ -105,19 +116,33 @@ class NodeClass
         {
             ROS_INFO("This is srvCallback_Shutdown");
             pltf->shutdownPltf();
+            isInitialized = false;
             res.success = 0; // 0 = true, else = false
             return true;
         }
         
         // other function declarations
+        void updateVelPltf()
+        {
+            // send vel if platform is initialized
+            if(isInitialized == true)
+            {
+                ROS_INFO("update vel");
+                pltf->setVelPltf(velX, velY, angZ, 0);
+            }
+        }
+
         void publishPose2D()
         {
             // create message
             geometry_msgs::Pose2D msg;
             //TODO fill message
+            if(isInitialized == true)
+            {
+                // publish message
+                ROS_INFO("published Pose2D");
+            }
             
-            // publish message
-            ROS_INFO("published Pose2D");
             topicPub_Pose2D.publish(msg);
         }
 };
@@ -132,11 +157,15 @@ int main(int argc, char** argv)
     NodeClass nodeClass;
 
     // main loop
- 	ros::Rate loop_rate(1); // Hz 
+ 	ros::Rate loop_rate(10); // Hz 
     while(nodeClass.n.ok())
     {
         // publish Pose2D
         nodeClass.publishPose2D();
+
+        // update velocity of platform
+        nodeClass.updateVelPltf();
+
         ros::spinOnce();
         loop_rate.sleep();
     }

@@ -106,7 +106,7 @@ int main(int argc, char** argv)
                 // create message
                 geometry_msgs::Twist msg;
                 
-                std::cout << "Choose preset target velocity ([0] = , [1] = , [2] = ): ";
+                std::cout << "Choose preset target velocity ([0,1,2,3,4,5,6]): ";
                 std::cin >> c;
                 if (c == '0')
                 {
@@ -116,15 +116,57 @@ int main(int argc, char** argv)
                 }
                 else if (c == '1')
                 {
-                    msg.linear.x = 0;
-                    msg.linear.y = 0;
-                    msg.angular.z = 1;
+                    msg.linear.x = -20;
+                    msg.linear.y = 20;
+                    msg.angular.z = 0;
                 }
                 else if (c == '2')
                 {
+                    msg.linear.x = -20;
+                    msg.linear.y = 0;
+                    msg.angular.z = 0;
+                }
+                else if (c == '3')
+                {
+                    msg.linear.x = -20;
+                    msg.linear.y = -20;
+                    msg.angular.z = 0;
+                }
+                else if (c == '4')
+                {
+                    msg.linear.x = 0;
+                    msg.linear.y = 20;
+                    msg.angular.z = 0;
+                }
+                else if (c == '5')
+                {
                     msg.linear.x = 0;
                     msg.linear.y = 0;
-                    msg.angular.z = -1;
+                    msg.angular.z = 0;
+                }
+                else if (c == '6')
+                {
+                    msg.linear.x = 0;
+                    msg.linear.y = -20;
+                    msg.angular.z = 0;
+                }
+                else if (c == '7')
+                {
+                    msg.linear.x = 20;
+                    msg.linear.y = 20;
+                    msg.angular.z = 0;
+                }
+                else if (c == '8')
+                {
+                    msg.linear.x = 20;
+                    msg.linear.y = 0;
+                    msg.angular.z = 0;
+                }
+                else if (c == '9')
+                {
+                    msg.linear.x = 20;
+                    msg.linear.y = -20;
+                    msg.angular.z = 0;
                 }
                 else
                 {
