@@ -10,7 +10,8 @@
   <url>http://ros.org/wiki/powercube_chain</url>
   
   <depend package="roscpp"/>
-  <depend package="std_msgs"/>
-  <depend package="std_srvs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="cob3_msgs"/>
+  <depend package="cob3_srvs"/>
 
 </package>

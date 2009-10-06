@@ -29,6 +29,13 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
+# add include search paths
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common)
+
+# add project executable
 rosbuild_add_executable(${PROJECT_NAME} ros/src/powercube_chain.cpp common/PowerCubeCtrl.cpp common/moveCommand.cpp)
+rosbuild_add_executable(${PROJECT_NAME}_test ros/src/powercube_chain_test.cpp)
 rosbuild_add_compile_flags(${PROJECT_NAME} -D__LINUX__)
+
+# link libraries
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/libm5api.so pcan)
