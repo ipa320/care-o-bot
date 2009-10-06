@@ -20,7 +20,7 @@
 #include <cob3_srvs/SetOperationMode.h>
 
 // external includes
-#include <../include/PowerCubeCtrl.h>
+#include <PowerCubeCtrl.h>
 
 //####################
 //#### node class ####
@@ -125,7 +125,9 @@ class NodeClass
         	ROS_INFO("Initializing arm");
           	
           	// init powercubes 
-            if (PCube->Init("include/iniFile.txt"))
+          	//TODO: make iniFilepath as an argument
+          	//TODO: read iniFile into ros prarameters
+            if (PCube->Init("include/iniFile.txt")) 
             {
             	ROS_INFO("Initializing succesfull");
             	res.success = 0; // 0 = true, else = false
