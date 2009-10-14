@@ -61,6 +61,7 @@ int main(int argc, char** argv)
     // external code
 	bool srv_querry = false;
 	int srv_execute = 1;
+	std::string srv_errorMessage = "no error";
     
     char c;
          
@@ -80,6 +81,8 @@ int main(int argc, char** argv)
                 cob3_srvs::Stop srv;
                 srv_querry = srvClient_Stop.call(srv);
                 srv_execute = srv.response.success;
+                srv_errorMessage = srv.response.errorMessage.data.c_str();
+                std::cout << srv.response.errorMessage.data.c_str() << std::endl;
               	break;
             }
 
@@ -89,6 +92,7 @@ int main(int argc, char** argv)
                 cob3_srvs::Shutdown srv;
                 srv_querry = srvClient_Shutdown.call(srv);
                 srv_execute = srv.response.success;
+                srv_errorMessage = srv.response.errorMessage.data.c_str();
               	break;
             }
             
@@ -98,6 +102,7 @@ int main(int argc, char** argv)
                 cob3_srvs::Init srv;
                 srv_querry = srvClient_Init.call(srv);
                 srv_execute = srv.response.success;
+                srv_errorMessage = srv.response.errorMessage.data.c_str();
               	break;
             }
             
@@ -168,6 +173,18 @@ int main(int argc, char** argv)
                     msg.linear.y = -20;
                     msg.angular.z = 0;
                 }
+                else if (c == '+')
+                {
+                    msg.linear.x = 0;
+                    msg.linear.y = 0;
+                    msg.angular.z = 0.2;
+                }
+                else if (c == '-')
+                {
+                    msg.linear.x = 0;
+                    msg.linear.y = 0;
+                    msg.angular.z = -0.2;
+                }
                 else
                 {
                     ROS_ERROR("invalid target");
@@ -178,6 +195,7 @@ int main(int argc, char** argv)
                 std::cout << std::endl;
                 srv_querry = true;
                 srv_execute = 0;
+            	srv_errorMessage = "no error";
                 break;
             }
             
@@ -205,7 +223,7 @@ int main(int argc, char** argv)
 			
 			if (srv_execute != 0)
 			{
-				ROS_ERROR("Service execution failed");
+				ROS_ERROR("Service execution failed, errorMessage: %s", srv_errorMessage.c_str());
 			}
 		}
 		

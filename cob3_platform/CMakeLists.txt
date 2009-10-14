@@ -31,7 +31,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 
 # add project executable
 rospack_add_executable(${PROJECT_NAME} ros/src/${PROJECT_NAME}.cpp)
-rospack_add_executable(${PROJECT_NAME}_sim ros/src/${PROJECT_NAME}_sim.cpp)
+#rospack_add_executable(${PROJECT_NAME}_sim ros/src/${PROJECT_NAME}_sim.cpp)
 rospack_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
 
 # add include search paths

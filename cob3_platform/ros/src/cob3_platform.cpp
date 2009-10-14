@@ -104,44 +104,63 @@ class NodeClass
         bool srvCallback_Init(cob3_srvs::Init::Request &req,
                               cob3_srvs::Init::Response &res )
         {
+            ROS_INFO("This is srvCallback_Init");
+
             if(isInitialized == false)
             {
-                ROS_INFO("This is srvCallback_Init");
+                ROS_INFO("...initializing platform...");
                 pltf = new PlatformHardware();
                 pltf->initPltf();
                 isInitialized = true;
                 res.success = 0; // 0 = true, else = false
             }
-            res.success = 1;
+            else
+            {
+                ROS_ERROR("...platform already initialized...");
+                res.success = 1;
+                res.errorMessage.data = "platform already initialized";
+            }            
             return true;
         }
         
         bool srvCallback_Stop(cob3_srvs::Stop::Request &req,
                               cob3_srvs::Stop::Response &res )
         {
+            ROS_INFO("This is srvCallback_Stop");
             if(isInitialized == true)
             {
-                ROS_INFO("This is srvCallback_Stop");
+                ROS_INFO("...stopping platform...");
                 cmdVelX = 0;
                 cmdVelY = 0;
                 cmdVelTh = 0;
                 res.success = 0; // 0 = true, else = false
             }
-            res.success = 1;            
+            else
+            {
+                ROS_ERROR("...platform not initialized...");
+                res.success = 1;
+                res.errorMessage.data = "platform not initialized";
+            }
             return true;
         }
 
         bool srvCallback_Shutdown(cob3_srvs::Shutdown::Request &req,
                                   cob3_srvs::Shutdown::Response &res )
         {
+            ROS_INFO("This is srvCallback_Shutdown");
             if(isInitialized == true)
             {
-                ROS_INFO("This is srvCallback_Shutdown");
+                ROS_INFO("...shutting down platform...");
                 pltf->shutdownPltf();
                 isInitialized = false;
                 res.success = 0; // 0 = true, else = false
+            }            
+            else
+            {
+                ROS_ERROR("...platform not initialized...");
+                res.success = 1;
+                res.errorMessage.data = "platform not initialized";
             }
-            res.success = 1;
             return true;
         }
         
