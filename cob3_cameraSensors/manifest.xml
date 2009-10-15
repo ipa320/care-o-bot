@@ -1,0 +1,17 @@
+<package>
+  <description brief="cob3_cameraSensors">
+
+     cob3_cameraSensors
+
+  </description>
+  <author>Florian Weisshardt, email: Florian.Weisshardt@ipa.fhg.de</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://pr.willowgarage.com/wiki/cob3_cameraSensors</url>
+
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="cob3_msgs"/>
+  <depend package="cob3_srvs"/>
+
+</package>
