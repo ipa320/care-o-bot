@@ -31,3 +31,5 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 
 rospack_add_executable(${PROJECT_NAME} ros/src/${PROJECT_NAME}.cpp)
 rospack_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
+rospack_add_executable(${PROJECT_NAME} ros/src/${PROJECT_NAME}.cpp)
+rospack_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
