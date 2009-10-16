@@ -68,7 +68,7 @@ class NodeClass
 			
         	sensor_msgs::LaserScan laserScan;
 			laserScan.header.stamp = ros::Time::now();
-			laserScan.header.frame_id = "laser_frame";
+			laserScan.header.frame_id = "base_link";
 			laserScan.angle_min = -1.57; //TODO
 			laserScan.angle_max = 1.57; //TODO
 			laserScan.angle_increment = 3.14 / num_readings; //TODO
@@ -80,8 +80,8 @@ class NodeClass
     		laserScan.set_intensities_size(num_readings);
 			for(int i = 0; i < num_readings; ++i)
 			{
-			    laserScan.ranges[i] = 10;//rand() % 100 + 1;
-			    laserScan.intensities[i] = 100;//rand() % 100 + 1;
+			    laserScan.ranges[i] = (rand() % 100 + 1) / 100.0 + 1;
+			    laserScan.intensities[i] = i;
 			}
         
         	// publish message
