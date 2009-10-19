@@ -33,9 +33,9 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common)
 
 # add project executable
-rosbuild_add_executable(${PROJECT_NAME} ros/src/powercube_chain.cpp common/PowerCubeCtrl.cpp common/moveCommand.cpp)
+rosbuild_add_executable(${PROJECT_NAME} ros/src/powercube_chain.cpp common/src/PowerCubeCtrl.cpp common/src/moveCommand.cpp)
 rosbuild_add_executable(${PROJECT_NAME}_test ros/src/powercube_chain_test.cpp)
 rosbuild_add_compile_flags(${PROJECT_NAME} -D__LINUX__)
 
 # link libraries
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/libm5api.so pcan)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/lib/libm5api.so pcan)

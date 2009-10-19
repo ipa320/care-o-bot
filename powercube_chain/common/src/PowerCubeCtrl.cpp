@@ -5,7 +5,7 @@
  * @date April 2007
  */
 
-#include "PowerCubeCtrl.h"
+#include "include/PowerCubeCtrl.h"
 #include <string>
 #include <sstream>
 #include <time.h>

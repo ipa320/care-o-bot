@@ -20,7 +20,7 @@
 #include <cob3_srvs/SetOperationMode.h>
 
 // external includes
-#include <PowerCubeCtrl.h>
+#include <include/PowerCubeCtrl.h>
 
 //####################
 //#### node class ####
