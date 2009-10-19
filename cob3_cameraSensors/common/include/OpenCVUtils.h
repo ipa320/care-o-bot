@@ -10,8 +10,8 @@
 #include <highgui.h>
 #include <iostream>
 #include <locale.h>
-#include "../include/MathUtils.h"
-#include "../include/ThreeDUtils.h"
+#include "include/MathUtils.h"
+#include "include/ThreeDUtils.h"
 
 namespace ipa_Utils {
 /// class Point3Dbl;

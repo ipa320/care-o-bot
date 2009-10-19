@@ -21,7 +21,7 @@
 
 #include <Wm4ApprPolyFit2.h>
 
-#include "../include/GlobalDefines.h"
+#include "include/GlobalDefines.h"
 
 #ifndef __LINUX__
 #pragma warning (disable: 4786)

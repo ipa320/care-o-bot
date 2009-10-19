@@ -8,8 +8,8 @@
 #ifndef __THREEDUTILS_H__
 #define __THREEDUTILS_H__
 
-#include "MathUtils.h"
-#include "GlobalDefines.h"
+#include "include/MathUtils.h"
+#include "include/GlobalDefines.h"
 #include <list>
 #include <map>
 #include <set>

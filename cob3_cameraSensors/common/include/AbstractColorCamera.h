@@ -21,8 +21,8 @@
 #include <highgui.h>
 #include <cv.h>
 #include <iostream>
-#include "../include/tinyxml.h"
-#include "../include/LibCameraSensorsTypes.h"
+#include "include/tinyxml.h"
+#include "include/LibCameraSensorsTypes.h"
 
 
 namespace ipa_CameraSensors {

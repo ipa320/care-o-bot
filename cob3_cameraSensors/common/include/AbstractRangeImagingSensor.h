@@ -9,10 +9,10 @@
 #include <cv.h>
 #include <highgui.h>
 #include <iostream>
-#include "../include/tinyxml.h"
-#include "../include/ThreeDUtils.h"
-#include "../include/OpenCVUtils.h"
-#include "../include/LibCameraSensorsTypes.h"
+#include "include/tinyxml.h"
+#include "include/ThreeDUtils.h"
+#include "include/OpenCVUtils.h"
+#include "include/LibCameraSensorsTypes.h"
 
 #ifdef __LINUX__
 #define __DLL_ABSTRACTRANGEIMAGINGSENSOR_H__
