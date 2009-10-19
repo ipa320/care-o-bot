@@ -38,4 +38,4 @@ rospack_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common)
 
 # link libraries
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/libPlatformHardwareCOb3.so pcan ntcan)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/lib/libPlatformHardwareCOb3.so pcan ntcan)
