@@ -57,18 +57,18 @@ class NodeClass
         	PCube = new PowerCubeCtrl();
         
             // implementation of topics to publish
-            topicPub_JointState = n.advertise<sensor_msgs::JointState>("cob3/arm/JointState", 1);
-            topicPub_ActuatorState = n.advertise<cob3_msgs::ActuatorState>("cob3/arm/ActuatorState", 1);
+            topicPub_JointState = n.advertise<sensor_msgs::JointState>("JointState", 1);
+            topicPub_ActuatorState = n.advertise<cob3_msgs::ActuatorState>("ActuatorState", 1);
             
             // implementation of topics to subscribe
-            topicSub_CmdPos = n.subscribe("cob3/arm/CmdPos", 1, &NodeClass::topicCallback_CmdPos, this);
-            topicSub_CmdVel = n.subscribe("cob3/arm/CmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
+            topicSub_CmdPos = n.subscribe("CmdPos", 1, &NodeClass::topicCallback_CmdPos, this);
+            topicSub_CmdVel = n.subscribe("CmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
             
             // implementation of service servers
-            srvServer_Init = n.advertiseService("cob3/arm/Init", &NodeClass::srvCallback_Init, this);
-            srvServer_Home = n.advertiseService("cob3/arm/Home", &NodeClass::srvCallback_Home, this);
-            srvServer_Stop = n.advertiseService("cob3/arm/Stop", &NodeClass::srvCallback_Stop, this);
-            srvServer_SetOperationMode = n.advertiseService("cob3/arm/SetOperationMode", &NodeClass::srvCallback_SetOperationMode, this);
+            srvServer_Init = n.advertiseService("Init", &NodeClass::srvCallback_Init, this);
+            srvServer_Home = n.advertiseService("Home", &NodeClass::srvCallback_Home, this);
+            srvServer_Stop = n.advertiseService("Stop", &NodeClass::srvCallback_Stop, this);
+            srvServer_SetOperationMode = n.advertiseService("SetOperationMode", &NodeClass::srvCallback_SetOperationMode, this);
             
             // implementation of service clients
             //--
@@ -84,7 +84,7 @@ class NodeClass
         void topicCallback_CmdPos(const cob3_msgs::CmdPos::ConstPtr& msg)
         {
             std::string operationMode;
-            n.getParam("cob3/arm/OperationMode", operationMode);
+            n.getParam("OperationMode", operationMode);
             if (operationMode == "position")
             {
                 ROS_INFO("received new position command [%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f]", 
@@ -102,7 +102,7 @@ class NodeClass
         void topicCallback_CmdVel(const cob3_msgs::CmdVel::ConstPtr& msg)
         {          
             std::string operationMode;
-            n.getParam("cob3/arm/OperationMode", operationMode);
+            n.getParam("OperationMode", operationMode);
             if (operationMode == "velocity")
             {
                 ROS_INFO("received new velocity command [%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f]", 
@@ -185,7 +185,7 @@ class NodeClass
                                           cob3_srvs::SetOperationMode::Response &res )
         {
         	ROS_INFO("Set operation mode to [%s]", req.operationMode.data.c_str());
-            n.setParam("cob3/arm/OperationMode", req.operationMode.data.c_str());
+            n.setParam("OperationMode", req.operationMode.data.c_str());
             res.success = 0; // 0 = true, else = false
             return true;
         }
@@ -251,7 +251,7 @@ int main(int argc, char** argv)
         
         // read parameter
         std::string operationMode;
-        nodeClass.n.getParam("cob3/arm/OperationMode", operationMode);
+        nodeClass.n.getParam("OperationMode", operationMode);
         ROS_INFO("running with OperationMode [%s]", operationMode.c_str());
 
         // sleep and waiting for messages, callbacks 

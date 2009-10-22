@@ -46,8 +46,8 @@ int main(int argc, char** argv)
 	ros::NodeHandle n;
 
     // topics to publish
-    ros::Publisher topicPub_Vel = n.advertise<cob3_msgs::CmdVel>("cob3/arm/CmdVel", 1);
-    ros::Publisher topicPub_Pos = n.advertise<cob3_msgs::CmdPos>("cob3/arm/CmdPos", 1);
+    ros::Publisher topicPub_Vel = n.advertise<cob3_msgs::CmdVel>("CmdVel", 1);
+    ros::Publisher topicPub_Pos = n.advertise<cob3_msgs::CmdPos>("CmdPos", 1);
         
 	// topics to subscribe, callback is called for new messages arriving
     //--
@@ -56,10 +56,10 @@ int main(int argc, char** argv)
     //--
         
     // service clients
-    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("cob3/arm/Init");
-    ros::ServiceClient srvClient_Home = n.serviceClient<cob3_srvs::Home>("cob3/arm/Home");
-    ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("cob3/arm/Stop");
-    ros::ServiceClient srvClient_SetOperationMode = n.serviceClient<cob3_srvs::SetOperationMode>("cob3/arm/SetOperationMode");
+    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("Init");
+    ros::ServiceClient srvClient_Home = n.serviceClient<cob3_srvs::Home>("Home");
+    ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("Stop");
+    ros::ServiceClient srvClient_SetOperationMode = n.serviceClient<cob3_srvs::SetOperationMode>("SetOperationMode");
     
     // external code
 	bool srv_querry = false;
