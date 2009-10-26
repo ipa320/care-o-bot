@@ -10,6 +10,7 @@
   <url>http://ros.org/wiki/sdh</url>
   
   <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
   <depend package="cob3_msgs"/>
 
 </package>

@@ -9,14 +9,13 @@
 
 // ROS message includes
 #include <cob3_msgs/CmdPos.h>
-#include <cob3_msgs/ActuatorState.h>
 #include <sensor_msgs/JointState.h>
 
 // ROS service includes
 //--
 
 // external includes
-//--
+#include <include/sdh.h>
 
 //####################
 //#### node class ####
@@ -34,9 +33,6 @@ class NodeClass
 	    // declaration of topics to subscribe, callback is called for new messages arriving
         ros::Subscriber topicSub_CmdPos;
         
-	    // topics to subscribe, callback is called for new messages arriving
-        ros::Subscriber topicSub_demoSubscribe;
-        
         // service servers
         //--
             
@@ -44,22 +40,26 @@ class NodeClass
         //--
         
         // global variables
-        //--
+        cSDH *sdh; 
 
         // Constructor
         NodeClass()
         {
             // implementation of topics to publish
             topicPub_JointState = n.advertise<sensor_msgs::JointState>("JointState", 1);
-            topicPub_ActuatorState = n.advertise<cob3_msgs::ActuatorState>("ActuatorState", 1);
             
             // implementation of topics to subscribe
             topicSub_CmdPos = n.subscribe("CmdPos", 1, &NodeClass::topicCallback_CmdPos, this);
+            
+            // pointer to sdh
+            sdh = new cSDH();
         }
         
         // Destructor
         ~NodeClass() 
         {
+        	sdh->Close();
+        	delete sdh;
         }
 
         // topic callback functions 
@@ -69,6 +69,31 @@ class NodeClass
             ROS_INFO("Received new CmdPos [%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f]", msg->cmdPos[0], msg->cmdPos[1], msg->cmdPos[2], msg->cmdPos[3], msg->cmdPos[4], msg->cmdPos[5], msg->cmdPos[6]);
             
             //TODO: send msg data to hardware
+          	std::vector<int> axes;
+		    for(int i=0; i<7; i++)
+		    {
+				axes.push_back(i);
+			}
+		
+			try
+			{
+				sdh->SetAxisTargetAngle( axes, msg->cmdPos );
+			}
+			catch (cSDHLibraryException* e)
+			{
+				ROS_ERROR("An exception was caught: %s", e->what());
+				delete e;
+			}
+			
+			try
+			{
+				sdh->MoveHand(true);
+			}
+			catch (cSDHLibraryException* e)
+			{
+				ROS_ERROR("An exception was caught: %s", e->what());
+				delete e;
+		   	 }
         }
 
         // service callback functions
@@ -76,29 +101,57 @@ class NodeClass
         //--
         
         // other function declarations
-        void updateCmdPos()
+        void initSdh()
         {
-            // send target pos to hardware
-            //TODO
-        }
+       	    // open can for sdh 
+       	    //TODO: read from parameter
+			int _net=0;
+			unsigned long _baudrate=1000000;
+			double _timeout=-1.0;
+			unsigned int _id_read=43;
+			unsigned int _id_write=42;
+	
+		    try
+			{
+				sdh->OpenCAN_ESD( _net, _baudrate, _timeout, _id_read, _id_write );
+			}
+			catch (cSDHLibraryException* e)
+			{
+				ROS_ERROR("An exception was caught: %s", e->what());
+				delete e;
+			}
+	   	}
 
         void updateJointState()
         {
+        	ROS_INFO("updateJointState");
             //get actual joint positions 
             //TODO: get from hardware
+			std::vector<double> actualAngles;
+            std::vector<int> axes;
+
+		    for(int i=0; i<7; i++)
+		    {
+				axes.push_back(i);
+			}
+
+            try
+            {
+				actualAngles = sdh->GetAxisActualAngle( axes );
+			}
+			catch (cSDHLibraryException* e)
+			{
+				ROS_ERROR("An exception was caught: %s", e->what());
+				delete e;
+		   	}
 
 			//fill message
 			sensor_msgs::JointState msg;
 			msg.position.resize(7);
-			//TODO: fill with hardware data
-			msg.position[0] = 0;
-			msg.position[1] = 0;
-			msg.position[2] = 0;
-			msg.position[3] = 0;
-			msg.position[4] = 0;
-			msg.position[5] = 0;
-			msg.position[6] = 0;
-			
+			for(int i=0; i<7; i++)
+		    {
+				msg.position[i] = actualAngles[i];
+			}
 
             //publish the message
             topicPub_JointState.publish(msg);
@@ -115,15 +168,15 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "sdh");
     
     NodeClass nodeClass;
+    
+	// initialize sdh	
+	nodeClass.initSdh();
  
  	ros::Rate loop_rate(5); // Hz
     while(nodeClass.n.ok())
     {
         // publish JointState
         nodeClass.updateJointState();
-
-        // update target commands
-        nodeClass.updateCmdPos();
     
         // sleep and waiting for messages, callbacks    
         ros::spinOnce();
@@ -134,7 +187,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
-//##################################
-//#### function implementations ####
-//--
