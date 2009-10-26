@@ -16,6 +16,7 @@ PACKAGES_TO_BUILD=\
 	cob3_msgs\
 	cob3_srvs\
 	sickS300\
+	sdh\
 	cob3_cameraSensors\
 	powercube_chain\
 	cob3_arm\

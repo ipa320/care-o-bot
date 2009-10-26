@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rxdeps --one --target=cob3_msgs,cob3_srvs,cob3_platform,cob3_arm,sickS300,cob3_cameraSensors,powercube_chain
+rxdeps --one --target=cob3_msgs,cob3_srvs,cob3_platform,cob3_arm,sickS300,sdh,cob3_cameraSensors,powercube_chain
 evince deps.pdf
