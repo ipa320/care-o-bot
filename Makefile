@@ -6,9 +6,9 @@
 # packages you want to build in the variable PACKAGES_TO_BUILD.
 #
 # Usage:
-# run 'make or make all' to build all packages listed above
-# run 'make ros' to build all packages listed above with the recursive build system of ros
-# run 'make clean' to clean up all packages listed above
+# run 'make or make all' to build all packages listed below
+# run 'make ros' to build all packages listed below with the recursive build system of ros
+# run 'make clean' to clean up all packages listed below
 
 #--------------------------------------------------------------------
 # list all packages here

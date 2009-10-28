@@ -1,4 +1,31 @@
 #!/bin/bash
 
-rxdeps --one --target=cob3_msgs,cob3_srvs,cob3_platform,cob3_arm,sickS300,sdh,cob3_cameraSensors,powercube_chain
-evince deps.pdf
+# Author: 
+# Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de
+#
+# Description:
+# This file creates and shows the dependency tree of the cob3_driver repository. Define all 
+# packages you want to include in the variable PACKAGES_TO_SHOW.
+#
+# Usage:
+# run "./showdeps" to create and show the dependency tree of all packages listed below
+
+#--------------------------------------------------------------------
+# list all packages here
+PACKAGES=\
+cob3_msgs,\
+cob3_srvs,\
+sickS300,\
+sdh,\
+cob3_cameraSensors,\
+powercube_chain,\
+cob3_arm,\
+cob3_platform
+
+#--------------------------------------------------------------------
+
+# create dependency tree
+rxdeps --one --target=$PACKAGES
+
+# show dependency tree
+evince deps.pdf&
