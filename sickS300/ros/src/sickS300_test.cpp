@@ -75,6 +75,8 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "sickS300_test");
     
     NodeClass nodeClass;
+    
+    ROS_INFO("...waiting for scans...");
  
     while(nodeClass.n.ok())
     {
