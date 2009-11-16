@@ -25,7 +25,7 @@ cob3_platform
 #--------------------------------------------------------------------
 
 # create dependency tree
-rxdeps --one --target=$PACKAGES
+rxdeps --one --cluster --target=$PACKAGES
 
 # show dependency tree
 evince deps.pdf&
