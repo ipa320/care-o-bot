@@ -43,6 +43,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <stdio.h>
 #include <stdarg.h>
 
 //----------------------------------------------------------------------
