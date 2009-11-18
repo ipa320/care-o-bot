@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- define parameters -->
+  <group ns="hokuyo">
+    <param name="calibrate_time" type="bool" value="false"/>
+    <param name="model_04LX" type="bool" value="true"/>
+  </group>
+
+  <!-- start hokuyo node -->
+  <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen"/>
+  
+</launch>
