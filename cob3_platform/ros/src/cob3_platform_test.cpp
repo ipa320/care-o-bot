@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 	ros::NodeHandle n;
 
     // topics to publish
-    ros::Publisher topicPub_CmdVel = n.advertise<geometry_msgs::Twist>("cob3/platform/CmdVel", 1);
+    ros::Publisher topicPub_CmdVel = n.advertise<geometry_msgs::Twist>("cmdVel", 1);
         
 	// topics to subscribe, callback is called for new messages arriving
     //--
@@ -54,9 +54,9 @@ int main(int argc, char** argv)
     //--
         
     // service clients
-    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("cob3/platform/Init");
-    ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("cob3/platform/Stop");
-    ros::ServiceClient srvClient_Shutdown = n.serviceClient<cob3_srvs::Shutdown>("cob3/platform/Shutdown");
+    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("Init");
+    ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("Stop");
+    ros::ServiceClient srvClient_Shutdown = n.serviceClient<cob3_srvs::Shutdown>("Shutdown");
     
     // external code
 	bool srv_querry = false;
@@ -77,7 +77,7 @@ int main(int argc, char** argv)
         {
             case 's':
             {
-                //ROS_INFO("querry service [cob3/platform/Stop]");
+                //ROS_INFO("querry service [Stop]");
                 cob3_srvs::Stop srv;
                 srv_querry = srvClient_Stop.call(srv);
                 srv_execute = srv.response.success;
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 
             case 'd':
             {
-                //ROS_INFO("querry service [cob3/platform/Shutdown]");
+                //ROS_INFO("querry service [Shutdown]");
                 cob3_srvs::Shutdown srv;
                 srv_querry = srvClient_Shutdown.call(srv);
                 srv_execute = srv.response.success;
@@ -98,7 +98,7 @@ int main(int argc, char** argv)
             
             case 'i':
             {
-            	//ROS_INFO("querry service [cob3/platform/Init]");
+            	//ROS_INFO("querry service [Init]");
                 cob3_srvs::Init srv;
                 srv_querry = srvClient_Init.call(srv);
                 srv_execute = srv.response.success;
@@ -121,26 +121,26 @@ int main(int argc, char** argv)
                 }
                 else if (c == '1')
                 {
-                    msg.linear.x = -20;
-                    msg.linear.y = 20;
+                    msg.linear.x = -0.02;
+                    msg.linear.y = 0.02;
                     msg.angular.z = 0;
                 }
                 else if (c == '2')
                 {
-                    msg.linear.x = -20;
+                    msg.linear.x = -0.02;
                     msg.linear.y = 0;
                     msg.angular.z = 0;
                 }
                 else if (c == '3')
                 {
-                    msg.linear.x = -20;
-                    msg.linear.y = -20;
+                    msg.linear.x = -0.02;
+                    msg.linear.y = -0.02;
                     msg.angular.z = 0;
                 }
                 else if (c == '4')
                 {
                     msg.linear.x = 0;
-                    msg.linear.y = 20;
+                    msg.linear.y = 0.02;
                     msg.angular.z = 0;
                 }
                 else if (c == '5')
@@ -152,38 +152,38 @@ int main(int argc, char** argv)
                 else if (c == '6')
                 {
                     msg.linear.x = 0;
-                    msg.linear.y = -20;
+                    msg.linear.y = -0.02;
                     msg.angular.z = 0;
                 }
                 else if (c == '7')
                 {
-                    msg.linear.x = 20;
-                    msg.linear.y = 20;
+                    msg.linear.x = 0.02;
+                    msg.linear.y = 0.02;
                     msg.angular.z = 0;
                 }
                 else if (c == '8')
                 {
-                    msg.linear.x = 20;
+                    msg.linear.x = 0.02;
                     msg.linear.y = 0;
                     msg.angular.z = 0;
                 }
                 else if (c == '9')
                 {
-                    msg.linear.x = 20;
-                    msg.linear.y = -20;
+                    msg.linear.x = 0.02;
+                    msg.linear.y = -0.02;
                     msg.angular.z = 0;
                 }
                 else if (c == '+')
                 {
                     msg.linear.x = 0;
                     msg.linear.y = 0;
-                    msg.angular.z = 0.2;
+                    msg.angular.z = 0.02;
                 }
                 else if (c == '-')
                 {
                     msg.linear.x = 0;
                     msg.linear.y = 0;
-                    msg.angular.z = -0.2;
+                    msg.angular.z = -0.02;
                 }
                 else
                 {

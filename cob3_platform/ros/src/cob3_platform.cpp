@@ -67,15 +67,15 @@ class NodeClass
             vx = vy = vth = vvth = 0;
 
         	// implementation of topics to publish
-            topicPub_Odometry = n.advertise<nav_msgs::Odometry>("cob3/platform/Odometry", 50);
+            topicPub_Odometry = n.advertise<nav_msgs::Odometry>("odometry", 50);
 
             // implementation of topics to subscribe
-            topicSub_CmdVel = n.subscribe("cob3/platform/CmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
+            topicSub_CmdVel = n.subscribe("cmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
             
             // implementation of service servers
-            srvServer_Init = n.advertiseService("cob3/platform/Init", &NodeClass::srvCallback_Init, this);
-            srvServer_Stop = n.advertiseService("cob3/platform/Stop", &NodeClass::srvCallback_Stop, this);
-            srvServer_Shutdown = n.advertiseService("cob3/platform/Shutdown", &NodeClass::srvCallback_Shutdown, this);
+            srvServer_Init = n.advertiseService("Init", &NodeClass::srvCallback_Init, this);
+            srvServer_Stop = n.advertiseService("Stop", &NodeClass::srvCallback_Stop, this);
+            srvServer_Shutdown = n.advertiseService("Shutdown", &NodeClass::srvCallback_Shutdown, this);
         }
         
         // Destructor
@@ -171,7 +171,7 @@ class NodeClass
             if(isInitialized == true)
             {
                 ROS_INFO("update vel");
-                pltf->setVelPltf(cmdVelX, cmdVelY, cmdVelTh, 0);
+                pltf->setVelPltf(cmdVelX*1000, cmdVelY*1000, cmdVelTh, 0);
             }
         }
 
