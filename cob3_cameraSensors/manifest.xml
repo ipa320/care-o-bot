@@ -15,5 +15,7 @@
   <depend package="cob3_srvs"/>
   <depend package="opencv2"/>
   <depend package="libdc1394v2"/>
+  <depend package="libmesasr"/>
+  <depend package="libwm4"/>
 
 </package>
