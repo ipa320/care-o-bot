@@ -1,0 +1,14 @@
+<package>
+  <description brief="libWm4">
+
+     libWm4
+
+  </description>
+  <author>cob</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/libWm4</url>
+
+</package>
+
+
