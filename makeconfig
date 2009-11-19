@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# Author: 
+# Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de
+#
+# Description:
+# This file sets the ros environment variables
+#
+# Usage:
+# run ". makeconfig"
+
 # add path for cob-ros-pkg to $ROS_PACKAGE_PATH
 export ROOT=$(pwd)
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROOT/.

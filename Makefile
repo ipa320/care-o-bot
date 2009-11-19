@@ -8,6 +8,7 @@
 # Usage:
 # run 'make or make all' to build all packages listed below
 # run 'make ros' to build all packages listed below with the recursive build system of ros
+# run 'make ros-ignore-errors' to build all packages listed below with the recursive build system of ros ignoring errored builds
 # run 'make clean' to clean up all packages listed below
 
 #--------------------------------------------------------------------
@@ -21,6 +22,7 @@ PACKAGES_TO_BUILD=\
 	powercube_chain\
 	cob3_arm\
 	cob3_platform\
+	cob3_teleop\
 #--------------------------------------------------------------------
 
 all:
@@ -30,6 +32,9 @@ all:
 
 ros:
 	rosmake $(PACKAGES_TO_BUILD)
+
+ros-ignore-errors:
+	rosmake $(PACKAGES_TO_BUILD) -r -v
 
 clean:
 	@for dir in $(PACKAGES_TO_BUILD); do \
