@@ -14,5 +14,6 @@
   <depend package="nav_msgs"/>
   <depend package="tf"/>
   <depend package="cob3_srvs"/>
+  <depend package="libpcan"/>
 
 </package>

@@ -1,17 +1,20 @@
 all: libpcan
 
-TARBALL = build/peak-linux-driver-6.11
+TARBALL = build/peak-linux-driver-6.11.tar.gz
 TARBALL_URL = http://p103112.typo3server.info/fileadmin/media/linux/files/peak-linux-driver.6.11.tar.gz
 SOURCE_DIR = build/peak-linux-driver-6.11
 include $(shell rospack find mk)/download_unpack_build.mk
 
-pycrypto: $(SOURCE_DIR)/unpacked
-	-rm -rf src
+libpcan: $(SOURCE_DIR)/unpacked
+	# build
+	cd $(SOURCE_DIR) && make
+	# build driver
+	sudo ln -f -s /usr/src/linux-headers*-generic /usr/src/linux
+	cd $(SOURCE_DIR)/driver && make
+	# copy to src
 	mkdir -p src
-	cd $(SOURCE_DIR) && python setup.py build 
-	mv $(SOURCE_DIR)/build/lib.*/Crypto src
-	touch pycrypto
+	cp $(SOURCE_DIR)/lib/lib* src
 clean:
-	rm -rf src pycrypto $(SOURCE_DIR)
+	rm -rf src $(SOURCE_DIR)
 wipe: clean
 	-rm -rf build
