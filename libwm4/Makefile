@@ -1,7 +1,7 @@
 all: libwm4
 
-ZIPFILE = WildMagic4p9.zip
-ZIPFILE_URL = http://www.geometrictools.com/Downloads/WildMagic4p9.zip
+ZIPFILE = WildMagic4p10.zip
+ZIPFILE_URL = http://www.geometrictools.com/Downloads/$(ZIPFILE)
 SOURCE_DIR = build
 
 libwm4:
