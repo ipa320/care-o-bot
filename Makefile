@@ -14,6 +14,9 @@
 #--------------------------------------------------------------------
 # list all packages here
 PACKAGES_TO_BUILD=\
+	libpcan\
+	libwm4\
+	libmesasr\
 	cob3_msgs\
 	cob3_srvs\
 	sickS300\
@@ -35,6 +38,9 @@ ros:
 
 ros-ignore-errors:
 	rosmake $(PACKAGES_TO_BUILD) -r -v
+
+ros-pre-clean:
+	rosmake $(PACKAGES_TO_BUILD) -s --pre-clean
 
 clean:
 	@for dir in $(PACKAGES_TO_BUILD); do \
