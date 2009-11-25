@@ -51,8 +51,8 @@ class NodeClass
         bool isInitialized;
         double cmdVelX, cmdVelY, cmdVelTh;
         double x, y, th;
-        double dx, dy, dth, dvth;
-        double vx, vy, vth, vvth;
+        double dxMM, dyMM, dth, dvth;
+        double vxMMS, vyMMS, vth, vvth;
         ros::Time current_time;
 
         // Constructor
@@ -63,8 +63,8 @@ class NodeClass
             current_time = ros::Time::now();
             cmdVelX = cmdVelY = cmdVelTh = 0;
             x = y = th = 0;
-            dx = dy = dth = dvth = 0;
-            vx = vy = vth = vvth = 0;
+            dxMM = dyMM = dth = dvth = 0;
+            vxMMS = vyMMS = vth = vvth = 0;
 
         	// implementation of topics to publish
             topicPub_Odometry = n.advertise<nav_msgs::Odometry>("odometry", 50);
@@ -171,7 +171,7 @@ class NodeClass
             if(isInitialized == true)
             {
                 ROS_INFO("update vel");
-                pltf->setVelPltf(cmdVelX*1000, cmdVelY*1000, cmdVelTh, 0);
+                pltf->setVelPltf(cmdVelX*1000, cmdVelY*1000, cmdVelTh, 0);  // convert from m/s to mm/s
             }
         }
 
@@ -180,12 +180,12 @@ class NodeClass
             if(isInitialized == true)
             {
                 // get odometry from platform
-                pltf->getDeltaPosePltf(dx, dy, dth, dvth,
-        					           vx, vy, vth, vvth);
+                pltf->getDeltaPosePltf(dxMM, dyMM, dth, dvth,
+        					           vxMMS, vyMMS, vth, vvth);
 
                 // add delta values to old values
-                x += dx;
-                y += dy;
+                x += dxMM / 1000.0; // convert from mm to m
+                y += dyMM / 1000.0; // convert from mm to m
                 th += dth;
 
                 // since all odometry is 6DOF we'll need a quaternion created from yaw
@@ -218,15 +218,15 @@ class NodeClass
 
                 //set the velocity
                 odom.child_frame_id = "base_link";
-                odom.twist.twist.linear.x = vx;
-                odom.twist.twist.linear.y = vy;
+                odom.twist.twist.linear.x = vxMMS / 1000.0; // convert from mm/s to m/s
+                odom.twist.twist.linear.y = vyMMS / 1000.0; // convert from mm/s to m/s
                 odom.twist.twist.angular.z = vth;
 
                 //publish the message
                 topicPub_Odometry.publish(odom);
 
                 ROS_INFO("published Pose2D: pos[x=%3.2f,y=%3.2f,th=%3.2f]",x, y, th);
-                ROS_INFO("published Pose2D: vel[vy=%3.2f,vx=%3.2f,vth=%3.2f]",vx, vy, vth);
+                ROS_INFO("published Pose2D: vel[vy=%3.2f,vx=%3.2f,vth=%3.2f]",vxMMS, vyMMS, vth);
             }
         }
 };
