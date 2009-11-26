@@ -43,7 +43,7 @@ class NodeClass
         // Constructor
         NodeClass()
         {
-            topicPub_LaserScan = n.advertise<sensor_msgs::LaserScan>("LaserScan", 1);
+            topicPub_LaserScan = n.advertise<sensor_msgs::LaserScan>("laserScan", 1);
         }
         
         // Destructor
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
 	ScannerSickS300 SickS300;
 
 	//char *pcPort = new char();
-	const char pcPort[] = "/dev/ttyUSB0";
+	const char pcPort[] = "/dev/ttyUSB1";
 	//(*pcPort) = "/dev/ttyUSB0";
 	int iBaudRate = 500000;
 	bool bOpenScan, bRecScan;
@@ -122,6 +122,7 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
+	// main loop
 	ros::Rate loop_rate(5); // Hz
     while(nodeClass.n.ok())
     {

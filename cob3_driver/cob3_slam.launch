@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start cob3_platform -->
+  <node pkg="cob3_platform" type="cob3_platform" name="cob3_platform" cwd="node" respawn="false" output="screen" />
+
+  <!-- get scan from sickS300 -->
+  <node pkg="sickS300" type="sickS300" name="sickS300" respawn="false" output="log" />
+
+  <!-- start tf broadcaster 
+  <node pkg="cob3_tf_broadcaster" type="cob3_tf_broadcaster" name="cob3_tf_broadcaster" respawn="false" output="screen" />
+-->
+
+  <!-- dynamic map generation
+  <node pkg="gmapping" type="slam_gmapping" name="gmapping" respawn="false" output="screen" >
+    <remap from="scan" to="laserScan" />
+  </node>
+ -->
+
+  <!-- define parameters -->
+  <param name="base_frame" value="base_link"/>
+  <param name="laser_frame" value="base_laser"/>
+
+  <!-- teleoperate platform with joystick -->
+  <include file="$(find cob3_teleop)/ros/launch/cob3_teleop_platform_joy.launch" />
+
+</launch>

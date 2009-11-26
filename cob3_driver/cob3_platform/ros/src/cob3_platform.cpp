@@ -32,7 +32,7 @@ class NodeClass
         // topics to publish
         ros::Publisher topicPub_Pose2D;
         ros::Publisher topicPub_Odometry;
-        tf::TransformBroadcaster odom_broadcaster;
+//        tf::TransformBroadcaster odom_broadcaster;
 
 	    // topics to subscribe, callback is called for new messages arriving
         ros::Subscriber topicSub_CmdVel;
@@ -91,7 +91,7 @@ class NodeClass
         // function will be called when a new message arrives on a topic
         void topicCallback_CmdVel(const geometry_msgs::Twist::ConstPtr& msg)
         {
-            ROS_INFO("received new velocity command [cmdVelX=%3.5f,cmdVelY=%3.5f,cmdVelTh=%3.5f]", 
+            ROS_DEBUG("received new velocity command [cmdVelX=%3.5f,cmdVelY=%3.5f,cmdVelTh=%3.5f]", 
                      msg->linear.x, msg->linear.y, msg->angular.z);
 
             cmdVelX = msg->linear.x;
@@ -104,8 +104,6 @@ class NodeClass
         bool srvCallback_Init(cob3_srvs::Init::Request &req,
                               cob3_srvs::Init::Response &res )
         {
-            ROS_INFO("This is srvCallback_Init");
-
             if(isInitialized == false)
             {
                 ROS_INFO("...initializing platform...");
@@ -126,7 +124,6 @@ class NodeClass
         bool srvCallback_Stop(cob3_srvs::Stop::Request &req,
                               cob3_srvs::Stop::Response &res )
         {
-            ROS_INFO("This is srvCallback_Stop");
             if(isInitialized == true)
             {
                 ROS_INFO("...stopping platform...");
@@ -147,7 +144,6 @@ class NodeClass
         bool srvCallback_Shutdown(cob3_srvs::Shutdown::Request &req,
                                   cob3_srvs::Shutdown::Response &res )
         {
-            ROS_INFO("This is srvCallback_Shutdown");
             if(isInitialized == true)
             {
                 ROS_INFO("...shutting down platform...");
@@ -170,7 +166,7 @@ class NodeClass
             // send vel if platform is initialized
             if(isInitialized == true)
             {
-                ROS_INFO("update vel");
+                ROS_DEBUG("update cmdVel");
                 pltf->setVelPltf(cmdVelX*1000, cmdVelY*1000, cmdVelTh, 0);  // convert from m/s to mm/s
             }
         }
@@ -188,36 +184,19 @@ class NodeClass
                 y += dyMM / 1000.0; // convert from mm to m
                 th += dth;
 
-                // since all odometry is 6DOF we'll need a quaternion created from yaw
-                geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th);
-
-                //first, we'll publish the transform over tf
-                geometry_msgs::TransformStamped odom_trans;
-                odom_trans.header.stamp = current_time;
-                odom_trans.header.frame_id = "odom";
-                odom_trans.child_frame_id = "base_link";
-
-                odom_trans.transform.translation.x = x;
-                odom_trans.transform.translation.y = y;
-                odom_trans.transform.translation.z = 0.0;
-                odom_trans.transform.rotation = odom_quat;
-
-                //send the transform
-                odom_broadcaster.sendTransform(odom_trans);
-
                 //next, we'll publish the odometry message over ROS
                 nav_msgs::Odometry odom;
                 odom.header.stamp = current_time;
-                odom.header.frame_id = "odom";
+                odom.header.frame_id = "world";
+                odom.child_frame_id = "base_footprint";
 
                 //set the position
                 odom.pose.pose.position.x = x;
                 odom.pose.pose.position.y = y;
                 odom.pose.pose.position.z = 0.0;
-                odom.pose.pose.orientation = odom_quat;
+                odom.pose.pose.orientation = tf::createQuaternionMsgFromYaw(th);
 
                 //set the velocity
-                odom.child_frame_id = "base_link";
                 odom.twist.twist.linear.x = vxMMS / 1000.0; // convert from mm/s to m/s
                 odom.twist.twist.linear.y = vyMMS / 1000.0; // convert from mm/s to m/s
                 odom.twist.twist.angular.z = vth;
@@ -225,8 +204,8 @@ class NodeClass
                 //publish the message
                 topicPub_Odometry.publish(odom);
 
-                ROS_INFO("published Pose2D: pos[x=%3.2f,y=%3.2f,th=%3.2f]",x, y, th);
-                ROS_INFO("published Pose2D: vel[vy=%3.2f,vx=%3.2f,vth=%3.2f]",vxMMS, vyMMS, vth);
+                ROS_DEBUG("published Pose2D: pos[x=%3.2f,y=%3.2f,th=%3.2f]",x, y, th);
+                ROS_DEBUG("published Pose2D: vel[vy=%3.2f,vx=%3.2f,vth=%3.2f]",vxMMS, vyMMS, vth);
             }
         }
 };

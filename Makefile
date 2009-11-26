@@ -9,6 +9,7 @@
 # run 'make or make all' to build all packages listed below
 # run 'make ros' to build all packages listed below with the recursive build system of ros
 # run 'make ros-ignore-errors' to build all packages listed below with the recursive build system of ros ignoring errored builds
+# run 'make ros-preclean' to build all packages listed below with the recursive build system of ros with the pre-clean option
 # run 'make clean' to clean up all packages listed below
 
 #--------------------------------------------------------------------
@@ -20,11 +21,13 @@ PACKAGES_TO_BUILD=\
 	cob3_msgs\
 	cob3_srvs\
 	sickS300\
+	cob3_hokuyo\
 	sdh\
 	cob3_cameraSensors\
 	powercube_chain\
 	cob3_arm\
 	cob3_platform\
+	cob3_tf_broadcaster\
 	cob3_teleop\
 #--------------------------------------------------------------------
 
