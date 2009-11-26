@@ -76,10 +76,20 @@ class NodeClass
 			transform.setRotation(tf::Quaternion(0, 0, 0));
 			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_footprint", "base_link"));
 
-			// publish tf for base_link --> base_laser
+			// publish tf for base_link --> base_laser_front
 			transform.setOrigin(tf::Vector3(0.3, 0.0, 0.2));
 			transform.setRotation(tf::Quaternion(0, 0, 0));
-			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "base_laser"));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "base_laser_front"));
+
+			// publish tf for base_link --> base_laser_rear
+			transform.setOrigin(tf::Vector3(-0.3, 0.0, 0.2));
+			transform.setRotation(tf::Quaternion(0, 0, 0));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "base_laser_rear"));
+
+			// publish tf for base_link --> base_hokuyo
+			transform.setOrigin(tf::Vector3(0.2, 0.0, 0.2));
+			transform.setRotation(tf::Quaternion(0, 0, 0));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "base_hokuyo"));
 
 			// publish ...
 
@@ -97,7 +107,8 @@ int main(int argc, char** argv)
     NodeClass nodeClass;
 
     // main loop
- 	ros::Rate loop_rate(1); // Hz  
+ 	ros::Rate loop_rate(1); // Hz
+	ROS_INFO("publishing tf with 1 Hz");
     while(nodeClass.n.ok())
     {
         // update static tf

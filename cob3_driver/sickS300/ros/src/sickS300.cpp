@@ -73,7 +73,7 @@ class NodeClass
 			laserScan.header.stamp = ros::Time::now();
             
 			// set scan parameters
-			laserScan.header.frame_id = "base_laser"; 
+			laserScan.header.frame_id = "base_laser_front"; // TODO read from parameter
 			laserScan.angle_min = vdAngRAD[0]; // first ScanAngle
 			laserScan.angle_max = vdAngRAD[num_readings - 1]; // last ScanAngle
 			laserScan.angle_increment = vdAngRAD[1] - vdAngRAD[0];

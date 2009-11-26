@@ -19,7 +19,7 @@
 
   <!-- define parameters -->
   <param name="base_frame" value="base_link"/>
-  <param name="laser_frame" value="base_laser"/>
+  <param name="laser_frame" value="base_laser_front"/>
 
   <!-- teleoperate platform with joystick -->
   <include file="$(find cob3_teleop)/ros/launch/cob3_teleop_platform_joy.launch" />
