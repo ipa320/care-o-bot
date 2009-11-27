@@ -56,10 +56,10 @@ class NodeClass
         // function will be called when a new message arrives on a topic
         void topicCallback_Odometry(const nav_msgs::Odometry::ConstPtr& msg)
         {
-			// publish tf for world --> base_footprint
+			// publish tf for odom --> base_footprint
 			ROS_DEBUG("received new odometry message --> publishing tf");
 			tf::poseMsgToTF(msg->pose.pose,transform);
-			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "base_footprint"));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_footprint"));
         }
 
         // service callback functions
@@ -90,6 +90,26 @@ class NodeClass
 			transform.setOrigin(tf::Vector3(0.2, 0.0, 0.2));
 			transform.setRotation(tf::Quaternion(0, 0, 0));
 			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "base_hokuyo"));
+
+			// publish tf for base_link --> head TODO not static
+			transform.setOrigin(tf::Vector3(0.0, 0.0, 0.8));
+			transform.setRotation(tf::Quaternion(0, 0, 0));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "head"));
+
+			// publish tf for head --> cameraAxis TODO not static
+			transform.setOrigin(tf::Vector3(0.0, 0.0, 0.2));
+			transform.setRotation(tf::Quaternion(0, 0, 0));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "head", "cameraAxis"));
+
+			// publish tf for cameraAxis --> colorCam_left
+			transform.setOrigin(tf::Vector3(0.0, 0.1, 0.0));
+			transform.setRotation(tf::Quaternion(0, 0, 0));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "cameraAxis", "colorCam_left"));
+
+			// publish tf for cameraAxis --> colorCam_right
+			transform.setOrigin(tf::Vector3(0.0, -0.1, 0.0));
+			transform.setRotation(tf::Quaternion(0, 0, 0));
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "cameraAxis", "colorCam_right"));
 
 			// publish ...
 

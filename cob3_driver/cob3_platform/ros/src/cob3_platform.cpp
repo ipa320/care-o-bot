@@ -182,13 +182,13 @@ class NodeClass
                 // add delta values to old values
                 x += dxMM / 1000.0; // convert from mm to m
                 y += dyMM / 1000.0; // convert from mm to m
-                th += dth;
+                th += dth * 2; // Hack!! TODO error in odometry calculation, change in library 
 
                 //next, we'll publish the odometry message over ROS
                 nav_msgs::Odometry odom;
                 odom.header.stamp = current_time;
-                odom.header.frame_id = "world";
-                odom.child_frame_id = "base_footprint";
+                odom.header.frame_id = "odom";
+                odom.child_frame_id = "base_link";
 
                 //set the position
                 odom.pose.pose.position.x = x;
