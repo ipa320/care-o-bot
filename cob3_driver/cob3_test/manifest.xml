@@ -1,0 +1,14 @@
+<package>
+  <description brief="cob3_test">
+
+     cob3_test
+
+  </description>
+  <author>cob</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/cob3_test</url>
+
+</package>
+
+
