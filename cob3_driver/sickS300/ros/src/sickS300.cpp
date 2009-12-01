@@ -128,35 +128,46 @@ int main(int argc, char** argv)
 	const char pcPort[] = "/dev/ttyUSB1";
 //	int iBaudRate = 500000;
 	int iBaudRate = nodeClass.baud;
-	bool bOpenScan, bRecScan;
+	bool bOpenScan, bRecScan = false;
+	bool firstTry = true;
 	std::vector<double> vdDistM, vdAngRAD, vdIntensAU;
  
-	bOpenScan = SickS300.open(pcPort, iBaudRate);
-	if(bOpenScan)
-		ROS_INFO("Scanner opened successfully");
-	else
-	{
-		ROS_ERROR("Scanner not available");
-		return 0;
+ 	while (!bOpenScan)
+ 	{
+ 		ROS_INFO("Opening scanner...");
+		bOpenScan = SickS300.open(pcPort, iBaudRate);
+		
+		// check, if it is the first try to open scanner
+	 	if(firstTry)
+		{
+			ROS_ERROR("...scanner not available on port %s. Will retry every second.",pcPort);
+			firstTry = false;
+			sleep(1);
+		}
+		else
+		{
+			sleep(1);
+		}
 	}
+	ROS_INFO("...scanner opened successfully on port %s",pcPort);
 
 	// main loop
 	ros::Rate loop_rate(5); // Hz
     while(nodeClass.n.ok())
     {
 		// read scan
-		ROS_DEBUG("Read Scanner!");
+		ROS_DEBUG("Reading scanner...");
 		bRecScan = SickS300.getScan(vdDistM, vdAngRAD, vdIntensAU);
-		ROS_DEBUG("Scanner read successfully");
+		ROS_DEBUG("...scanner read successfully");
     	// publish LaserScan
         if(bRecScan)
         {
-		    ROS_DEBUG("publish LaserScan message!");
+		    ROS_DEBUG("...publishing LaserScan message");
             nodeClass.publishLaserScan(vdDistM, vdAngRAD, vdIntensAU);
         }
         else
         {
-		    ROS_WARN("No Scan available");
+		    ROS_WARN("...no Scan available");
         }
 
         // sleep and waiting for messages, callbacks    
