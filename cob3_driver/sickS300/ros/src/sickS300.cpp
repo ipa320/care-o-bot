@@ -38,12 +38,28 @@ class NodeClass
         //--
         
         // global variables
-        //--
+        std::string port;
+		int baud;
+		bool inverted; // TODO not used at the moment
+		std::string frame_id;
 
         // Constructor
         NodeClass()
         {
-            topicPub_LaserScan = n.advertise<sensor_msgs::LaserScan>("laserScan", 1);
+            // initialize global variables
+			n.param("port", port, std::string("/dev/ttyUSB0"));
+			n.param("baud", baud, 500000);
+			n.param("inverted", inverted, false);
+			n.param("frame_id", frame_id, std::string("base_laser"));
+
+        	// implementation of topics to publish
+            topicPub_LaserScan = n.advertise<sensor_msgs::LaserScan>("scan", 1);
+
+            // implementation of topics to subscribe
+			//--
+            
+            // implementation of service servers
+			//--
         }
         
         // Destructor
@@ -73,7 +89,8 @@ class NodeClass
 			laserScan.header.stamp = ros::Time::now();
             
 			// set scan parameters
-			laserScan.header.frame_id = "base_laser_front"; // TODO read from parameter
+//			laserScan.header.frame_id = "base_laser_front"; // TODO read from parameter
+			laserScan.header.frame_id = frame_id;
 			laserScan.angle_min = vdAngRAD[0]; // first ScanAngle
 			laserScan.angle_max = vdAngRAD[num_readings - 1]; // last ScanAngle
 			laserScan.angle_increment = vdAngRAD[1] - vdAngRAD[0];
@@ -92,7 +109,7 @@ class NodeClass
         
         	// publish message
             topicPub_LaserScan.publish(laserScan);
-        	ROS_INFO("published new LaserScan message");
+        	ROS_DEBUG("published new LaserScan message");
         }
 };
 
@@ -107,38 +124,50 @@ int main(int argc, char** argv)
 	ScannerSickS300 SickS300;
 
 	//char *pcPort = new char();
+//	const char pcPort[] = "/dev/ttyUSB1"; //TODO replace with parameter port
 	const char pcPort[] = "/dev/ttyUSB1";
-	//(*pcPort) = "/dev/ttyUSB0";
-	int iBaudRate = 500000;
-	bool bOpenScan, bRecScan;
+//	int iBaudRate = 500000;
+	int iBaudRate = nodeClass.baud;
+	bool bOpenScan, bRecScan = false;
+	bool firstTry = true;
 	std::vector<double> vdDistM, vdAngRAD, vdIntensAU;
  
-	bOpenScan = SickS300.open(pcPort, iBaudRate);
-	if(bOpenScan)
-		ROS_INFO("Scanner opened successfully");
-	else
-	{
-		ROS_ERROR("Scanner not available");
-		return 0;
+ 	while (!bOpenScan)
+ 	{
+ 		ROS_INFO("Opening scanner...");
+		bOpenScan = SickS300.open(pcPort, iBaudRate);
+		
+		// check, if it is the first try to open scanner
+	 	if(firstTry)
+		{
+			ROS_ERROR("...scanner not available on port %s. Will retry every second.",pcPort);
+			firstTry = false;
+			sleep(1);
+		}
+		else
+		{
+			sleep(1);
+		}
 	}
+	ROS_INFO("...scanner opened successfully on port %s",pcPort);
 
 	// main loop
 	ros::Rate loop_rate(5); // Hz
     while(nodeClass.n.ok())
     {
 		// read scan
-		ROS_INFO("Read Scanner!");
+		ROS_DEBUG("Reading scanner...");
 		bRecScan = SickS300.getScan(vdDistM, vdAngRAD, vdIntensAU);
-		ROS_INFO("Scanner read successfully");
+		ROS_DEBUG("...scanner read successfully");
     	// publish LaserScan
         if(bRecScan)
         {
-		    ROS_INFO("publish LaserScan message!");
+		    ROS_DEBUG("...publishing LaserScan message");
             nodeClass.publishLaserScan(vdDistM, vdAngRAD, vdIntensAU);
         }
         else
         {
-		    ROS_INFO("No Scan available");
+		    ROS_WARN("...no Scan available");
         }
 
         // sleep and waiting for messages, callbacks    

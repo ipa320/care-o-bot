@@ -26,12 +26,10 @@
 	<param name="delta" value="0.10"/>
 	<param name="inverted_laser" value="true"/>
 	<param name="maxUrange" value="10"/>
+	<param name="base_frame" value="base_link"/>
+	<param name="laser_frame" value="base_laser_front"/>
+	<param name="odom_frame" value="base_footprint"/>
   </node>
-
-  <!-- define parameters -->
-  <param name="base_frame" value="base_link"/>
-  <param name="laser_frame" value="base_laser_front"/>
-  <param name="odom_frame" value="base_footprint"/>
 
   <!-- teleoperate platform with joystick -->
   <include file="$(find cob3_teleop)/ros/launch/cob3_teleop_platform_joy.launch" />

@@ -9,6 +9,11 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/cob3_test</url>
 
+  <depend package="cob3_platform"/>
+  <depend package="sickS300"/>
+  <depend package="cob3_hokuyo"/>
+  <depend package="cob3_tf_broadcaster"/>
+  <depend package="gmapping"/>
+  <depend package="cob3_teleop"/>
+  
 </package>
-
-
