@@ -1,0 +1,14 @@
+<stack name="cob3_common" version="0.1.0">
+  <description brief="cob3_common">
+
+     cob3_common
+
+  </description>
+  <author>Maintained by Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/cob3_common</url>
+  <depend stack="ros"/> <!-- std_srvs, roslib, std_msgs --> 
+  <depend stack="common_msgs"/> <!-- sensor_msgs --> 
+
+</stack>
