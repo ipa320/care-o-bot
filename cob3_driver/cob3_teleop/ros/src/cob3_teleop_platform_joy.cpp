@@ -53,7 +53,7 @@ class NodeClass
 			n.param("scale_linear", l_scale_, l_scale_);			
 			
         	// implementation of topics to publish
-            topicPub_CmdVel = n.advertise<geometry_msgs::Twist>("cmdVel", 50);
+            topicPub_CmdVel = n.advertise<geometry_msgs::Twist>("cmd_vel", 50);
 
             // implementation of topics to subscribe
             topicSub_Joy = n.subscribe("joy", 10, &NodeClass::topicCallback_Joy, this);

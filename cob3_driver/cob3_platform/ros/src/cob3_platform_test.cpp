@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 	ros::NodeHandle n;
 
     // topics to publish
-    ros::Publisher topicPub_CmdVel = n.advertise<geometry_msgs::Twist>("cmdVel", 1);
+    ros::Publisher topicPub_CmdVel = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
         
 	// topics to subscribe, callback is called for new messages arriving
     //--

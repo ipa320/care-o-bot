@@ -70,7 +70,7 @@ class NodeClass
             topicPub_Odometry = n.advertise<nav_msgs::Odometry>("odometry", 50);
 
             // implementation of topics to subscribe
-            topicSub_CmdVel = n.subscribe("cmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
+            topicSub_CmdVel = n.subscribe("cmd_vel", 1, &NodeClass::topicCallback_CmdVel, this);
             
             // implementation of service servers
             srvServer_Init = n.advertiseService("Init", &NodeClass::srvCallback_Init, this);
