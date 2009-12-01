@@ -1,0 +1,19 @@
+<stack name="cob3_driver" version="0.1.0">
+  <description brief="cob3_driver">
+
+     cob3_driver
+
+  </description>
+  <author>Maintained by Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/cob3_driver</url>
+  <depend stack="camera_drivers"/> <!-- libdc1394v2 --> 
+  <depend stack="vision_opencv"/> <!-- opencv2 --> 
+  <depend stack="geometry"/> <!-- tf --> 
+  <depend stack="laser_drivers"/> <!-- hokuyo_node --> 
+  <depend stack="joystick_drivers"/> <!-- joy, ps3joy --> 
+  <depend stack="ros"/> <!-- std_srvs, roslib, std_msgs, roscpp --> 
+  <depend stack="common_msgs"/> <!-- nav_msgs, geometry_msgs, sensor_msgs --> 
+
+</stack>
