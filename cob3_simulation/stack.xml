@@ -4,10 +4,12 @@
      cob3_simulation
 
   </description>
-  <author>Maintained by fmw</author>
+  <author>Maintained by Florian Weisshardt, email: florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_simulation</url>
+  <url>http://www.care-o-bot.org</url>
+  
+  <depend stack="robot_model"/> <!-- urdf --> 
   <depend stack="simulator_gazebo"/> <!-- gazebo --> 
 
 </stack>
