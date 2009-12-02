@@ -4,7 +4,7 @@
      libWm4
 
   </description>
-  <author>Florian Weisshardt, email: Florian.Weisshardt@ipa.fhg.de</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://www.geometrictools.com/Downloads/Downloads.html</url>
@@ -14,5 +14,3 @@
   </export>
 
 </package>
-
-

@@ -4,15 +4,14 @@
      cob3_teleop
 
   </description>
-  <author>cob</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_teleop</url>
+  <url>http://www.care-o-bot.org</url>
+  
   <depend package="roscpp"/>
   <depend package="joy"/>
   <depend package="ps3joy"/>
   <depend package="cob3_platform"/>
 
 </package>
-
-

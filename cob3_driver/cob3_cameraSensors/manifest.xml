@@ -4,10 +4,10 @@
      cob3_cameraSensors
 
   </description>
-  <author>Florian Weisshardt, email: Florian.Weisshardt@ipa.fhg.de</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://pr.willowgarage.com/wiki/cob3_cameraSensors</url>
+  <url>http://www.care-o-bot.org</url>
 
   <depend package="roscpp"/>
   <depend package="sensor_msgs"/>

@@ -38,4 +38,4 @@ rosbuild_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
 rosbuild_add_compile_flags(${PROJECT_NAME} -DOSNAME_LINUX)
 rosbuild_add_compile_flags(${PROJECT_NAME} -DWITH_ESD_CAN)
 
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/lib/libntcan.a ${PROJECT_SOURCE_DIR}/common/lib/libSDHLibrary-CPP.a)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/lib/libSDHLibrary-CPP.a ntcan)

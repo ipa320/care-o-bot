@@ -4,10 +4,10 @@
      cob3_arm
 
   </description>
-  <author>Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_arm</url>
+  <url>http://www.care-o-bot.org</url>
   
   <depend package="cob3_msgs"/>
   <depend package="cob3_srvs"/>

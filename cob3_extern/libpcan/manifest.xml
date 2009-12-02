@@ -4,7 +4,7 @@
      libpcan
 
   </description>
-  <author>Florian Weisshardt, email: Florian.Weisshardt@ipa.fhg.de</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://p103112.typo3server.info/fileadmin/media/linux/index.htm</url>
@@ -14,5 +14,3 @@
   </export>
   
 </package>
-
-

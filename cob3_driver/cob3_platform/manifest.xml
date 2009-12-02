@@ -4,10 +4,10 @@
      cob3_platform
 
   </description>
-  <author>Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_platform</url>
+  <url>http://www.care-o-bot.org</url>
   
   <depend package="roscpp"/>
   <depend package="geometry_msgs"/>
@@ -15,5 +15,6 @@
   <depend package="tf"/>
   <depend package="cob3_srvs"/>
   <depend package="libpcan"/>
+  <depend package="libntcan"/>
 
 </package>

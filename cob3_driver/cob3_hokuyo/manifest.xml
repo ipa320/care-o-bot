@@ -4,12 +4,11 @@
      cob3_hokuyo
 
   </description>
-  <author>cob</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_hokuyo</url>
+  <url>http://www.care-o-bot.org</url>
+  
   <depend package="hokuyo_node"/>
 
 </package>
-
-

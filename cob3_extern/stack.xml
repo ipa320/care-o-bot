@@ -4,9 +4,9 @@
      cob3_extern
 
   </description>
-  <author>Maintained by Florian Weisshardt, mail:florian.weisshardt@ipa.fhg.de</author>
+  <author>Maintained by Florian Weisshardt, email: florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_extern</url>
+  <url>http://www.care-o-bot.org</url>
 
 </stack>
