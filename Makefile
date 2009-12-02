@@ -18,6 +18,7 @@ PACKAGES_TO_BUILD=\
 	libpcan\
 	libwm4\
 	libmesasr\
+	libntcan\
 	cob3_msgs\
 	cob3_srvs\
 	sickS300\
@@ -29,6 +30,7 @@ PACKAGES_TO_BUILD=\
 	cob3_platform\
 	cob3_tf_broadcaster\
 	cob3_teleop\
+	cob3_test\
 #--------------------------------------------------------------------
 
 all:

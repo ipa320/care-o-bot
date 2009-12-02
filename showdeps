@@ -23,7 +23,8 @@ powercube_chain,\
 cob3_arm,\
 cob3_platform,\
 cob3_tf_broadcaster,\
-cob3_teleop
+cob3_teleop,\
+cob3_test
 
 #--------------------------------------------------------------------
 
