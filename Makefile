@@ -31,6 +31,7 @@ PACKAGES_TO_BUILD=\
 	cob3_tf_broadcaster\
 	cob3_teleop\
 	cob3_test\
+	cob3_gazebo\
 #--------------------------------------------------------------------
 
 all:

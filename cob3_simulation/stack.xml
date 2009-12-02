@@ -1,0 +1,13 @@
+<stack name="cob3_simulation" version="0.1.0">
+  <description brief="cob3_simulation">
+
+     cob3_simulation
+
+  </description>
+  <author>Maintained by fmw</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/cob3_simulation</url>
+  <depend stack="simulator_gazebo"/> <!-- gazebo --> 
+
+</stack>

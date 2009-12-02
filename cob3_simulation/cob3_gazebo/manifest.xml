@@ -1,0 +1,14 @@
+<package>
+  <description brief="cob3_gazebo">
+
+     cob3_gazebo
+
+  </description>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://www.care-o-bot.org</url>
+  
+  <depend package="gazebo"/>
+
+</package>
