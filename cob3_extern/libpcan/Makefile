@@ -11,10 +11,13 @@ libpcan: $(SOURCE_DIR)/unpacked
 	# build driver
 	sudo ln -f -s /usr/src/linux-headers*-generic /usr/src/linux
 	cd $(SOURCE_DIR)/driver && make
-	# copy to src
-	mkdir -p src
-	cp $(SOURCE_DIR)/lib/lib* src
+	# copy to common
+	mkdir -p common
+	mkdir -p common/lib
+	mkdir -p common/include
+	cp $(SOURCE_DIR)/lib/*.so* common/lib
+	cp $(SOURCE_DIR)/lib/*.h common/include
 clean:
-	rm -rf src $(SOURCE_DIR)
+	rm -rf common $(SOURCE_DIR)
 wipe: clean
 	-rm -rf build

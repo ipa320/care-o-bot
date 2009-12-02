@@ -12,14 +12,14 @@ libwm4:
 	cd $(SOURCE_DIR); unzip -n $(ZIPFILE)
 	# make
 	cd $(SOURCE_DIR)/GeometricTools/WildMagic4; make -f makefile.wm4 CFG=Release SYS=linux GRF=OpenGL
-	# move lib and header to export path (src)
-	mkdir -p src
-	mkdir -p src/lib
-	mkdir -p src/include
-	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Library/Release/lib* src/lib
-	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Include/* src/include
+	# move lib and header to export path (common)
+	mkdir -p common
+	mkdir -p common/lib
+	mkdir -p common/include
+	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Library/Release/lib* common/lib
+	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Include/* common/include
 clean:
-	rm -rf src $(SOURCE_DIR)
+	rm -rf common $(SOURCE_DIR)
 wipe: clean
 	-rm -rf $(SOURCE_DIR)
 	
