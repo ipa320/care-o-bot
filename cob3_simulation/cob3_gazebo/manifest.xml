@@ -10,5 +10,6 @@
   <url>http://www.care-o-bot.org</url>
   
   <depend package="gazebo"/>
+  <depend package="cob3_defs"/>
 
 </package>

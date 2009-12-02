@@ -4,12 +4,11 @@
      cob3_defs
 
   </description>
-  <author>fmw</author>
+  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/cob3_defs</url>
+  <url>http://www.care-o-bot.org</url>
+
   <depend package="urdf"/>
 
 </package>
-
-

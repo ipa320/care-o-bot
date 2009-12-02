@@ -25,6 +25,7 @@ cob3_platform,\
 cob3_tf_broadcaster,\
 cob3_teleop,\
 cob3_test,\
+cob3_defs,\
 cob3_gazebo
 
 #--------------------------------------------------------------------
