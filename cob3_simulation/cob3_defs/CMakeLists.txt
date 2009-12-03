@@ -11,20 +11,86 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 rosbuild_init()
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+# mesh file generations
+rosbuild_find_ros_package(ivcon)
+rosbuild_find_ros_package(convex_decomposition)
 
-#uncomment if you have defined messages
-#rosbuild_genmsg()
-#uncomment if you have defined services
-#rosbuild_gensrv()
+# iterate through all the stl files to:
+#  1. convert to *.iv files
+#  2. generate convex decomposed .stl
+file(GLOB cob3_stl_files ${CMAKE_CURRENT_SOURCE_DIR}/common/files/meshes/*.stl)
+set(cob3_gen_files "")
 
-#common commands for building c++ executables and libraries
-#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-#target_link_libraries(${PROJECT_NAME} another_library)
-#rosbuild_add_boost_directories()
-#rosbuild_link_boost(${PROJECT_NAME} thread)
-#rosbuild_add_executable(example examples/example.cpp)
-#target_link_libraries(example ${PROJECT_NAME})
+foreach(it ${cob3_stl_files})
+  get_filename_component(basepath ${it} PATH)
+  get_filename_component(basename ${it} NAME_WE)
+
+  IF ( ${basename} MATCHES "_convex" )
+
+    message("ignoring stale .._convex.stl file:",${basename})
+
+  ELSE ( ${basename} MATCHES "_convex" )
+
+    #convex decomposition obj files
+    add_custom_command(
+      OUTPUT ${basepath}/convex
+      # CMake 2.4 doesn't offer the make_directory command.
+      #COMMAND ${CMAKE_COMMAND} -E make_directory
+      COMMAND mkdir -p
+      ARGS ${basepath}/convex)
+
+    #create obj files for convex decomposition from stl files
+    add_custom_command(
+      OUTPUT ${basepath}/convex/${basename}.obj
+      COMMAND ${ivcon_PACKAGE_PATH}/bin/ivcon
+      ARGS ${it} ${basepath}/convex/${basename}.obj
+      DEPENDS ${it} ${basepath}/convex)
+
+    set(cob3_gen_files ${cob3_gen_files} ${basepath}/convex/${basename}.obj)
+
+    add_custom_command(
+      OUTPUT ${basepath}/convex/${basename}_convex.obj
+      COMMAND ${convex_decomposition_PACKAGE_PATH}/convex_decomposition/bin/convex_decomposition
+      ARGS ${basepath}/convex/${basename}.obj -v12 -p10
+      DEPENDS ${basepath}/convex/${basename}.obj ${basepath}/convex)
+
+    set(cob3_gen_files ${cob3_gen_files} ${basepath}/convex/${basename}_convex.obj)
+
+    #convert obj files back to stlb, put in directory named convex
+    add_custom_command(
+      OUTPUT ${basepath}/convex/${basename}_convex.stlb
+      COMMAND ${ivcon_PACKAGE_PATH}/bin/ivcon
+      ARGS ${basepath}/convex/${basename}_convex.obj ${basepath}/convex/${basename}_convex.stlb
+      DEPENDS ${it} ${basepath}/convex ${basepath}/convex/${basename}_convex.obj)
+
+    set(cob3_gen_files ${cob3_gen_files} ${basepath}/convex/${basename}_convex.stlb)
+
+    #convert obj files back to stla, put in directory named convex
+    add_custom_command(
+      OUTPUT ${basepath}/convex/${basename}_convex.stla
+      COMMAND ${ivcon_PACKAGE_PATH}/bin/ivcon
+      ARGS ${basepath}/convex/${basename}_convex.obj ${basepath}/convex/${basename}_convex.stla
+      DEPENDS ${it} ${basepath}/convex ${basepath}/convex/${basename}_convex.obj)
+
+    set(cob3_gen_files ${cob3_gen_files} ${basepath}/convex/${basename}_convex.stla)
+
+    #iv files
+    add_custom_command(
+      OUTPUT ${basepath}/${basename}.iv
+      COMMAND ${ivcon_PACKAGE_PATH}/bin/ivcon
+      ARGS ${it} ${basepath}/${basename}.iv
+      DEPENDS ${it})
+    add_custom_command(
+      OUTPUT ${basepath}/convex/${basename}_convex.iv
+      COMMAND ${ivcon_PACKAGE_PATH}/bin/ivcon
+      ARGS ${basepath}/convex/${basename}_convex.obj ${basepath}/convex/${basename}_convex.iv
+      DEPENDS ${it} ${basepath}/convex ${basepath}/convex/${basename}_convex.obj)
+     
+    set(cob3_gen_files ${cob3_gen_files} ${basepath}/${basename}.iv ${basepath}/convex/${basename}_convex.iv)
+
+
+  ENDIF ( ${basename} MATCHES "_convex" )
+
+endforeach(it)
+
+add_custom_target(media_files ALL DEPENDS ${cob3_gen_files})
