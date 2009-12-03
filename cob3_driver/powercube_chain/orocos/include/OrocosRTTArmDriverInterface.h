@@ -66,7 +66,7 @@ public:
 			            "Setting maximal acceleration of joints.", "float", "maximal acceleration in rad per second squared");
 
 	}
-	~OrocosRTTArmDriverInterface();
+	~OrocosRTTArmDriverInterface() {};
 
 private:
 	virtual void setMaxVelocityF(Jointd radpersec) = 0;

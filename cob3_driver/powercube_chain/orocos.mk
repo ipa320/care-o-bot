@@ -2,6 +2,7 @@ TARGETLIB = powercubechainRTT
 DEBUG = 1
 
 LIBMODULES =  common/src/PowerCubeCtrl\
+			common/src/PowerCubeSim\
 			common/src/moveCommand\
 			common/src/TimeStamp\
 			orocos/src/PowerCubeSim_OROCOS
