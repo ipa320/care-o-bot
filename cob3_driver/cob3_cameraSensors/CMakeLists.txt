@@ -36,8 +36,8 @@ rosbuild_add_executable(${PROJECT_NAME}_colorCamera ros/src/${PROJECT_NAME}_colo
 rosbuild_add_executable(${PROJECT_NAME}_colorCamera_test ros/src/${PROJECT_NAME}_colorCamera_test.cpp)
 
 # add include search paths
-INCLUDE_DIRECTORIES(/usr/local/include/opencv)
-INCLUDE_DIRECTORIES(/usr/include/Wm4)
+#INCLUDE_DIRECTORIES(/usr/local/include/opencv)
+#INCLUDE_DIRECTORIES(/usr/include/Wm4)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common)
 
 # add compile flag
