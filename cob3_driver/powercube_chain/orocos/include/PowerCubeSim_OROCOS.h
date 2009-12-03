@@ -24,6 +24,11 @@ public:
 
 private:
 
+	void setMaxVelocityF(Jointd radpersec){}
+	void setMaxVelocityFloatF(float radpersec){}
+	void setMaxAccelerationF(Jointd radpersec){}
+	void setMaxAccelerationFloatF(float radpersec){}
+
 	PowerCubeSim m_powercubectrl;
 	bool stopArm();
 	bool isArmStopped();

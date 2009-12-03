@@ -7,8 +7,8 @@ LIBMODULES =  common/src/PowerCubeCtrl\
 			orocos/src/PowerCubeSim_OROCOS
 MODULES = $(TARGET) $(LIBMODULES)
 
-LIBS =
-CFLAGS =-D__LINUX__ #needed for m5apiw32
+LIBS = orocos-rtt-gnulinux
+CFLAGS =-DOROCOS_TARGET=gnulinux -D__LINUX__ #needed for m5apiw32
 LFLAGS =
 INCPATH += common/include/ orocos/include/ 
 LIBPATH += common/lib/ orocos/lib/

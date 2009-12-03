@@ -11,6 +11,7 @@
 #include <rtt/TaskContext.hpp>
 #include <rtt/Command.hpp>
 #include <rtt/Ports.hpp>
+#include <rtt/Method.hpp>
 
 using namespace RTT;
 
@@ -19,16 +20,18 @@ class OrocosRTTArmDriverInterface : public TaskContext
 
 public:
 
-	Method<void(Jointd)> setMaxVelocity;
-	Method<void(float)> setMaxVelocityFloat;
-	Method<void(Jointd)> setMaxAcceleration;
-	Method<void(float)> setMaxAccelerationFloat;
+
 
 	ReadDataPort<Jointd>  set_position_inport;
 	ReadDataPort<Jointd>  set_velocity_inport;
 
 	WriteDataPort<Jointd>  current_position_outport;
 	WriteDataPort<Jointd>  current_velocity_outport;
+
+	Method<void(Jointd)> setMaxVelocity;
+	Method<void(float)> setMaxVelocityFloat;
+	Method<void(Jointd)> setMaxAcceleration;
+	Method<void(float)> setMaxAccelerationFloat;
 
 	OrocosRTTArmDriverInterface(std::string name) : TaskContext(name),
 			set_position_inport("SetPositionPort"),
@@ -54,13 +57,13 @@ public:
 		this->ports()->addPort(&current_velocity_outport);
 
 		this->methods()->addMethod( &setMaxVelocity,
-		                "testing method call for jointd submission.");
+		                "Setting maximal velocity of joints.", "Jointd", "maximal velocity in rad per second");
 		this->methods()->addMethod( &setMaxVelocityFloat,
-			            "testing method call for jointd submission.");
+			            "Setting maximal velocity of joints.", "float", "maximal velocity in rad per second");
 		this->methods()->addMethod( &setMaxAcceleration,
-			            "testing method call for jointd submission.");
+			            "Setting maximal acceleration of joints.", "Jointd", "maximal acceleration in rad per second squared");
 		this->methods()->addMethod( &setMaxAccelerationFloat,
-			            "testing method call for jointd submission.");
+			            "Setting maximal acceleration of joints.", "float", "maximal acceleration in rad per second squared");
 
 	}
 	~OrocosRTTArmDriverInterface();
