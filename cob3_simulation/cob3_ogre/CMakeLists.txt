@@ -19,9 +19,9 @@ rosbuild_find_ros_package(ogre)
 set(cob3_gen_files "")
 
 # build the ogre mesh files from *.stl (and *.stlb from convex decomposition)
-file(GLOB_RECURSE cob3_defs_stl_files RELATIVE ${cob3_defs_PACKAGE_PATH}/meshes ${cob3_defs_PACKAGE_PATH}/meshes/*.stl ${cob3_defs_PACKAGE_PATH}/meshes/convex/*.stlb)
+file(GLOB_RECURSE cob3_defs_stl_files RELATIVE ${cob3_defs_PACKAGE_PATH}/common/files/meshes ${cob3_defs_PACKAGE_PATH}/common/files/meshes/*.stl ${cob3_defs_PACKAGE_PATH}/common/files/meshes/convex/*.stlb)
 
-set(cob3_defs_out_path ${CMAKE_CURRENT_SOURCE_DIR}/Media/models)
+set(cob3_defs_out_path ${CMAKE_CURRENT_SOURCE_DIR}/common/files/models)
 MAKE_DIRECTORY(${cob3_defs_out_path})
 
 foreach(it ${cob3_defs_stl_files})
@@ -40,8 +40,8 @@ foreach(it ${cob3_defs_stl_files})
   add_custom_command(
     OUTPUT ${cob3_defs_out_path}/${relative_path}/${basename}.mesh
     COMMAND rosrun 
-    ARGS ogre_tools stl_to_mesh ${cob3_defs_PACKAGE_PATH}/meshes/${it} ${cob3_defs_out_path}/${relative_path}/${basename}.mesh
-    DEPENDS ${cob3_defs_out_path}/${relative_path} ${cob3_defs_PACKAGE_PATH}/meshes/${it})
+    ARGS ogre_tools stl_to_mesh ${cob3_defs_PACKAGE_PATH}/common/files/meshes/${it} ${cob3_defs_out_path}/${relative_path}/${basename}.mesh
+    DEPENDS ${cob3_defs_out_path}/${relative_path} ${cob3_defs_PACKAGE_PATH}/common/files/meshes/${it})
   
   set(cob3_gen_files ${cob3_gen_files} ${cob3_defs_out_path}/${relative_path}/${basename}.mesh)
 endforeach(it)
