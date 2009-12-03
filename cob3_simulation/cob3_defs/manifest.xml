@@ -10,5 +10,7 @@
   <url>http://www.care-o-bot.org</url>
 
   <depend package="urdf"/>
+  <depend package="ivcon"/>
+  <depend package="convex_decomposition"/>
 
 </package>

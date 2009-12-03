@@ -32,6 +32,7 @@ PACKAGES_TO_BUILD=\
 	cob3_teleop\
 	cob3_test\
 	cob3_defs\
+	cob3_ogre\
 	cob3_gazebo\
 #--------------------------------------------------------------------
 
