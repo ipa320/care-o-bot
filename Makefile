@@ -10,6 +10,7 @@
 # run 'make ros' to build all packages listed below with the recursive build system of ros
 # run 'make ros-ignore-errors' to build all packages listed below with the recursive build system of ros ignoring errored builds
 # run 'make ros-preclean' to build all packages listed below with the recursive build system of ros with the pre-clean option
+# run 'make ros-deps' to install all system dependencies for the packages listed below
 # run 'make clean' to clean up all packages listed below
 
 #--------------------------------------------------------------------
