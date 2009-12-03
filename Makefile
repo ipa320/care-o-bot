@@ -49,6 +49,9 @@ ros-ignore-errors:
 
 ros-pre-clean:
 	rosmake $(PACKAGES_TO_BUILD) -s --pre-clean
+	
+ros-deps:
+	rosdep install $(PACKAGES_TO_BUILD)
 
 clean:
 	@for dir in $(PACKAGES_TO_BUILD); do \
