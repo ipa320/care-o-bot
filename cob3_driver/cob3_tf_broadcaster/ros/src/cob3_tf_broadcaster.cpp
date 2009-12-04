@@ -142,8 +142,8 @@ int main(int argc, char** argv)
     NodeClass nodeClass;
 
     // main loop
- 	ros::Rate loop_rate(1); // Hz
-	ROS_INFO("publishing tf with 1 Hz");
+ 	ros::Rate loop_rate(10); // Hz
+	ROS_INFO("publishing tf with 10 Hz");
     while(nodeClass.n.ok())
     {
         // update static tf
