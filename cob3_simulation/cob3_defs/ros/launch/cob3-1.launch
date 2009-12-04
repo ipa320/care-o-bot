@@ -1,0 +1,10 @@
+<launch>
+  
+  <!-- send pr2 urdf to param server -->
+  <include file="$(find care_o_bot)/SchunkArm/upload_schunk_arm.launch" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="Schunk_Arm_spawn_gazebo_model" pkg="gazebo_tools" type="spawn_gazebo_model" args="robot_description" respawn="false" output="screen" />
+
+</launch>
+

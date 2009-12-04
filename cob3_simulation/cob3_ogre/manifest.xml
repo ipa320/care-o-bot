@@ -11,5 +11,7 @@
   
   <depend package="cob3_defs"/>
   <depend package="ogre_tools"/>
+  <depend package="ivcon"/>
+  <depend package="convex_decomposition"/>
 
 </package>

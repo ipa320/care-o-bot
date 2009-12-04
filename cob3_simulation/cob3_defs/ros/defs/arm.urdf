@@ -1,0 +1,313 @@
+<robot name="SchunkArmLWA3">
+
+<link name="Arm1">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+		<!--	<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint1.wrl" scale="0.001 0.001 0.001"/>-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+		<!--	<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint1.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!--
+<gazebo reference="First_link">
+    <material>Gazebo/LightWood</material> 
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo> -->
+
+
+
+<link name="Arm2">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint2.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint2.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!--
+<gazebo reference="Second_link">
+    <material>Gazebo/LightWood</material> 
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo> -->
+
+
+
+<link name="Arm3">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint3.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint3.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!--
+<gazebo reference="Third_link">
+    <material>Gazebo/LightWood</material>
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo> -->
+
+
+<link name="Arm4">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint4.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint4.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!-- 
+<gazebo reference="Fourth_link">
+    <material>Gazebo/LightWood</material> 
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo>-->
+
+
+
+<link name="Arm5">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint5.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint5.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!--
+<gazebo reference="Fifth_link">
+    <material>Gazebo/LightWood</material>
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo> -->
+
+
+
+<link name="Arm6">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint6.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/joint6.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!--
+<gazebo reference="Sixth_link">
+    <material>Gazebo/LightWood</material> 
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo> -->
+
+
+
+<link name="End">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
+		<mass value="1"/>							<!--review -->
+		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+		<!--	<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/interface.wrl" scale="0.001 0.001 0.001"  />-->
+		</geometry>
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry><box size="0.1 0.1 0.1"/>
+			<!--<mesh filename="/home/ros/pkgs/care_o_bot/SchunkArm/interface.wrl" scale="0.001 0.001 0.001" />-->
+		</geometry>
+		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
+	</collision>
+</link>
+<!--
+<gazebo reference="End_link">
+    <material>Gazebo/LightWood</material>  review 
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+</gazebo> -->
+
+
+ <joint name="par_World_joint1" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="Arm1"/>
+	<axis xyz="0 0 1" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+ </joint>
+
+ <joint name="per_joint1_joint2" type="revolute">
+    <origin xyz="0 0 0.250" rpy="0 0 0"/>
+    <parent link="Arm1"/>
+    <child link="Arm2"/>
+	<axis xyz="0 1 0" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" lower="-2.094395102" upper="2.094395102" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+ </joint>
+ 
+ <joint name="par_joint2_joint3" type="revolute">
+    <origin xyz="0 0 0.110" rpy="0 0 0"/> <!-- change with solidworks -->
+    <parent link="Arm2"/>
+    <child link="Arm3"/>
+	<axis xyz="0 0 1" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+ </joint>
+
+ <joint name="per_joint3_joint4" type="revolute">
+    <origin xyz="0 0 0.298" rpy="0 0 0"/>
+    <parent link="Arm3"/>
+    <child link="Arm4"/>
+	<axis xyz="0 1 0" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" lower="-2.094395102" upper="2.094395102" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+</joint>
+
+<joint name="par_joint4_joint5" type="revolute">
+    <origin xyz="0 0 0.100" rpy="0 0 0"/> 
+    <parent link="Arm4"/>
+    <child link="Arm5"/>
+	<axis xyz="0 0 1" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+ </joint>
+
+ <joint name="per_joint5_joint6" type="revolute">
+    <origin xyz="0 0 0.2165" rpy="0 0 0"/>
+    <parent link="Arm5"/>
+    <child link="Arm6"/>
+	<axis xyz="0 1 0" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" lower="-2.094395102" upper="2.094395102" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+ </joint>
+ 
+ <joint name="par_joint6_End" type="revolute">
+    <origin xyz="0 0 0.080" rpy="0 0 0"/> 
+    <parent link="Arm6"/>
+    <child link="End"/>
+	<axis xyz="0 0 1" />
+    <calibration reference_position="0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+    <safety_controller k_velocity="10"/>
+ </joint>
+
+ 
+ 
+ 
+</robot>
+
