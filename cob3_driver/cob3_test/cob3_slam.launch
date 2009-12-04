@@ -26,9 +26,9 @@
 	<param name="delta" value="0.10"/>
 	<param name="inverted_laser" value="true"/>
 	<param name="maxUrange" value="10"/>
-	<param name="base_frame" value="base_link"/>
+	<param name="base_frame" value="base_footprint"/>
 	<param name="laser_frame" value="base_laser_front"/>
-	<param name="odom_frame" value="base_footprint"/>
+	<param name="odom_frame" value="odom"/>
   </node>
 
   <!-- teleoperate platform with joystick -->

@@ -10,6 +10,7 @@
 // ROS message includes
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
 
 // ROS service includes
 //--
@@ -39,7 +40,8 @@ class NodeClass
         //--
         
         // global variables
-		tf::Transform transform;
+		tf::StampedTransform transform;
+		tf::TransformListener transformListener;
 
         // Constructor
         NodeClass()
@@ -69,8 +71,21 @@ class NodeClass
         // other function declarations
 		void updateTf()
         {
-            ROS_DEBUG("update static tf");
+			ROS_DEBUG("update dynamic tf cyclically, even if no message arrive to topicCallback");
+			
+			// publish tf for odom --> base_footprint
+			try
+			{
+				transformListener.lookupTransform("odom", "base_footprint", ros::Time(0), transform);
+			}
+			catch (tf::TransformException ex)
+			{
+				ROS_ERROR("%s",ex.what());
+			}
+			br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_footprint"));
 
+            ROS_DEBUG("update static tf cyclically");
+			
 			// publish tf for base_footprint --> base_link
 			transform.setOrigin(tf::Vector3(0.0, 0.0, 0.2));
 			transform.setRotation(tf::Quaternion(0, 0, 0));
