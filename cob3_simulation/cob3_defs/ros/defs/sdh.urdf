@@ -1,8 +1,31 @@
-<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-       name="SDH">
+<?xml version="1.0"?>
+<robot name="SDH"
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+
+	<gazebo>
+		<!-- PR2_ACTARRAY -->
+		<controller:gazebo_ros_controller_manager name="gazebo_ros_controller_manager" plugin="libgazebo_ros_controller_manager.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>1000.0</updateRate>
+			<interface:audio name="gazebo_ros_controller_manager_dummy_iface"/>
+		</controller:gazebo_ros_controller_manager>
+		<!-- ocean battery controls -->
+		<controller:gazebo_ros_ocean_battery name="gazebo_ros_ocean_battery_controller" plugin="libgazebo_ros_ocean_battery.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>1.0</updateRate>
+			<timeout>5</timeout>
+			<interface:audio name="ocean_battery_dummy_interface"/>
+			<powerStateTopic>power_state</powerStateTopic>
+			<powerStateRate>10.0</powerStateRate>
+			<fullChargeCapacity>87.78</fullChargeCapacity>     
+			<dischargeRate>-474</dischargeRate>
+			<chargeRate>525</chargeRate>
+			<dischargeVoltage>15.52</dischargeVoltage>
+			<chargeVoltage>16.41</chargeVoltage>
+		</controller:gazebo_ros_ocean_battery>
+	</gazebo>
 
 <link name="Palm">
 	<inertial>
@@ -394,6 +417,61 @@
     <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
     <safety_controller k_velocity="10"/>
  </joint>
+ 
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="palm_finger1-1"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="finger1-1_finger1-2"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="finger1-2_finger1-3"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="palm_finger2-1"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="finger2-1_finger2-2"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="finger2-2_finger2-3"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger3-1_rotation_motor"/>
+		<joint name="palm_Thumb-1"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="Thumb-1_Thumb-2"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
+		<actuator name="palm_finger1-1_rotation_motor"/>
+		<joint name="Thumb-2_Thumb-3"/>
+		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+	</transmission>
+
 
 
  
