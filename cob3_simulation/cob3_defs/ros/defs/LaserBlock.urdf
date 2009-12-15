@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
@@ -8,11 +9,11 @@
 <joint name="base_world_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" />
       <parent link="world"/>
-      <child link="laser_block"/>
+      <child link="base_laser_front"/>
     </joint>
 
 <!--			 Laser body. Neglegibe geometry 			-->
-<link name="laser_block">
+<link name="base_laser_front">
 
       <inertial>
         <mass value="1.0" />
@@ -47,8 +48,8 @@
     </gazebo>
 
 <!-- 			Actual laser		 -->
-<gazebo reference="laser_block">    
-      <sensor:ray name="base_Laser">
+<gazebo reference="base_laser_block">    
+      <sensor:ray name="base_laser">
         <rayCount>640</rayCount>
         <rangeCount>640</rangeCount>
         <laserCount>1</laserCount>
