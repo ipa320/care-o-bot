@@ -222,6 +222,7 @@
 		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
 	</collision>
 </link>
+
 <link name="Thumb-1">
 	<inertial>
 		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
@@ -280,8 +281,8 @@
 <link name="Thumb-3">
 	<inertial>
 		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+		<mass value="10"/>							<!--review -->
+		<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 	</inertial>
 
 	<visual>
@@ -313,8 +314,7 @@
     <parent link="world"/>
     <child link="Palm"/>
  </joint>
- 
- 
+
  <joint name="palm_finger1-1" type="revolute">  <!-- make the second finger mimic this one -->
     <!--<origin xyz="-0.033 -0.019053 0.017" rpy="1.570796327 0 -1.570796327" /> -->
      <origin xyz="0.01905 0.033 0.0772" rpy="0 0 3.159265" />
@@ -412,64 +412,70 @@
     <parent link="Thumb-2"/>
     <child link="Thumb-3"/>
 	<axis xyz="1 0 0" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
+    <limit effort="100" lower="-1" upper="1" velocity="5"/>
  </joint>
  
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="palm_finger1-1"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="finger1-1_finger1-2"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="finger1-2_finger1-3"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="palm_finger2-1"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="finger2-1_finger2-2"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="finger2-2_finger2-3"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger3-1_rotation_motor"/>
 		<joint name="palm_Thumb-1"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="Thumb-1_Thumb-2"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
 	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
 		<actuator name="palm_finger1-1_rotation_motor"/>
 		<joint name="Thumb-2_Thumb-3"/>
-		<mechanicalReduction>-75.0676691729</mechanicalReduction>
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 
 

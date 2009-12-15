@@ -1,24 +1,27 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!-- launch empty world -->
-  <include file="$(find cob3_gazebo)/ros/launch/empty_world.launch" />
+	<!-- launch empty world -->
+	<include file="$(find cob3_gazebo)/ros/launch/empty_world.launch" />
 
-  <!-- send pr2_armless urdf to param server -->
-  <include file="$(find cob3_defs)/ros/launch/upload_sdh.launch" />
+	<!-- send pr2_armless urdf to param server -->
+	<include file="$(find cob3_defs)/ros/launch/upload_sdh.launch" />
 
-  <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="pr2_armless_urdf" pkg="gazebo_tools" type="gazebo_model" args="-z 0.051 -p robot_description spawn pr2_armless_model" respawn="false" />
+	<!-- push robot_description to factory and spawn robot in gazebo -->
+	<node name="pr2_armless_urdf" pkg="gazebo_tools" type="gazebo_model" args="-z 0.051 -p robot_description spawn pr2_armless_model" respawn="false" />
 
-  <!-- Robot state publisher -->
-  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
-    <param name="publish_frequency" type="double" value="50.0" />
-    <param name="tf_prefix" type="string" value="" />
-  </node>
-  
-  <!-- Default Controllers 
-  <include file="$(find pr2_default_controllers)/pr2_default_controllers.launch" />
-  -->
-  <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
-  
+	<!-- Robot state publisher -->
+	<node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
+		<param name="publish_frequency" type="double" value="50.0" />
+		<param name="tf_prefix" type="string" value="" />
+	</node>
+
+	<!-- Default Controllers 
+	<include file="$(find pr2_default_controllers)/pr2_default_controllers.launch" />
+	-->
+	<rosparam file="$(find cob3_defs)/ros/controller/sdh_controller.yaml" command="load"/>
+	<node name="spawn_test_controller" pkg="pr2_controller_manager" type="spawner" args="test_controller" respawn="false" output="screen" />
+
+	<node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
+
 </launch>
