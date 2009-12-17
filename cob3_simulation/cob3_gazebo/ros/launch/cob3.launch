@@ -8,7 +8,7 @@
 	<include file="$(find cob3_defs)/ros/launch/upload_cob3.launch" />
 
 	<!-- push robot_description to factory and spawn robot in gazebo -->
-	<node name="pr2_armless_urdf" pkg="gazebo_tools" type="gazebo_model" args="-z 0.051 -p robot_description spawn pr2_armless_model" respawn="false" />
+	<node name="cob3_urdf" pkg="gazebo_tools" type="gazebo_model" args="-z 0.051 -p robot_description spawn cob3_model" respawn="false" />
 
 	<!-- Robot state publisher -->
 	<node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
@@ -19,6 +19,6 @@
 	<!-- Controllers -->
 	<include file="$(find cob3_defs)/ros/launch/cob3_controller.launch" />
 
-	<node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
+<!--	<node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" /> -->
 
 </launch>

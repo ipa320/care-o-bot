@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-    <!-- send pr2_armless urdf to param server -->
+    <!-- send sdh urdf to param server -->
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(find cob3_defs)/ros/robots/cob3_sdh.urdf.xacro'" />
     
 </launch>
