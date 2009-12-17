@@ -1,9 +1,0 @@
-<launch>
-    <!-- send Arm urdf to param server -->
-<param name="robot_description" command="$(find xacro)/xacro.py '$(find care_o_bot)/SchunkArm/schunk_arm.urdf'" />
-
-  <!-- Controller Manager INCLUDE LATER-->
-  <!--<include file="$(find pr2_controller_manager)/controller_manager.launch" /> -->
-
-
-</launch>

@@ -5,22 +5,6 @@
 	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
 	<!-- ################################################################################# -->
-	<!-- load gazebo controllers -->
-	<gazebo>
-		<controller:gazebo_ros_time name="gazebo_ros_time" plugin="libgazebo_ros_time.so">
-			<alwaysOn>true</alwaysOn>
-			<updateRate>100.0</updateRate>
-			<interface:audio name="dummy_gazebo_ros_time_iface_should_not_be_here"/>
-		</controller:gazebo_ros_time>
-      
-		<controller:gazebo_ros_controller_manager name="gazebo_ros_controller_manager" plugin="libgazebo_ros_controller_manager.so">
-			<alwaysOn>true</alwaysOn>
-			<updateRate>1000.0</updateRate>
-			<interface:audio name="gazebo_ros_controller_manager_dummy_iface"/>
-		</controller:gazebo_ros_controller_manager>
-	</gazebo>
-
-	<!-- ################################################################################# -->
 	<!-- add links-->
 	<link name="link_arm0">
 		<inertial>
@@ -31,13 +15,13 @@
 		<visual>
 			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-				<cylinder radius="0.1" length="0.01"/>
+				<cylinder radius="0.1" length="0.01"/> <!-- TODO put in stl mesh -->
 			</geometry>
 		</visual>
 		<collision>
 			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-				<cylinder radius="0.1" length="0.01"/>
+				<cylinder radius="0.1" length="0.01"/> <!-- TODO put in stl mesh -->
 			</geometry>
 		</collision>
 	</link>
@@ -305,7 +289,6 @@
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>
 
 	<!-- ################################################################################# -->

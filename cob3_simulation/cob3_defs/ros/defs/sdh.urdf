@@ -5,22 +5,6 @@
 	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
 	<!-- ################################################################################# -->
-	<!-- load gazebo controllers -->
-	<gazebo>
-		<controller:gazebo_ros_time name="gazebo_ros_time" plugin="libgazebo_ros_time.so">
-			<alwaysOn>true</alwaysOn>
-			<updateRate>100.0</updateRate>
-			<interface:audio name="dummy_gazebo_ros_time_iface_should_not_be_here"/>
-		</controller:gazebo_ros_time>
-      
-		<controller:gazebo_ros_controller_manager name="gazebo_ros_controller_manager" plugin="libgazebo_ros_controller_manager.so">
-			<alwaysOn>true</alwaysOn>
-			<updateRate>1000.0</updateRate>
-			<interface:audio name="gazebo_ros_controller_manager_dummy_iface"/>
-		</controller:gazebo_ros_controller_manager>
-	</gazebo>
-
-	<!-- ################################################################################# -->
 	<!-- add links-->
 	
 	<!-- palm -->
@@ -280,11 +264,11 @@
 
 	<!-- ################################################################################# -->
 	<!-- add joints -->
-	
+
 	<!-- palm -->
-	<joint name="joint_world_palm" type="fixed">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
-		<parent link="world"/>
+	<joint name="joint_armTCP_palm" type="fixed">
+		<origin xyz="0 0 0.1125" rpy="0 0 0"/> <!-- TODO put in real offset -->
+		<parent link="link_arm7"/>
 		<child link="link_palm"/>
 	</joint>
 
