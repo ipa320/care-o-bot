@@ -4,483 +4,431 @@
 	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
 	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
+	<!-- ################################################################################# -->
+	<!-- load gazebo controller manager -->
 	<gazebo>
-		<!-- PR2_ACTARRAY -->
+		<controller:gazebo_ros_time name="gazebo_ros_time" plugin="libgazebo_ros_time.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>100.0</updateRate>
+			<interface:audio name="dummy_gazebo_ros_time_iface_should_not_be_here"/>
+		</controller:gazebo_ros_time>
+      
 		<controller:gazebo_ros_controller_manager name="gazebo_ros_controller_manager" plugin="libgazebo_ros_controller_manager.so">
 			<alwaysOn>true</alwaysOn>
 			<updateRate>1000.0</updateRate>
 			<interface:audio name="gazebo_ros_controller_manager_dummy_iface"/>
 		</controller:gazebo_ros_controller_manager>
-		<!-- ocean battery controls -->
-		<controller:gazebo_ros_ocean_battery name="gazebo_ros_ocean_battery_controller" plugin="libgazebo_ros_ocean_battery.so">
-			<alwaysOn>true</alwaysOn>
-			<updateRate>1.0</updateRate>
-			<timeout>5</timeout>
-			<interface:audio name="ocean_battery_dummy_interface"/>
-			<powerStateTopic>power_state</powerStateTopic>
-			<powerStateRate>10.0</powerStateRate>
-			<fullChargeCapacity>87.78</fullChargeCapacity>     
-			<dischargeRate>-474</dischargeRate>
-			<chargeRate>525</chargeRate>
-			<dischargeVoltage>15.52</dischargeVoltage>
-			<chargeVoltage>16.41</chargeVoltage>
-		</controller:gazebo_ros_ocean_battery>
 	</gazebo>
 
-<link name="Palm">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
+	<!-- ################################################################################# -->
+	<!-- add links-->
+	
+	<!-- palm -->
+	<link name="link_palm">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/palm.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/palm.stl"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- finger1 -->
+	<link name="link_finger1-1">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/knuckle.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/knuckle.stl"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_finger1-2">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger.stl"/>
+			</geometry>
+		</collision>
+	</link>
 
-	<visual>
-		<origin xyz="0 0 0" rpy="0 0 0" />
-		<!--<origin xyz="0 0 0.0386" rpy="0 0 0" />-->
-		<geometry>
-			<!--<cylinder radius="0.065" length="0.0772" />--> <mesh filename="$(find cob3_defs)/common/files/meshes/Palm.stl" />
-		</geometry>
-	</visual>
+	<link name="link_finger1-3">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/>
+			</geometry>
+		</collision>
+	</link>
 
-	<collision>
-		<origin xyz="0 0 0.0386" rpy="0 0 0" />
-		<geometry>
-			<cylinder radius="0.065" length="0.0772" /> <!--cylinder approx. -->
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
+	<!-- finger2 -->
+	<link name="link_finger2-1">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/knuckle.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="1.57079633 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/knuckle.stl"/>
+			</geometry>
+		</collision>
+	</link>
 
-<link name="Finger1-1">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
+	<link name="link_finger2-2">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger.stl"/>
+			</geometry>
+		</collision>
+	</link>
 
-	<visual>
+	<link name="link_finger2-3">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<!-- thumb -->
+	<link name="link_thumb1">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/knuckle.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://pr2_defs/meshes/knuckle.stl"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="link_thumb2">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>	
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://pr2_defs/meshes/finger.stl"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_thumb3">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- define colors for links -->
+	<gazebo reference="link_palm">
+		<material>Gazebo/Grey</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_finger1-1">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_finger1-2">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_finger1-3">
+		<material>Gazebo/Blue</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_finger2-1">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_finger2-2">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_finger2-3">
+		<material>Gazebo/Blue</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_thumb1">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_thumb2">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_thumb3">
+		<material>Gazebo/Blue</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<!-- ################################################################################# -->
+	<!-- add joints -->
+	
+	<!-- palm -->
+	<joint name="joint_world_palm" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<parent link="world"/>
+		<child link="link_palm"/>
+	</joint>
+
+	<!-- finger1 -->
+	<joint name="joint_palm_finger1-1" type="revolute">
+		<origin xyz="0.01905 0.033 0.0745" rpy="0 0 3.159265" />
+		<parent link="link_palm"/>
+		<child link="link_finger1-1"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="30" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<joint name="joint_finger1-1_finger1-2" type="revolute">
 		<origin xyz="0 0 0.0165" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/Knuckle.stl" />
-		</geometry>
-		<!--<origin xyz="0 0.00335 0.0165" rpy="1.57079633 0 0" />
-		<geometry>
-			<cylinder radius="0.014" length="0.0462"/>
-		</geometry>-->
-	</visual>
-
-	<collision>
-		<origin xyz="0 0.00335 0.0165" rpy="1.57079633 0 0" />
-		<geometry>
-			<cylinder radius="0.014" length="0.0462"/>
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Finger1-2">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
-	<!--
-		<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/.stl" />
-		</geometry>-->
-		<origin xyz="0 0 0.04325" rpy="0 0 0" />
-		<geometry>
-			<box size="0.0306 0.024 0.049 " />
-		</geometry>
-	</visual>
-
-	<collision>
-		<origin xyz="0 0 0.04325" rpy="0 0 0" />
-		<geometry>
-			<box size="0.0306 0.024 0.049 " />
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Finger1-3">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
-		<!--<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry> <mesh filename="$(find cob3_defs)/common/files/meshes/Bone2.stl" />
-		</geometry>-->
-		<origin xyz="0 0 0.02825" rpy="0 0 0" />
-		<geometry>
-			<box size="0.02964 0.022 0.0565" /> <!-- box approximation, correct width and height-->
-		</geometry>
-	</visual>
-
-	<collision>
-		<!--<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/Bone2.stl" />
-		</geometry> -->
-		<origin xyz="0 0 0.02825" rpy="0 0 0" />
-		<geometry>
-			<box size="0.02964 0.022 0.0565" /> <!-- box approximation, correct width and height-->
-		</geometry>
-		
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Finger2-1">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
+		<parent link="link_finger1-1"/>
+		<child link="link_finger1-2"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="30" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<joint name="joint_finger1-2_finger1-3" type="revolute">
+		<origin xyz="0 0 0.0865" rpy="0 0 0" />
+		<parent link="link_finger1-2"/>
+		<child link="link_finger1-3"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="30" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<!-- finger2 -->
+	<joint name="joint_palm_finger2-1" type="revolute">
+		<origin xyz="0.01905 -0.033 0.0745" rpy="0 0 3.14159265" />
+		<parent link="link_palm"/>
+		<child link="link_finger2-1"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="30" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<joint name="joint_finger2-1_finger2-2" type="revolute">
 		<origin xyz="0 0 0.0165" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/Knuckle.stl" />
-		</geometry>
-		<!--<origin xyz="0 0.00335 0.0165" rpy="1.57079633 0 0" />
-		<geometry>
-			<cylinder radius="0.014" length="0.0462"/>
-		</geometry>-->
-	</visual>
-
-	<collision>
-		<origin xyz="0 0.00335 0.0165" rpy="1.57079633 0 0" />
-		<geometry>
-			<cylinder radius="0.014" length="0.0462"/>
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Finger2-2">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
-	<!--
-		<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/.stl" />
-		</geometry>-->
-		<origin xyz="0 0 0.04325" rpy="0 0 0" />
-		<geometry>
-			<box size="0.0306 0.024 0.049 " />
-		</geometry>
-	</visual>
-
-	<collision>
-		<origin xyz="0 0 0.04325" rpy="0 0 0" />
-		<geometry>
-			<box size="0.0306 0.024 0.049 " />
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Finger2-3">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
-		<!--<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry> <mesh filename="$(find cob3_defs)/common/files/meshes/Bone2.stl" />
-		</geometry>-->
-		<origin xyz="0 0 0.02825" rpy="0 0 0" />
-		<geometry>
-			<box size="0.02964 0.022 0.0565" /> <!-- box approximation, correct width and height-->
-		</geometry>
-	</visual>
-
-	<collision>
-		<!--<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/Bone2.stl" />
-		</geometry> -->
-		<origin xyz="0 0 0.02825" rpy="0 0 0" />
-		<geometry>
-			<box size="0.02964 0.022 0.0565" /> <!-- box approximation, correct width and height-->
-		</geometry>
-		
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Thumb-1">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
+		<parent link="link_finger2-1"/>
+		<child link="link_finger2-2"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="30" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<joint name="joint_finger2-2_finger2-3" type="revolute">
+		<origin xyz="0 0 0.0865" rpy="0 0 0" />
+		<parent link="link_finger2-2"/>
+		<child link="link_finger2-3"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="30" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<!-- thumb -->
+	<joint name="joint_palm_thumb1" type="revolute">
+		<origin xyz="-0.03811 0 0.0745 " rpy="0 0 0" />
+		<parent link="link_palm"/>
+		<child link="link_thumb1"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<joint name="joint_thumb1_thumb2" type="revolute">
 		<origin xyz="0 0 0.0165" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/Knuckle.stl" />
-		</geometry>
-		<!--<origin xyz="0 0.00335 0.0165" rpy="1.57079633 0 0" />
-		<geometry>
-			<cylinder radius="0.014" length="0.0462"/>
-		</geometry>-->
-	</visual>
+		<parent link="link_thumb1"/>
+		<child link="link_thumb2"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+ 
+	<joint name="joint_thumb2_thumb3" type="revolute">
+		<origin xyz="0 0 0.0865" rpy="0 0 0" />
+		<parent link="link_thumb2"/>
+		<child link="link_thumb3"/>
+		<axis xyz="0 1 0" />
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
 
-	<collision>
-		<origin xyz="0 0.00335 0.0165" rpy="1.57079633 0 0" />
-		<geometry>
-			<cylinder radius="0.014" length="0.0462"/>
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Thumb-2">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="1"/>							<!--review -->
-		<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
-	</inertial>
-
-	<visual>
-	<!--
-		<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/.stl" />
-		</geometry>-->
-		<origin xyz="0 0 0.04325" rpy="0 0 0" />
-		<geometry>
-			<box size="0.0306 0.024 0.049 " />
-		</geometry>
-	</visual>
-
-	<collision>
-		<origin xyz="0 0 0.04325" rpy="0 0 0" />
-		<geometry>
-			<box size="0.0306 0.024 0.049 " />
-		</geometry>
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<link name="Thumb-3">
-	<inertial>
-		<origin xyz="0 0 0" rpy="0 0 0"/> <!-- needs to be C.O.G -->
-		<mass value="10"/>							<!--review -->
-		<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
-	</inertial>
-
-	<visual>
-		<!--<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry> <mesh filename="$(find cob3_defs)/common/files/meshes/Bone2.stl" />
-		</geometry>-->
-		<origin xyz="0 0 0.02825" rpy="0 0 0" />
-		<geometry>
-			<box size="0.02964 0.022 0.0565" /> <!-- box approximation, correct width and height-->
-		</geometry>
-	</visual>
-
-	<collision>
-		<!--<origin xyz="0 0 0" rpy="0 0 0" />
-		<geometry>
-			<mesh filename="$(find cob3_defs)/common/files/meshes/Bone2.stl" />
-		</geometry> -->
-		<origin xyz="0 0 0.02825" rpy="0 0 0" />
-		<geometry>
-			<box size="0.02964 0.022 0.0565" /> <!-- box approximation, correct width and height-->
-		</geometry>
-		
-		<contact_coefficient mu="0" k_p="1000.0" k_d="1.0"/> <!--review -->
-	</collision>
-</link>
-
-<joint name="World_palm" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="world"/>
-    <child link="Palm"/>
- </joint>
-
- <joint name="palm_finger1-1" type="revolute">  <!-- make the second finger mimic this one -->
-    <!--<origin xyz="-0.033 -0.019053 0.017" rpy="1.570796327 0 -1.570796327" /> -->
-     <origin xyz="0.01905 0.033 0.0772" rpy="0 0 3.159265" />
-        <parent link="Palm"/>
-    <child link="Finger1-1"/>
-	<axis xyz="0 0 1" /> <!--0 1 0 -->
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="1.57079633" lower="0" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
-  <joint name="finger1-1_finger1-2" type="revolute">
-    <origin xyz="0 0 0.0165" rpy="0 0 0" />
-    <parent link="Finger1-1"/>
-    <child link="Finger1-2"/>
-	<axis xyz="0 1 0" /> <!--1 0 0-->
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
-   <joint name="finger1-2_finger1-3" type="revolute">
-    <origin xyz="0 0 0.0865" rpy="0 0 0" />
-    <parent link="Finger1-2"/>
-    <child link="Finger1-3"/>
-	<axis xyz="0 1 0" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
- <joint name="palm_finger2-1" type="revolute">  <!-- make this knuckle mimic-->
-    <!--<origin xyz="0.033 -0.019053 0.017" rpy="1.570796327 0 -1.570796327" />-->
-     <origin xyz="0.01905 -0.033 0.0772" rpy="0 0 3.14159265" />
-    <parent link="Palm"/>
-    <child link="Finger2-1"/>
-	<axis xyz="0 0 1" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="0" lower="-1.57079633" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
-  <joint name="finger2-1_finger2-2" type="revolute">
-    <origin xyz="0 0 0.01650" rpy="0 0 0" />
-    <parent link="Finger2-1"/>
-    <child link="Finger2-2"/>
-	<axis xyz="0 1 0" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
-   <joint name="finger2-2_finger2-3" type="revolute">
-    <origin xyz="0 0 0.0865" rpy="0 0 0" />
-    <parent link="Finger2-2"/>
-    <child link="Finger2-3"/>
-	<axis xyz="0 1 0" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
- 
- <joint name="palm_Thumb-1" type="revolute">
-  <!--  <origin xyz="0 0.038106 0.017" rpy="1.570796327 0 1.570796327" /> -->
-    <origin xyz="-0.03811 0 0.0772 " rpy="0 0 0" />
-    <parent link="Palm"/>
-    <child link="Thumb-1"/>
-	<axis xyz="0 1 0" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="0" lower="-1.57079633" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
-  <joint name="Thumb-1_Thumb-2" type="revolute">
-    <origin xyz="0 0 0.01650" rpy="0 0 0" />
-    <parent link="Thumb-1"/>
-    <child link="Thumb-2"/>
-	<axis xyz="1 0 0" />
-    <calibration reference_position="0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="30" velocity="1.0" upper="6.283185306" lower="-6.283185306" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-    <safety_controller k_velocity="10"/>
- </joint>
- 
-   <joint name="Thumb-2_Thumb-3" type="revolute">
-    <origin xyz="0 0 0.0865" rpy="0 0 0" />
-    <parent link="Thumb-2"/>
-    <child link="Thumb-3"/>
-	<axis xyz="1 0 0" />
-    <limit effort="100" lower="-1" upper="1" velocity="5"/>
- </joint>
- 
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="palm_finger1-1"/>
+	<!-- ################################################################################# -->
+	<!-- add transmissions -->
+	
+	<!-- finger1 -->
+	<transmission name="trans_palm_finger1-1" type="SimpleTransmission">
+		<actuator name="motor_palm_finger1-1"/>
+		<joint name="joint_palm_finger1-1"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="finger1-1_finger1-2"/>
+	<transmission name="trans_finger1-1_finger1-2" type="SimpleTransmission">
+		<actuator name="motor_finger1-1_finger1-2"/>
+		<joint name="joint_finger1-1_finger1-2"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="finger1-2_finger1-3"/>
+	<transmission name="trans_finger1-2_finger1-3" type="SimpleTransmission">
+		<actuator name="motor_finger1-2_finger1-3"/>
+		<joint name="joint_finger1-2_finger1-3"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="palm_finger2-1"/>
+	<!-- finger2 -->
+	<transmission name="trans_palm_finger2-1" type="SimpleTransmission">
+		<actuator name="motor_palm_finger2-1"/>
+		<joint name="joint_palm_finger2-1"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="finger2-1_finger2-2"/>
+	<transmission name="trans_finger2-1_finger2-2" type="SimpleTransmission">
+		<actuator name="motor_finger2-1_finger2-2"/>
+		<joint name="joint_finger2-1_finger2-2"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="finger2-2_finger2-3"/>
+	<transmission name="trans_finger2-2_finger2-3" type="SimpleTransmission">
+		<actuator name="motor_finger2-2_finger2-3"/>
+		<joint name="joint_finger2-2_finger2-3"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger3-1_rotation_motor"/>
-		<joint name="palm_Thumb-1"/>
+	<!-- thumb -->
+	<transmission name="trans_palm_thumb1" type="SimpleTransmission">
+		<actuator name="motor_palm_thumb1"/>
+		<joint name="joint_palm_thumb1"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="Thumb-1_Thumb-2"/>
+	<transmission name="trans_thumb1_thumb2" type="SimpleTransmission">
+		<actuator name="motor_thumb1_thumb2"/>
+		<joint name="joint_thumb1_thumb2"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 	
-	<transmission name="palm_finger1-1_trans" type="SimpleTransmission">
-		<actuator name="palm_finger1-1_rotation_motor"/>
-		<joint name="Thumb-2_Thumb-3"/>
+	<transmission name="trans_thumb2_thumb3" type="SimpleTransmission">
+		<actuator name="motor_thumb2_thumb3"/>
+		<joint name="joint_thumb2_thumb3"/>
 		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
 	</transmission>
 
-
-
- 
- 
 </robot>
-
