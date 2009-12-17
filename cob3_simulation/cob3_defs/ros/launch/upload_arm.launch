@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- send pr2_armless urdf to param server -->
+    <param name="robot_description" textfile="$(find cob3_defs)/ros/defs/arm.urdf" /> 
+<!--	<param name="robot_description" textfile="$(find cob3_defs)/SDH.urdf" />-->
+    
+</launch>
