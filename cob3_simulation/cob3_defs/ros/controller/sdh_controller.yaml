@@ -2,81 +2,72 @@ controller_palm_finger1-1:
   type: JointPositionController
   joint: joint_palm_finger1-1
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
 
 controller_finger1-1_finger1-2:
   type: JointPositionController
   joint: joint_finger1-1_finger1-2
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
     
 controller_finger1-2_finger1-3:
   type: JointPositionController
   joint: joint_finger1-2_finger1-3
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
 
 
 controller_palm_finger2-1:
   type: JointPositionController
   joint: joint_palm_finger2-1
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
 
 controller_finger2-1_finger2-2:
   type: JointPositionController
   joint: joint_finger2-1_finger2-2
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
     
 controller_finger2-2_finger2-3:
   type: JointPositionController
   joint: joint_finger2-2_finger2-3
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
 
 
 controller_palm_thumb1:
   type: JointPositionController
   joint: joint_palm_thumb1
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
 
 controller_thumb1_thumb2:
   type: JointPositionController
   joint: joint_thumb1_thumb2
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
     
 controller_thumb2_thumb3:
   type: JointPositionController
   joint: joint_thumb2_thumb3
   pid:
-    p: 1
-    i: 0.01
-    d: 2
-    i_clamp: 1
+    p: 50
+    i: 10
+    d: 20
