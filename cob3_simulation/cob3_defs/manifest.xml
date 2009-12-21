@@ -12,5 +12,6 @@
   <depend package="urdf"/>
   <depend package="ivcon"/>
   <depend package="convex_decomposition"/>
+  <depend package="pr2_controller_manager"/>
 
 </package>
