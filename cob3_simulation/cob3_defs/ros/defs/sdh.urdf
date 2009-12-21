@@ -267,7 +267,7 @@
 
 	<!-- palm -->
 	<joint name="joint_armTCP_palm" type="fixed">
-		<origin xyz="0 0 0.1125" rpy="0 0 0"/> <!-- TODO put in real offset -->
+		<origin xyz="0 0 0.1126" rpy="0 0 0"/>
 		<parent link="link_arm7"/>
 		<child link="link_palm"/>
 	</joint>
@@ -352,6 +352,7 @@
 		<parent link="link_thumb2"/>
 		<child link="link_thumb3"/>
 		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
 		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
 
