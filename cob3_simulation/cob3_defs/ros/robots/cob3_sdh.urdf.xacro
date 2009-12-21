@@ -12,15 +12,17 @@
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" />
+			<origin xyz="0 0 0.0563" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://cob3_defs/common/files/meshes/arm7.stl" />
+		        <box size="0.1 0.1 0.1126"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/arm7.stl" /> -->
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0" rpy="0 0 0" />
+			<origin xyz="0 0 0.0563" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://cob3_defs/common/files/meshes/arm7.stl"/>
+		        <box size="0.1 0.1 0.1126"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/arm7.stl"/> -->
 			</geometry>
 		</collision>
 	</link>
