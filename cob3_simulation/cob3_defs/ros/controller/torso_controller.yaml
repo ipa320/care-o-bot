@@ -1,0 +1,47 @@
+controller_torso_tray:
+  type: JointPositionController
+  joint: joint_torso_tray
+  pid:
+    p: 500
+    i: 100
+    d: 200
+
+controller_torso_neckZ:
+  type: JointPositionController
+  joint: joint_torso_neckZ
+  pid:
+    p: 500
+    i: 100
+    d: 200
+    
+controller_neckZ_neck:
+  type: JointPositionController
+  joint: joint_neckZ_neck
+  pid:
+    p: 500
+    i: 100
+    d: 200
+    
+controller_neck_headZ:
+  type: JointPositionController
+  joint: joint_neck_headZ
+  pid:
+    p: 500
+    i: 100
+    d: 200
+    
+controller_headZ_head:
+  type: JointPositionController
+  joint: joint_headZ_head
+  pid:
+    p: 500
+    i: 100
+    d: 200
+    
+controller_head_eyes:
+  type: JointPositionController
+  joint: joint_head_eyes
+  pid:
+    p: 500
+    i: 100
+    d: 200

@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 	
+	<!-- launch torso controller-->
+	<include file="$(find cob3_defs)/ros/launch/torso_controller.launch" />
+	
 	<!-- launch arm controller-->
 	<include file="$(find cob3_defs)/ros/launch/arm_controller.launch" />
 	

@@ -7,6 +7,13 @@
 	<!-- include gazebo defs-->
 	<include filename="$(find cob3_defs)/ros/defs/gazebo.urdf" />
 
+	<!-- create joint to world -->
+	<joint name="joint_world_arm0" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="world"/>
+		<child link="link_arm0"/>
+	</joint>
+
 	<!-- include arm defs-->
 	<include filename="$(find cob3_defs)/ros/defs/arm.urdf" />
 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+	<rosparam file="$(find cob3_defs)/ros/controller/torso_controller.yaml" command="load"/>
+
+	<node name="spawn_torso_controller" pkg="pr2_controller_manager" type="spawner" args="
+		controller_torso_tray
+		controller_torso_neckZ
+		controller_neckZ_neck
+		controller_neck_headZ
+		controller_headZ_head
+		controller_head_eyes
+		" respawn="false" output="screen" />
+	
+</launch>

@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<robot name="torso"
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+
+	<!-- ################################################################################# -->
+	<!-- add links-->
+	
+	<!-- torso -->
+	<link name="link_torso">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/torso.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/torso.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- tray -->
+	<link name="link_tray">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- neck -->
+	<link name="link_neckZ">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_neck">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/neck.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/neck.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- head -->
+	<link name="link_headZ">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</collision>
+	</link>	
+	
+	<link name="link_head">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/head.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/head.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- eyes -->
+	<link name="link_eyes">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.01"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.01"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_colorcameraLeft">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_colorcameraRight">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_swissranger">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.1 0.1 0.1"/>
+<!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- define colors for links -->
+	<gazebo reference="link_torso">
+		<material>Gazebo/Grey</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_tray">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_neckZ">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>true</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_neck">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_headZ">
+		<material>Gazebo/Grey</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_head">
+		<material>Gazebo/Grey</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_eyes">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_colorcameraLeft">
+		<material>Gazebo/Blue</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>	
+	
+	<gazebo reference="link_colorcameraRight">
+		<material>Gazebo/Blue</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_swissranger">
+		<material>Gazebo/Green</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<!-- ################################################################################# -->
+	<!-- add joints -->
+	
+	<!-- torso -->
+	
+
+	<!-- tray -->
+	<joint name="joint_torso_tray" type="revolute">
+		<origin xyz="0 0.2 0.1" rpy="0 0 0" />
+		<parent link="link_torso"/>
+		<child link="link_tray"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<!-- neck -->
+	<joint name="joint_torso_neckZ" type="revolute">
+		<origin xyz="0 0 0.1" rpy="0 0 0" />
+		<parent link="link_torso"/>
+		<child link="link_neckZ"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<joint name="joint_neckZ_neck" type="revolute">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="link_neckZ"/>
+		<child link="link_neck"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<!-- head -->
+	<joint name="joint_neck_headZ" type="revolute">
+		<origin xyz="0 0 0.1" rpy="0 0 0" />
+		<parent link="link_neck"/>
+		<child link="link_headZ"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<joint name="joint_headZ_head" type="revolute">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="link_headZ"/>
+		<child link="link_head"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<!-- eyes -->
+	<joint name="joint_head_eyes" type="revolute">
+		<origin xyz="0 0 0.1" rpy="0 0 0" />
+		<parent link="link_head"/>
+		<child link="link_eyes"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<joint name="joint_eyes_colorcameraLeft" type="fixed">
+		<origin xyz="0.05 0.1 0" rpy="0 0 0" />
+		<parent link="link_eyes"/>
+		<child link="link_colorcameraLeft"/>
+	</joint>
+	
+	<joint name="joint_eyes_colorcameraRight" type="fixed">
+		<origin xyz="0.05 -0.1 0" rpy="0 0 0" />
+		<parent link="link_eyes"/>
+		<child link="link_colorcameraRight"/>
+	</joint>
+	
+	<joint name="joint_eyes_swissranger" type="fixed">
+		<origin xyz="0.05 0 0" rpy="0 0 0" />
+		<parent link="link_eyes"/>
+		<child link="link_swissranger"/>
+	</joint>
+
+	<!-- ################################################################################# -->
+	<!-- add transmissions -->
+	
+	<!-- torso -->
+
+	
+	<!-- tray -->
+	<transmission name="trans_torso_tray" type="SimpleTransmission">
+		<actuator name="motor_torso_tray"/>
+		<joint name="joint_torso_tray"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<!-- neck -->
+	<transmission name="trans_torso_neckZ" type="SimpleTransmission">
+		<actuator name="motor_torso_neckZ"/>
+		<joint name="joint_torso_neckZ"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="trans_neckZ_neck" type="SimpleTransmission">
+		<actuator name="motor_neckZ_neck"/>
+		<joint name="joint_neckZ_neck"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<!-- head -->
+	<transmission name="trans_neck_headZ" type="SimpleTransmission">
+		<actuator name="motor_neck_headZ"/>
+		<joint name="joint_neck_headZ"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<transmission name="trans_headZ_head" type="SimpleTransmission">
+		<actuator name="motor_headZ_head"/>
+		<joint name="joint_headZ_head"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<!-- eyes -->
+	<transmission name="trans_head_eyes" type="SimpleTransmission">
+		<actuator name="motor_head_eyes"/>
+		<joint name="joint_head_eyes"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+
+</robot>

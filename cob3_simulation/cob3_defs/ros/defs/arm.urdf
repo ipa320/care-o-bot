@@ -13,19 +13,19 @@
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.005" rpy="0 0 0" />
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
 			<geometry>
-				<cylinder radius="0.1" length="0.01"/> <!-- TODO put in stl mesh -->
+				<box size="0.1 0.1 0.1"/> <!-- TODO put in stl file -->
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.005" rpy="0 0 0" />
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
 			<geometry>
-				<cylinder radius="0.1" length="0.01"/> <!-- TODO put in stl mesh -->
+				<box size="0.1 0.1 0.1"/> <!-- TODO put in stl file -->
 			</geometry>
 		</collision>
 	</link>
-
+	
 	<link name="link_arm1">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -35,13 +35,13 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://cob3_defs/common/files/meshes/arm1.stl" />
+				<mesh filename="package://cob3_defs/common/files/meshes/arm1.stl" /> <!-- TODO put in changed stl file -->
 			</geometry>
 		</visual>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://cob3_defs/common/files/meshes/arm1.stl"/>
+				<mesh filename="package://cob3_defs/common/files/meshes/arm1.stl"/> <!-- TODO put in changed stl file -->
 			</geometry>
 		</collision>
 	</link>
@@ -166,9 +166,8 @@
 		</collision>
 	</link>
 
-	<!-- define colors for links -->
 	<gazebo reference="link_arm0">
-		<material>Gazebo/Black</material>
+		<material>Gazebo/Grey</material>
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
@@ -209,32 +208,24 @@
 
 	<!-- ################################################################################# -->
 	<!-- add joints -->
-	<joint name="joint_world_arm0" type="fixed">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
-		<parent link="world"/>
-		<child link="link_arm0"/>
-	</joint>
-	
 	<joint name="joint_arm0_arm1" type="revolute">
-		<origin xyz="0 0 0.01" rpy="0 0 0" /> <!-- TODO put in real offset -->
+		<origin xyz="0 0 0.1" rpy="0 0 0" /> <!-- TODO put in real offset -->
 		<parent link="link_arm0"/>
 		<child link="link_arm1"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>
 	
 	<joint name="joint_arm1_arm2" type="revolute">
-		<origin xyz="0 0 0.25" rpy="0 0 0" />
+		<origin xyz="0 0 0.25" rpy="0 0 0" />  <!-- TODO put in changed offset -->
 		<parent link="link_arm1"/>
 		<child link="link_arm2"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>
 
 	<joint name="joint_arm2_arm3" type="revolute">
@@ -245,7 +236,6 @@
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>	
 
 	<joint name="joint_arm3_arm4" type="revolute">
@@ -256,7 +246,6 @@
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>
 
 	<joint name="joint_arm4_arm5" type="revolute">
@@ -267,7 +256,6 @@
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>
 	
 	<joint name="joint_arm5_arm6" type="revolute">
@@ -278,7 +266,6 @@
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" velocity="0.01" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<dynamics damping="100.0" friction="100.0"/>
-		
 	</joint>
 	
 	<joint name="joint_arm6_arm7" type="revolute">
