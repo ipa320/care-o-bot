@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-
-    <!-- send cob3 urdf to param server --> 
-    <param name="robot_description" command="$(find xacro)/xacro.py '$(find cob3_defs)/ros/robots/cob3.urdf.xacro'" />
-    
-</launch>

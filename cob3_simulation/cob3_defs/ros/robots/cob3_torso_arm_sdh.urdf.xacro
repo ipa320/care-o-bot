@@ -7,15 +7,19 @@
 	<!-- include gazebo defs-->
 	<include filename="$(find cob3_defs)/ros/defs/gazebo.urdf" />
 	
-	<!-- include torso defs-->
-	<include filename="$(find cob3_defs)/ros/defs/platform.urdf" />
+	<!-- create joint to world -->
+	<joint name="joint_world_torso" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="world"/>
+		<child link="link_torso"/>
+	</joint>
 	
 	<!-- include torso defs-->
 	<include filename="$(find cob3_defs)/ros/defs/torso.urdf" />
 	
 	<joint name="joint_basePlate_torso" type="fixed">
-		<origin xyz="0 0 0.5" rpy="0 0 0" />
-		<parent link="link_platform"/>
+		<origin xyz="0 0 0.1126" rpy="0 0 0" />
+		<parent link="link_base_Plate"/>
 		<child link="link_torso"/>
 	</joint>
 	
