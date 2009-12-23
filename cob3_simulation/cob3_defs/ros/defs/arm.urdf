@@ -8,20 +8,20 @@
 	<!-- add links-->
 	<link name="link_arm0">
 		<inertial>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="2"/>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="1.5707963 0 0" />
 			<geometry>
-				<box size="0.1 0.1 0.1"/> <!-- TODO put in stl file -->
+				<mesh filename="package://cob3_defs/common/files/meshes/arm0.stl" /> <!-- TODO put in stl file -->
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="1.5707963 0 0" />
 			<geometry>
-				<box size="0.1 0.1 0.1"/> <!-- TODO put in stl file -->
+				<mesh filename="package://cob3_defs/common/files/meshes/arm0.stl" /> <!-- TODO put in stl file -->
 			</geometry>
 		</collision>
 	</link>
@@ -209,7 +209,7 @@
 	<!-- ################################################################################# -->
 	<!-- add joints -->
 	<joint name="joint_arm0_arm1" type="revolute">
-		<origin xyz="0 0 0.1" rpy="0 0 0" /> <!-- TODO put in real offset -->
+		<origin xyz="0 0 0.0569" rpy="0 0 0" /> <!-- TODO put in real offset -->
 		<parent link="link_arm0"/>
 		<child link="link_arm1"/>
 		<axis xyz="0 0 1" />
@@ -219,7 +219,7 @@
 	</joint>
 	
 	<joint name="joint_arm1_arm2" type="revolute">
-		<origin xyz="0 0 0.25" rpy="0 0 0" />  <!-- TODO put in changed offset -->
+		<origin xyz="0 0 0.1931" rpy="0 0 0" />  <!-- TODO put in changed offset -->
 		<parent link="link_arm1"/>
 		<child link="link_arm2"/>
 		<axis xyz="0 1 0" />

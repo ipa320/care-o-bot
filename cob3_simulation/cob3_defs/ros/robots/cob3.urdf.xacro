@@ -7,11 +7,12 @@
 	<!-- include gazebo defs-->
 	<include filename="$(find cob3_defs)/ros/defs/gazebo.urdf" />
 	
-	<!-- include torso defs-->
+	<!-- include platform defs-->
 	<include filename="$(find cob3_defs)/ros/defs/platform.urdf" />
 	
 	<!-- include torso defs-->
 	<include filename="$(find cob3_defs)/ros/defs/torso.urdf" />
+	<include filename="$(find cob3_defs)/ros/defs/torso_sensors.urdf" />
 	
 	<joint name="joint_basePlate_torso" type="fixed">
 		<origin xyz="0 0 0.5" rpy="0 0 0" />

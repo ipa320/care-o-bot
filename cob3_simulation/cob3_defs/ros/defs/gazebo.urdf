@@ -19,4 +19,7 @@
 		</controller:gazebo_ros_controller_manager>
 	</gazebo>
 
+	<!-- define global prpperties -->
+	<property name="M_PI" value="3.1415926535897931" />
+
 </robot>

@@ -16,5 +16,8 @@
 	
 	<!-- include torso defs-->
 	<include filename="$(find cob3_defs)/ros/defs/torso.urdf" />
+	
+	<!-- include sensor defs-->
+	<include filename="$(find cob3_defs)/ros/defs/torso_sensors.urdf" />
 
 </robot>
