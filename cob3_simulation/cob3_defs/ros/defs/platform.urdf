@@ -15,15 +15,17 @@
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.15" rpy="0 0 0" />
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.6 0.4 0.3"/>
+<!--		        <box size="0.6 0.4 0.3"/> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/platform.stl" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.15" rpy="0 0 0" />
+			<origin xyz="0 0 0.05" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.6 0.4 0.3"/>
+<!--		        <box size="0.6 0.4 0.3"/> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/platform.stl" />
 			</geometry>
 		</collision>
 	</link>

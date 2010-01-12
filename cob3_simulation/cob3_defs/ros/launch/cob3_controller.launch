@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- launch platform controller-->
-	<include file="$(find cob3_defs)/ros/launch/platform_controller.launch" />
+<!--	<include file="$(find cob3_defs)/ros/launch/platform_controller.launch" /> -->
 	
 	<!-- launch torso controller-->
 	<include file="$(find cob3_defs)/ros/launch/torso_controller.launch" />

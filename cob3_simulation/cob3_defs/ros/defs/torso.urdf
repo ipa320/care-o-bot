@@ -7,29 +7,191 @@
 	<!-- ################################################################################# -->
 	<!-- add links-->
 	
-	<!-- torso -->
-	<link name="link_torso">
+	<!-- platform -->
+	<link name="link_platform">
 		<inertial>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="20"/>
+			<origin xyz="0 0 -10" rpy="0 0 0"/>
+			<mass value="80"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/torso.stl" /> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/platform.stl" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/torso.stl"/> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/platform.stl"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<!-- wheel front left -->
+	<link name="link_steerFL">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="link_wheelFL">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+					<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+		        <cylinder radius="0.1" length="0.05"/>
 			</geometry>
 		</collision>
 	</link>
 	
+	<!-- wheel front right -->
+	<link name="link_steerFR">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="link_wheelFR">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+					<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+		        <cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</collision>
+	</link>	
+
+	<!-- wheel rear left -->
+	<link name="link_steerRL">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="link_wheelRL">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+					<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+		        <cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<!-- wheel rear right -->
+	<link name="link_steerRR">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.0005" rpy="0 0 0" />
+			<geometry>
+		        <box size="0.001 0.001 0.001"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="link_wheelRR">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+					<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.0025" rpy="1.57 0 0" />
+			<geometry>
+		        <cylinder radius="0.1" length="0.05"/>
+			</geometry>
+		</collision>
+	</link>
+
 	<!-- tray -->
 	<link name="link_tray">
 		<inertial>
@@ -57,7 +219,7 @@
 	<link name="link_neckZ">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.001"/>
+			<mass value="0.1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
@@ -77,30 +239,29 @@
 	<link name="link_neck">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.1"/>
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/neck.stl" /> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/neck.stl" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/neck.stl"/> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/neck.stl"/>
 			</geometry>
 		</collision>
+
 	</link>
 	
 	<!-- head -->
 	<link name="link_headZ">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.001"/>
+			<mass value="0.1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
@@ -120,21 +281,19 @@
 	<link name="link_head">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.1"/>
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/head.stl" /> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/head.stl" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/head.stl"/> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/head.stl"/>
 			</geometry>
 		</collision>
 	</link>
@@ -143,7 +302,7 @@
 	<link name="link_eyes">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.1"/>
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
@@ -165,20 +324,20 @@
 	<link name="link_colorcameraLeft">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.1"/>
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="M_PI 0 0" />
+			<origin xyz="0 0 0.005" rpy="M_PI 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
+		        <box size="0.01 0.01 0.01"/>
 <!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
+		        <box size="0.01 0.01 0.01"/>
 <!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
 			</geometry>
 		</collision>
@@ -187,20 +346,20 @@
 	<link name="link_colorcameraRight">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.1"/>
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
+		        <box size="0.01 0.01 0.01"/>
 <!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
+		        <box size="0.01 0.01 0.01"/>
 <!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
 			</geometry>
 		</collision>
@@ -209,28 +368,68 @@
 	<link name="link_swissranger">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.1"/>
+			<mass value="1"/>
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
+		        <box size="0.01 0.01 0.01"/>
 <!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl" /> -->
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0.005" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
+		        <box size="0.01 0.01 0.01"/>
 <!--				<mesh filename="package://cob3_defs/common/files/meshes/finger_tip.stl"/> -->
 			</geometry>
 		</collision>
 	</link>
 	
 	<!-- define colors for links -->
-	<gazebo reference="link_torso">
+	<gazebo reference="link_platform">
 		<material>Gazebo/Grey</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_steerFL">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_wheelFL">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_steerFR">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_wheelFR">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_steerRL">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_wheelRL">
+		<material>Gazebo/Red</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_steerRR">
+		<material>Gazebo/Black</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="link_wheelRR">
+		<material>Gazebo/Red</material>
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 	
@@ -281,14 +480,87 @@
 
 	<!-- ################################################################################# -->
 	<!-- add joints -->
+
+	<!-- wheel front left -->
+	<joint name="joint_platform_steerFL" type="continuous">
+		<origin xyz="0.235 0.1825 0.092" rpy="0 0 0" />
+		<parent link="link_platform"/>
+		<child link="link_steerFL"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
 	
-	<!-- torso -->
+	<joint name="joint_steerFL_wheelFL" type="continuous">
+		<origin xyz="0 0 0.001" rpy="0 0 0" />
+		<parent link="link_steerFL"/>
+		<child link="link_wheelFL"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
+
+	<!-- wheel front right -->
+	<joint name="joint_platform_steerFR" type="continuous">
+		<origin xyz="0.235 -0.1825 0.092" rpy="0 0 0" />
+		<parent link="link_platform"/>
+		<child link="link_steerFR"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
 	
+	<joint name="joint_steerFR_wheelFR" type="continuous">
+		<origin xyz="0 0 0.001" rpy="0 0 0" />
+		<parent link="link_steerFR"/>
+		<child link="link_wheelFR"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
+	
+	<!-- wheel rear left -->
+	<joint name="joint_platform_steerRL" type="continuous">
+		<origin xyz="-0.235 0.1825 0.092" rpy="0 0 0" />
+		<parent link="link_platform"/>
+		<child link="link_steerRL"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
+	
+	<joint name="joint_steerRL_wheelRL" type="continuous">
+		<origin xyz="0 0 0.001" rpy="0 0 0" />
+		<parent link="link_steerRL"/>
+		<child link="link_wheelRL"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
+
+	<!-- wheel rear right -->
+	<joint name="joint_platform_steerRR" type="continuous">
+		<origin xyz="-0.235 -0.1825 0.092" rpy="0 0 0" />
+		<parent link="link_platform"/>
+		<child link="link_steerRR"/>
+		<axis xyz="0 0 1" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
+	
+	<joint name="joint_steerRR_wheelRR" type="continuous">
+		<origin xyz="0 0 0.001" rpy="0 0 0" />
+		<parent link="link_steerRR"/>
+		<child link="link_wheelRR"/>
+		<axis xyz="0 1 0" />
+	    <calibration reference_position="0.0"/>
+		<limit effort="100" lower="-1" upper="1" velocity="5"/>
+	</joint>
 
 	<!-- tray -->
-	<joint name="joint_torso_tray" type="revolute">
-		<origin xyz="0 0.2 0.1" rpy="0 0 0" />
-		<parent link="link_torso"/>
+	<joint name="joint_platform_tray" type="revolute">
+		<origin xyz="0.5 0 0.8" rpy="0 0 0" />
+		<parent link="link_platform"/>
 		<child link="link_tray"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
@@ -296,27 +568,27 @@
 	</joint>
 	
 	<!-- neck -->
-	<joint name="joint_torso_neckZ" type="revolute">
-		<origin xyz="0 0 0.1" rpy="0 0 0" />
-		<parent link="link_torso"/>
+	<joint name="joint_platform_neckZ" type="revolute">
+		<origin xyz="0.24627 0 0.7798" rpy="0 0 0" />
+		<parent link="link_platform"/>
 		<child link="link_neckZ"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-0.5" upper="0.5" velocity="1.0"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
 	
 	<joint name="joint_neckZ_neck" type="revolute">
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 0.001" rpy="0 0 0" />
 		<parent link="link_neckZ"/>
 		<child link="link_neck"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-0.5" upper="0.5" velocity="1.0"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
-	
+
 	<!-- head -->
 	<joint name="joint_neck_headZ" type="revolute">
-		<origin xyz="0 0 0.1" rpy="0 0 0" />
+		<origin xyz="-0.09039 0 0.30489" rpy="0 0 0" />
 		<parent link="link_neck"/>
 		<child link="link_headZ"/>
 		<axis xyz="0 0 1" />
@@ -325,7 +597,7 @@
 	</joint>
 	
 	<joint name="joint_headZ_head" type="revolute">
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 0.001" rpy="0 0 0" />
 		<parent link="link_headZ"/>
 		<child link="link_head"/>
 		<axis xyz="0 1 0" />
@@ -335,7 +607,7 @@
 	
 	<!-- eyes -->
 	<joint name="joint_head_eyes" type="revolute">
-		<origin xyz="0 0 0.1" rpy="0 0 0" />
+		<origin xyz="-0.1 0 0.2" rpy="0 0 0" />
 		<parent link="link_head"/>
 		<child link="link_eyes"/>
 		<axis xyz="0 1 0" />
@@ -344,19 +616,19 @@
 	</joint>
 	
 	<joint name="joint_eyes_colorcameraLeft" type="fixed">
-		<origin xyz="0.05 0.1 0" rpy="0 0 0" />
+		<origin xyz="0.075 0.05 0" rpy="0 0 0" />
 		<parent link="link_eyes"/>
 		<child link="link_colorcameraLeft"/>
 	</joint>
 	
 	<joint name="joint_eyes_colorcameraRight" type="fixed">
-		<origin xyz="0.05 -0.1 0" rpy="0 0 0" />
+		<origin xyz="0.075 -0.05 0" rpy="0 0 0" />
 		<parent link="link_eyes"/>
 		<child link="link_colorcameraRight"/>
 	</joint>
 	
 	<joint name="joint_eyes_swissranger" type="fixed">
-		<origin xyz="0.05 0 0" rpy="0 0 0" />
+		<origin xyz="0.075 0 0" rpy="0 0 0" />
 		<parent link="link_eyes"/>
 		<child link="link_swissranger"/>
 	</joint>
@@ -364,20 +636,69 @@
 	<!-- ################################################################################# -->
 	<!-- add transmissions -->
 	
-	<!-- torso -->
+	<!-- wheel front left -->
+	<transmission name="trans_platform_steerFL" type="SimpleTransmission">
+		<actuator name="motor_platform_steerFL"/>
+		<joint name="joint_platform_steerFL"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
 
+	<transmission name="trans_steerFL_wheelFL" type="SimpleTransmission">
+		<actuator name="motor_steerFL_wheelFL"/>
+		<joint name="joint_steerFL_wheelFL"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<!-- wheel front right -->
+	<transmission name="trans_platform_steerFR" type="SimpleTransmission">
+		<actuator name="motor_platform_steerFR"/>
+		<joint name="joint_platform_steerFR"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+
+	<transmission name="trans_steerFR_wheelFR" type="SimpleTransmission">
+		<actuator name="motor_steerFR_wheelFR"/>
+		<joint name="joint_steerFR_wheelFR"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<!-- wheel rear left -->
+	<transmission name="trans_platform_steerRL" type="SimpleTransmission">
+		<actuator name="motor_platform_steerRL"/>
+		<joint name="joint_platform_steerRL"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+
+	<transmission name="trans_steerRL_wheelRL" type="SimpleTransmission">
+		<actuator name="motor_steerRL_wheelRL"/>
+		<joint name="joint_steerRL_wheelRL"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+	
+	<!-- wheel rear right -->
+	<transmission name="trans_platform_steerRR" type="SimpleTransmission">
+		<actuator name="motor_platform_steerRR"/>
+		<joint name="joint_platform_steerRR"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
+
+	<transmission name="trans_steerRR_wheelRR" type="SimpleTransmission">
+		<actuator name="motor_steerRR_wheelRR"/>
+		<joint name="joint_steerRR_wheelRR"/>
+		<mechanicalReduction>1</mechanicalReduction>
+	</transmission>
 	
 	<!-- tray -->
-	<transmission name="trans_torso_tray" type="SimpleTransmission">
-		<actuator name="motor_torso_tray"/>
-		<joint name="joint_torso_tray"/>
+	<transmission name="trans_platform_tray" type="SimpleTransmission">
+		<actuator name="motor_platform_tray"/>
+		<joint name="joint_platform_tray"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
 	<!-- neck -->
-	<transmission name="trans_torso_neckZ" type="SimpleTransmission">
-		<actuator name="motor_torso_neckZ"/>
-		<joint name="joint_torso_neckZ"/>
+	<transmission name="trans_platform_neckZ" type="SimpleTransmission">
+		<actuator name="motor_platform_neckZ"/>
+		<joint name="joint_platform_neckZ"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	

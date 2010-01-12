@@ -8,10 +8,10 @@
 	<include filename="$(find cob3_defs)/ros/defs/gazebo.urdf" />
 	
 	<!-- create joint to world -->
-	<joint name="joint_world_torso" type="fixed">
+	<joint name="joint_world_platform" type="fixed">
 		<origin xyz="0 0 0" rpy="0 0 0" />
 		<parent link="world"/>
-		<child link="link_torso"/>
+		<child link="link_platform"/>
 	</joint>
 	
 	<!-- include torso defs-->

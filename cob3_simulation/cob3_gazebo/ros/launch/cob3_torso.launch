@@ -19,6 +19,4 @@
 	<!-- Controllers -->
 	<include file="$(find cob3_defs)/ros/launch/torso_controller.launch" />
 
-<!--	<node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" /> -->
-
 </launch>
