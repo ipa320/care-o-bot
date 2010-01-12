@@ -166,7 +166,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://pr2_defs/meshes/knuckle.stl"/>
+				<mesh filename="package://cob3_defs/common/files/meshes/knuckle.stl"/>
 			</geometry>
 		</collision>
 	</link>
@@ -186,7 +186,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://pr2_defs/meshes/finger.stl"/>
+				<mesh filename="package://cob3_defs/common/files/meshes/finger.stl"/>
 			</geometry>
 		</collision>
 	</link>
