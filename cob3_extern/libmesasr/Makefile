@@ -1,7 +1,7 @@
 all: libmesasr
 
-DPKG = libmesasr-dev-1.0.12-583.i386.deb
-DPKG_URL = http://www.mesa-imaging.ch/dlm.php?fname=./customer/driver/libmesasr-dev-1.0.12-583.i386.deb
+DPKG = libmesasr-dev-1.0.12-608.i386.deb
+DPKG_URL = http://www.mesa-imaging.ch/dlm.php?fname=./customer/driver/$(DPKG)
 SOURCE_DIR = build
 
 libmesasr:
