@@ -5,7 +5,7 @@
  * @date April 2007
  */
 
-#include "include/PowerCubeCtrl.h"
+#include <PowerCubeCtrl.h>
 #include <string>
 #include <sstream>
 #include <time.h>
@@ -50,7 +50,7 @@ bool PowerCubeCtrl::Init(const char* iniFile)
 	// TODO: READ PARAMTERS FROM INIFILE!
     CanDevice = 1;
     CanBaudRate = 1000;
-    
+
     
     ostringstream initStr;
     initStr << "PCAN:" << CanDevice << "," << CanBaudRate;

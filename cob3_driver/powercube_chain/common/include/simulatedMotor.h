@@ -79,10 +79,10 @@ class simulatedMotor
 		virtual RampCommand getRampMove(double targetAngle) { return getRampMove(targetAngle, m_vmax, m_amax); }
 		
 		/// @brief Returns the current Joint Angles
-		virtual double getAngle() { return m_lastMove.pos(); }
+		virtual double getAngle() { return m_lastMove.getPos(); }
 		
 		/// @brief Returns the current Angular velocities (Rad/s)
-		virtual double getVelocity() { return m_lastMove.vel(); }
+		virtual double getVelocity() { return m_lastMove.getVel(); }
 		
 		/// @brief Returns true if the Joint is still moving
 		/// also returns true if Joints are accelerating or decelerating

@@ -4,7 +4,7 @@
  * @date Sept 2007
  */
 
-#include "include/moveCommand.h"
+#include "moveCommand.h"
 #include <math.h>
 #include <stddef.h>
 
