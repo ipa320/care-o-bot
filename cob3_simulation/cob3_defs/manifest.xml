@@ -12,6 +12,7 @@
   <depend package="urdf"/>
   <depend package="ivcon"/>
   <depend package="convex_decomposition"/>
+  <depend package="robot_mechanism_controllers"/>
   <depend package="pr2_controller_manager"/>
 
 </package>

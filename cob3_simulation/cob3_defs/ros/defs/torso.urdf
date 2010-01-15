@@ -200,17 +200,15 @@
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl" /> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0.05" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-		        <box size="0.1 0.1 0.1"/>
-<!--				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl"/> -->
+				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl"/>
 			</geometry>
 		</collision>
 	</link>
@@ -294,6 +292,26 @@
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
 				<mesh filename="package://cob3_defs/common/files/meshes/head.stl"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<link name="link_head_cover">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/head_cover.stl" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://cob3_defs/common/files/meshes/head_cover.stl"/>
 			</geometry>
 		</collision>
 	</link>
@@ -434,7 +452,7 @@
 	</gazebo>
 	
 	<gazebo reference="link_tray">
-		<material>Gazebo/Red</material>
+		<material>Gazebo/Blue</material>
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 	
@@ -455,6 +473,11 @@
 
 	<gazebo reference="link_head">
 		<material>Gazebo/Grey</material>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+	
+	<gazebo reference="link_head_cover">
+		<material>Gazebo/Blue</material>
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
@@ -559,12 +582,12 @@
 
 	<!-- tray -->
 	<joint name="joint_platform_tray" type="revolute">
-		<origin xyz="0.5 0 0.8" rpy="0 0 0" />
+		<origin xyz="0.21864 0.20061 0.83196" rpy="0 0 0" />
 		<parent link="link_platform"/>
 		<child link="link_tray"/>
-		<axis xyz="0 0 1" />
+		<axis xyz="0 1 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="3" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
 	
 	<!-- neck -->
@@ -603,6 +626,12 @@
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
 		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	</joint>
+	
+	<joint name="joint_headZ_head_cover" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="link_head"/>
+		<child link="link_head_cover"/>
 	</joint>
 	
 	<!-- eyes -->
