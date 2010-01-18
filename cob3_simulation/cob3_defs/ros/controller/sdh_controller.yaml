@@ -1,47 +1,47 @@
-controller_palm_finger1-1:
+controller_palm_finger11:
   type: JointPositionController
-  joint: joint_palm_finger1-1
+  joint: joint_palm_finger11
   pid:
     p: 50
     i: 10
     d: 20
 
-controller_finger1-1_finger1-2:
+controller_finger11_finger12:
   type: JointPositionController
-  joint: joint_finger1-1_finger1-2
+  joint: joint_finger11_finger12
   pid:
     p: 50
     i: 10
     d: 20
     
-controller_finger1-2_finger1-3:
+controller_finger12_finger13:
   type: JointPositionController
-  joint: joint_finger1-2_finger1-3
+  joint: joint_finger12_finger13
   pid:
     p: 50
     i: 10
     d: 20
 
 
-controller_palm_finger2-1:
+controller_palm_finger21:
   type: JointPositionController
-  joint: joint_palm_finger2-1
+  joint: joint_palm_finger21
   pid:
     p: 50
     i: 10
     d: 20
 
-controller_finger2-1_finger2-2:
+controller_finger21_finger22:
   type: JointPositionController
-  joint: joint_finger2-1_finger2-2
+  joint: joint_finger21_finger22
   pid:
     p: 50
     i: 10
     d: 20
     
-controller_finger2-2_finger2-3:
+controller_finger22_finger23:
   type: JointPositionController
-  joint: joint_finger2-2_finger2-3
+  joint: joint_finger22_finger23
   pid:
     p: 50
     i: 10
