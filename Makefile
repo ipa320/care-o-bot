@@ -25,6 +25,7 @@ PACKAGES_TO_BUILD=\
 	sickS300\
 	cob3_hokuyo\
 	sdh\
+	libCameraSensors\
 	cob3_cameraSensors\
 	powercube_chain\
 	cob3_arm\
