@@ -12,24 +12,47 @@
 
 #--------------------------------------------------------------------
 # list all packages here
-PACKAGES=\
+PACKAGES_COMMON=\
 cob3_msgs,\
-cob3_srvs,\
+cob3_srvs
+
+PACKAGES_DRIVER=\
 sickS300,\
 cob3_hokuyo,\
 sdh,\
+libCameraSensors,\
 cob3_cameraSensors,\
 powercube_chain,\
 cob3_arm,\
 cob3_platform,\
 cob3_tf_broadcaster,\
 cob3_teleop,\
-cob3_test,\
+cob3_test
+
+PACKAGES_EXTERN=\
+libm5api,\
+libntcan,\
+libpcan,\
+libwm4
+
+PACKAGES_SIMULATION=\
 cob3_defs,\
 cob3_ogre,\
 cob3_gazebo
 
 #--------------------------------------------------------------------
+
+if [ "$1" = "-c" ]; then
+	PACKAGES=$PACKAGES_COMMON
+elif [ "$1" = "-d" ]; then
+	PACKAGES=$PACKAGES_DRIVER
+elif [ "$1" = "-e" ]; then
+	PACKAGES=$PACKAGES_EXTERN
+elif [ "$1" = "-s" ]; then
+	PACKAGES=$PACKAGES_SIMULATION
+else
+	PACKAGES=$PACKAGES_COMMON,$PACKAGES_DRIVER,$PACKAGES_EXTERN,$PACKAGES_SIMULATION
+fi
 
 # create dependency tree
 rxdeps --one --cluster --target=$PACKAGES
