@@ -14,7 +14,7 @@ rosbuild_init()
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/bin)
 #set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/common/lib)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 
 #uncomment if you have defined messages
 #genmsg()
@@ -29,46 +29,23 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/common/lib)
 #rospack_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-# add project libraries
-rosbuild_add_library(CameraSensors 	common/src/AVTPikeCam.cpp
-										common/src/AbstractColorCamera.cpp
-										common/src/AbstractRangeImagingSensor.cpp
-										common/src/CameraSensorToolbox.cpp
-										common/src/VirtualColorCam.cpp
-										common/src/VirtualRangeCam.cpp
-										common/src/MathUtils.cpp
-										common/src/OpenCVUtils.cpp
-										common/src/SR31.cpp
-					)
-
 # add project executable
-#rosbuild_add_executable(${PROJECT_NAME}_swissRanger ros/src/${PROJECT_NAME}_swissRanger.cpp)
-#rosbuild_add_executable(${PROJECT_NAME}_swissRanger_test ros/src/${PROJECT_NAME}_swissRanger_test.cpp)
-#rosbuild_add_executable(${PROJECT_NAME}_colorCamera ros/src/${PROJECT_NAME}_colorCamera.cpp)
-#rosbuild_add_executable(${PROJECT_NAME}_colorCamera_test ros/src/${PROJECT_NAME}_colorCamera_test.cpp)
+rosbuild_add_executable(${PROJECT_NAME}_swissRanger ros/src/${PROJECT_NAME}_swissRanger.cpp)
+rosbuild_add_executable(${PROJECT_NAME}_swissRanger_test ros/src/${PROJECT_NAME}_swissRanger_test.cpp)
+rosbuild_add_executable(${PROJECT_NAME}_colorCamera ros/src/${PROJECT_NAME}_colorCamera.cpp)
+rosbuild_add_executable(${PROJECT_NAME}_colorCamera_test ros/src/${PROJECT_NAME}_colorCamera_test.cpp)
 
 # add include search paths
-#INCLUDE_DIRECTORIES(/usr/local/include/opencv)
-#INCLUDE_DIRECTORIES(/usr/include/Wm4)
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
+#INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # add compile flag
-rosbuild_add_compile_flags(CameraSensors -D__LINUX__)
-#rosbuild_add_compile_flags(${PROJECT_NAME}_swissRanger -D__LINUX__)
-#rosbuild_add_compile_flags(${PROJECT_NAME}_swissRanger_test -D__LINUX__)
-#rosbuild_add_compile_flags(${PROJECT_NAME}_colorCamera -D__LINUX__)
-#rosbuild_add_compile_flags(${PROJECT_NAME}_colorCamera_test -D__LINUX__)
+rosbuild_add_compile_flags(${PROJECT_NAME}_swissRanger -D__LINUX__)
+rosbuild_add_compile_flags(${PROJECT_NAME}_swissRanger_test -D__LINUX__)
+rosbuild_add_compile_flags(${PROJECT_NAME}_colorCamera -D__LINUX__)
+rosbuild_add_compile_flags(${PROJECT_NAME}_colorCamera_test -D__LINUX__)
 
 # link libraries
-#target_link_libraries(${PROJECT_NAME}_swissRanger dc1394 cv cxcore highgui mesasr Wm4Foundation)
-#target_link_libraries(${PROJECT_NAME}_swissRanger ${PROJECT_SOURCE_DIR}/common/lib/libtinyxml.a)
-#target_link_libraries(${PROJECT_NAME}_swissRanger ${PROJECT_SOURCE_DIR}/common/lib/libCameraSensors.so)
-#target_link_libraries(${PROJECT_NAME}_swissRanger_test cv cxcore highgui mesasr Wm4Foundation)
-#target_link_libraries(${PROJECT_NAME}_swissRanger_test ${PROJECT_SOURCE_DIR}/common/lib/libtinyxml.a)
-#target_link_libraries(${PROJECT_NAME}_swissRanger_test ${PROJECT_SOURCE_DIR}/common/lib/libCameraSensors.so)
-#target_link_libraries(${PROJECT_NAME}_colorCamera dc1394 cv cxcore highgui mesasr Wm4Foundation)
-#target_link_libraries(${PROJECT_NAME}_colorCamera ${PROJECT_SOURCE_DIR}/common/lib/libtinyxml.a)
-#target_link_libraries(${PROJECT_NAME}_colorCamera ${PROJECT_SOURCE_DIR}/common/lib/libCameraSensors.so)
-#target_link_libraries(${PROJECT_NAME}_colorCamera_test cv cxcore highgui mesasr Wm4Foundation)
-#target_link_libraries(${PROJECT_NAME}_colorCamera_test ${PROJECT_SOURCE_DIR}/common/lib/libtinyxml.a)
-#target_link_libraries(${PROJECT_NAME}_colorCamera_test ${PROJECT_SOURCE_DIR}/common/lib/libCameraSensors.so)
+target_link_libraries(${PROJECT_NAME}_swissRanger dc1394 cv cxcore highgui mesasr Wm4Foundation CameraSensors tinyxml)
+target_link_libraries(${PROJECT_NAME}_swissRanger_test cv cxcore highgui mesasr Wm4Foundation CameraSensors tinyxml)
+target_link_libraries(${PROJECT_NAME}_colorCamera dc1394 cv cxcore highgui mesasr Wm4Foundation CameraSensors tinyxml)
+target_link_libraries(${PROJECT_NAME}_colorCamera_test cv cxcore highgui mesasr Wm4Foundation CameraSensors tinyxml)

@@ -17,7 +17,7 @@
 #include <cob3_srvs/GetCameraInfo.h>
 
 // external includes
-#include <include/AbstractRangeImagingSensor.h>
+#include <AbstractRangeImagingSensor.h>
 
 using namespace ipa_CameraSensors;
 

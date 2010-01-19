@@ -18,8 +18,8 @@
 #include <cob3_srvs/GetCameraInfo.h>
 
 // external includes
-#include <include/AbstractColorCamera.h>
-#include <include/GlobalDefines.h>
+#include <AbstractColorCamera.h>
+#include <GlobalDefines.h>
 
 using namespace ipa_CameraSensors;
 

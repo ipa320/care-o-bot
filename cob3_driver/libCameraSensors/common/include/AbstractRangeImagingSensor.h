@@ -9,7 +9,7 @@
 #include <cv.h>
 #include <highgui.h>
 #include <iostream>
-#include "tinyxml.h"
+#include "tinyxml/tinyxml.h"
 #include "ThreeDUtils.h"
 #include "OpenCVUtils.h"
 #include "LibCameraSensorsTypes.h"

@@ -14,7 +14,7 @@
 //--
 
 // external includes
-#include <include/AbstractRangeImagingSensor.h>
+#include <AbstractRangeImagingSensor.h>
 
 //####################
 //#### node class ####

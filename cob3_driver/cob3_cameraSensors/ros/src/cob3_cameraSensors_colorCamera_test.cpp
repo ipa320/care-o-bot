@@ -14,8 +14,7 @@
 //--
 
 // external includes
-#include <include/AbstractColorCamera.h>
-//#include <include/GlobalDefines.h>
+#include <AbstractColorCamera.h>
 
 //####################
 //#### node class ####

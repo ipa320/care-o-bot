@@ -21,7 +21,7 @@
 #include <highgui.h>
 #include <cv.h>
 #include <iostream>
-#include "tinyxml.h"
+#include "tinyxml/tinyxml.h"
 #include "LibCameraSensorsTypes.h"
 
 

@@ -9,14 +9,11 @@
   <review status="unreviewed" notes=""/>
   <url>http://www.care-o-bot.org</url>
 
-  <rosdep name="libmesasr"/>
-
   <depend package="roscpp"/>
   <depend package="sensor_msgs"/>
   <depend package="cob3_msgs"/>
   <depend package="cob3_srvs"/>
-  <depend package="opencv2"/>
-  <depend package="libdc1394v2"/>
-  <depend package="libwm4"/>
+  <depend package="libCameraSensors"/>
+  <depend package="tinyxml"/>
 
 </package>
