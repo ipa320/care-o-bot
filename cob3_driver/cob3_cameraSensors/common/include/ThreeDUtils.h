@@ -8,8 +8,8 @@
 #ifndef __THREEDUTILS_H__
 #define __THREEDUTILS_H__
 
-#include "include/MathUtils.h"
-#include "include/GlobalDefines.h"
+#include "MathUtils.h"
+#include "GlobalDefines.h"
 #include <list>
 #include <map>
 #include <set>
@@ -193,6 +193,7 @@ public:
 	//double GetPhiSphere(const Point3Dbl& Point) {return atan2(Point.m_y, Point.m_x);}
 
 	/// Conversion to sphere coordinates.
+	/// Assumption xy-plane is the spherical reference plane
 	void ToSphere();
 	void ToSphereNormalized();
 	
@@ -413,6 +414,17 @@ public:
 	void GetT(Point3Dbl& T) const; ///< Get translation vector.
 	void GetR(Point3Dbl& R) const; ///< Get rotation vector.
 	double GetAlpha() {return (*this)[3];} ///< Get the rotation angle.
+
+	/// ToWorld performs first a right handed rotation around the rotation axis and
+	/// then applies the translation.
+	/// To Frame performs the inverse operation to ToWorld. This means first the data points
+	/// are translated in opposite direction (-t) and then rotated in opposite direction (-alpha)
+	/// around the rotation axis.
+	/// Translation is given by x = this[0], y = this[1], z = this[2]
+	/// Rotation angle alpha is given by alpha = this[3]
+	/// Spherical coordinates of rotation axis centered at the origin is given by theta = this[4], phi = this[5].
+	/// For an explanation of the spherical coordinate system see http://en.wikipedia.org/wiki/Spherical_coordinate_system
+	/// section 'Coordinate system conversion'
 	void ToWorld(const Point3Dbl& In, Point3Dbl& Out) const; ///< Convert to world coordinate system.
 	void ToWorld(Point3Dbl& P) const;  ///< Convert to world coordinate system.
 	void ToWorld(double& x, double& y, double& z) const; ///< Convert to world coordinate system.
@@ -421,6 +433,7 @@ public:
 	void ToFrame(double& x, double& y, double& z) const; ///< Convert from world to frame.
 	void Cloud2World(PointCloud& P) const; ///< Convert a point cloud to world coordinate system.
 	void Cloud2Frame(PointCloud& P) const; ///< Convert a point cloud from world to frame coordinate system.
+
 	void eX(Point3Dbl& EX) const;
 	void eY(Point3Dbl& EY) const;
 	void eZ(Point3Dbl& EZ) const;
@@ -442,8 +455,8 @@ public:
 	/// Get a conversion frame from three matches. Gets the coordinate transformation without knowing the origín points. 
 	/// Not implemented.
 	//int GetFrameFromTriple(const Point3Dbl& A0, const Point3Dbl& A1, const Point3Dbl& A2);
-	int GetFrameThreeMatchesNoOrigin(const Point3Dbl& A0, const Point3Dbl& A1, const Point3Dbl& A2,  
-							const Point3Dbl& B0, const Point3Dbl& B1, const Point3Dbl& B2);
+	int GetFrameThreeMatchesNoOrigin(const Point3Dbl& a0, const Point3Dbl& a1, const Point3Dbl& a2, 
+					const Point3Dbl& b0, const Point3Dbl& b1, const Point3Dbl& b2);
 
 	/// Get a frame conversion from A to B.
 	/// This function uses a "greedy" search over the six frame components to estimate a conversion frame between point cloud A and point cloud B.

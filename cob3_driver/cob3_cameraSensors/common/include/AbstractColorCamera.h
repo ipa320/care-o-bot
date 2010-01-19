@@ -21,8 +21,8 @@
 #include <highgui.h>
 #include <cv.h>
 #include <iostream>
-#include "include/tinyxml.h"
-#include "include/LibCameraSensorsTypes.h"
+#include "tinyxml.h"
+#include "LibCameraSensorsTypes.h"
 
 
 namespace ipa_CameraSensors {
@@ -159,6 +159,8 @@ class AbstractColorCamera
 		t_ColorCameraParameters m_ColorCameraParameters; ///< Storage for xml configuration file data
 
 		t_cameraType m_CameraType; ///< Camera Type
+
+		unsigned int m_BufferSize; ///< Number of images, the camera buffers internally
 	private:
 
 		/// Loads all camera specific parameters from the xml configuration file and saves them in t_ColorCameraParameters.

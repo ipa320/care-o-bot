@@ -100,7 +100,8 @@ namespace ipa_CameraSensors {
 		PROP_ACQUIRE_MODE,			///< Acquire modes for swissranger camera
 		PROP_DISTANCE_OFFSET,		///< Offset that is added to the distance values of the range imaging sensor
 		PROP_ROI,					///< Region of interest
-		PROP_LENS_CALIBRATION		///< Specifies if to use native lens calibration of manufactorer
+		PROP_LENS_CALIBRATION,		///< Specifies if to use native lens calibration of manufactorer
+		PROP_DMA_BUFFER_SIZE		///< Buffer size of camera module
 	};
 
 	/// Enum represents color modes

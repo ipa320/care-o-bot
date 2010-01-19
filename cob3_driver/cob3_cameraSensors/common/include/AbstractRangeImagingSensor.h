@@ -9,10 +9,10 @@
 #include <cv.h>
 #include <highgui.h>
 #include <iostream>
-#include "include/tinyxml.h"
-#include "include/ThreeDUtils.h"
-#include "include/OpenCVUtils.h"
-#include "include/LibCameraSensorsTypes.h"
+#include "tinyxml.h"
+#include "ThreeDUtils.h"
+#include "OpenCVUtils.h"
+#include "LibCameraSensorsTypes.h"
 
 #ifdef __LINUX__
 #define __DLL_ABSTRACTRANGEIMAGINGSENSOR_H__
@@ -48,6 +48,9 @@ public:
 		std::stringstream m_DistanceOffset;			///< Distance offset added to each distance value
 		std::stringstream m_ROI;					///< Region of interest
 		std::stringstream m_LensCalibration;		///< Apply lens calibration from manufacturer
+
+		std::stringstream m_Interface;				///< Interface, the camera is connected to (i.e. USB or ETHERNET)
+		std::stringstream m_IP;						///< IP address of the camera
 	};
 	
 	/// Destructor
@@ -200,6 +203,8 @@ protected:
 
 	bool m_initialized; ///< True, when the camera has sucessfully been initialized.
 	bool m_open;		///< True, when the camera has sucessfully been opend.
+
+	unsigned int m_BufferSize; ///< Number of images, the camera buffers internally
 
 	CvMat* m_intrinsicMatrix;		///< Intrinsic parameters [fx 0 cx; 0 fy cy; 0 0 1]
 	CvMat* m_distortionParameters;	///< Distortion coefficients [k1, k2, p1=0, p2=0]

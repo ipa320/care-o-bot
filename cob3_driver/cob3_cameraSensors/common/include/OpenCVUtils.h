@@ -10,8 +10,8 @@
 #include <highgui.h>
 #include <iostream>
 #include <locale.h>
-#include "include/MathUtils.h"
-#include "include/ThreeDUtils.h"
+#include "MathUtils.h"
+#include "ThreeDUtils.h"
 
 namespace ipa_Utils {
 /// class Point3Dbl;
@@ -65,6 +65,8 @@ void InitUndistortMap( const CvMat* A, const CvMat* dist_coeffs,
 /// @param max Maximal value that is converted, bigger values are clipped to max
 /// @return Return code
 unsigned long ConvertToShowImage(IplImage* Source, IplImage* Dest, int channel = 1, double min = -1, double max = -1);
+
+unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float maskThreshold = 20000, int sourcChannel = 1, double sourceMin = -1, double sourceMax = -1);
 
 // function to get the min and max values for a three layer images
 void GetMinMax(IplImage* Image, Point3Dbl& Min, Point3Dbl& Max);
