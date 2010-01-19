@@ -18,7 +18,7 @@
 PACKAGES_TO_BUILD=\
 	libpcan\
 	libwm4\
-	libmesasr\
+	libm5api\
 	libntcan\
 	cob3_msgs\
 	cob3_srvs\
