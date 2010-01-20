@@ -17,7 +17,7 @@
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *			
- * Author: Ulrich Reiser, email:ulrich.reiser@ipa.fhg.de
+ * Author: Felix Geibel, email:Felix.Geibel@gmx.de
  * Supervised by: Alexander Bubeck, email:alexander.bubeck@ipa.fhg.de
  *
  * Date of creation: June 2008
