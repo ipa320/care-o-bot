@@ -10,7 +10,7 @@
  * Project name: care-o-bot
  * ROS stack name:
  * ROS package name:
- * Function name:
+ * Description:
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *			
