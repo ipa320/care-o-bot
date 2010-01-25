@@ -61,13 +61,10 @@
 
 // ROS message includes
 #include <sensor_msgs/JointState.h>
-#include <cob3_msgs/CmdPos.h>
-#include <cob3_msgs/CmdVel.h>
-#include <cob3_msgs/ActuatorState.h>
+#include <cob3_msgs/JointCommand.h>
 
 // ROS service includes
 #include <cob3_srvs/Init.h>
-#include <cob3_srvs/Home.h>
 #include <cob3_srvs/Stop.h>
 #include <cob3_srvs/SetOperationMode.h>
 
@@ -85,15 +82,12 @@ class NodeClass
                 
         // declaration of topics to publish
         ros::Publisher topicPub_JointState;
-        ros::Publisher topicPub_ActuatorState;
         
 	    // declaration of topics to subscribe, callback is called for new messages arriving
-        ros::Subscriber topicSub_CmdPos;
-        ros::Subscriber topicSub_CmdVel;
+        ros::Subscriber topicSub_JointCommand;
         
         // declaration of service servers
         ros::ServiceServer srvServer_Init;
-        ros::ServiceServer srvServer_Home;
         ros::ServiceServer srvServer_Stop;
         ros::ServiceServer srvServer_SetOperationMode;
             
@@ -109,16 +103,13 @@ class NodeClass
         	PCube = new PowerCubeCtrl();
         
             // implementation of topics to publish
-            topicPub_JointState = n.advertise<sensor_msgs::JointState>("JointState", 1);
-            topicPub_ActuatorState = n.advertise<cob3_msgs::ActuatorState>("ActuatorState", 1);
+            topicPub_JointState = n.advertise<sensor_msgs::JointState>("joint_states", 1);
             
             // implementation of topics to subscribe
-            topicSub_CmdPos = n.subscribe("CmdPos", 1, &NodeClass::topicCallback_CmdPos, this);
-            topicSub_CmdVel = n.subscribe("CmdVel", 1, &NodeClass::topicCallback_CmdVel, this);
+            topicSub_JointCommand = n.subscribe("joint_commands", 1, &NodeClass::topicCallback_JointCommand, this);
             
             // implementation of service servers
             srvServer_Init = n.advertiseService("Init", &NodeClass::srvCallback_Init, this);
-            srvServer_Home = n.advertiseService("Home", &NodeClass::srvCallback_Home, this);
             srvServer_Stop = n.advertiseService("Stop", &NodeClass::srvCallback_Stop, this);
             srvServer_SetOperationMode = n.advertiseService("SetOperationMode", &NodeClass::srvCallback_SetOperationMode, this);
             
@@ -133,39 +124,25 @@ class NodeClass
 
         // topic callback functions 
         // function will be called when a new message arrives on a topic
-        void topicCallback_CmdPos(const cob3_msgs::CmdPos::ConstPtr& msg)
+        void topicCallback_JointCommand(const cob3_msgs::JointCommand::ConstPtr& msg)
         {
             std::string operationMode;
             n.getParam("OperationMode", operationMode);
             if (operationMode == "position")
             {
-                ROS_INFO("received new position command [%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f]", 
-                     msg->cmdPos[0], msg->cmdPos[1], msg->cmdPos[2], msg->cmdPos[3], 
-                     msg->cmdPos[4], msg->cmdPos[5], msg->cmdPos[6]);
+                ROS_INFO("moving powercubes in position mode");
                 //TODO PowerCubeCtrl
-                PCube->MoveJointSpaceSync(msg->cmdPos);
+                PCube->MoveJointSpaceSync(msg->positions);
+            }
+            else if (operationMode == "velocity")
+            {
+            	ROS_INFO("moving powercubes in velocity mode");
+                //TODO PowerCubeCtrl
+                PCube->MoveVel(msg->velocities);  
             }
             else
             {
-                ROS_ERROR("received new position command, but node running with OperationMode [%s]", operationMode.c_str());
-            }
-        }
-
-        void topicCallback_CmdVel(const cob3_msgs::CmdVel::ConstPtr& msg)
-        {          
-            std::string operationMode;
-            n.getParam("OperationMode", operationMode);
-            if (operationMode == "velocity")
-            {
-                ROS_INFO("received new velocity command [%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f,%3.2f]", 
-                     msg->cmdVel[0], msg->cmdVel[1], msg->cmdVel[2], msg->cmdVel[3], 
-                     msg->cmdVel[4], msg->cmdVel[5], msg->cmdVel[6]);
-                //TODO PowerCubeCtrl
-                PCube->MoveVel(msg->cmdVel);                
-            }
-            else
-            {
-                ROS_ERROR("received new velocity command, but node running with OperationMode [%s]", operationMode.c_str());
+                ROS_ERROR("powercubes neither in position nor in velocity mode. OperationMode = [%s]", operationMode.c_str());
             }
         }
 
@@ -174,7 +151,7 @@ class NodeClass
         bool srvCallback_Init(cob3_srvs::Init::Request &req,
                               cob3_srvs::Init::Response &res )
         {
-        	ROS_INFO("Initializing arm");
+        	ROS_INFO("Initializing powercubes");
           	
           	// init powercubes 
           	//TODO: make iniFilepath as an argument
@@ -186,29 +163,24 @@ class NodeClass
             }
             else
             {
-            	ROS_ERROR("Initializing arm not succesfull. error: %s", PCube->getErrorMessage().c_str());
+            	ROS_ERROR("Initializing powercubes not succesfull. error: %s", PCube->getErrorMessage().c_str());
             	res.success = 1; // 0 = true, else = false
             	res.errorMessage.data = PCube->getErrorMessage();
+            	return true;
             }
-            return true;
-        }
-
-        bool srvCallback_Home(cob3_srvs::Home::Request &req,
-                              cob3_srvs::Home::Response &res )
-        {
-	        ROS_INFO("Homing arm");
-        
-            // homing arm
+            
+            // homing powercubes
             if (PCube->doHoming())
             {
-            	ROS_INFO("Homing arm succesfull");
+            	ROS_INFO("Homing powercubes succesfull");
             	res.success = 0; // 0 = true, else = false
             }
             else
             {
-            	ROS_ERROR("Homing arm not succesfull. error: %s", PCube->getErrorMessage().c_str());
+            	ROS_ERROR("Homing powercubes not succesfull. error: %s", PCube->getErrorMessage().c_str());
             	res.success = 1; // 0 = true, else = false
             	res.errorMessage.data = PCube->getErrorMessage();
+            	return true;
             }
             return true;
         }
@@ -216,17 +188,17 @@ class NodeClass
         bool srvCallback_Stop(cob3_srvs::Stop::Request &req,
                               cob3_srvs::Stop::Response &res )
         {
-       	    ROS_INFO("Stopping arm");
+       	    ROS_INFO("Stopping powercubes");
         
             // stopping all arm movements
             if (PCube->Stop())
             {
-            	ROS_INFO("Stopping arm succesfull");
+            	ROS_INFO("Stopping powercubes succesfull");
             	res.success = 0; // 0 = true, else = false
             }
             else
             {
-            	ROS_ERROR("Stopping arm not succesfull. error: %s", PCube->getErrorMessage().c_str());
+            	ROS_ERROR("Stopping powercubes not succesfull. error: %s", PCube->getErrorMessage().c_str());
             	res.success = 1; // 0 = true, else = false
             	res.errorMessage.data = PCube->getErrorMessage();
             }
@@ -255,8 +227,10 @@ class NodeClass
             //PCube->getConfig(ActualPos);
             //get velocities
             sensor_msgs::JointState msg;
+            msg.header.stamp = ros::Time::now();
             msg.set_position_size(DOF);
             msg.set_velocity_size(DOF);
+            
             for (int i = 0; i<DOF; i++ )
             {
                 msg.position[i] = ActualPos[i];
@@ -270,15 +244,6 @@ class NodeClass
             topicPub_JointState.publish(msg);
         }
 
-        void publishActuatorState()
-        {
-            // create message
-            cob3_msgs::ActuatorState msg;
-            
-            // publish message
-            ROS_INFO("published ActuatorState");
-            topicPub_ActuatorState.publish(msg);
-        }
 }; //NodeClass
 
 //#######################
@@ -286,21 +251,18 @@ class NodeClass
 int main(int argc, char** argv)
 {
     // initialize ROS, spezify name of node
-    ros::init(argc, argv, "cob3_driver_arm");
+    ros::init(argc, argv, "powercube_chain");
     
     // create nodeClass
     NodeClass nodeClass;
  
     // main loop
- 	ros::Rate loop_rate(1); // Hz
+ 	ros::Rate loop_rate(5); // Hz
     while(nodeClass.n.ok())
     {
         // publish JointState
         nodeClass.publishJointState();
-        
-        // publish ActuatorState
-        nodeClass.publishActuatorState();
-        
+
         // read parameter
         std::string operationMode;
         nodeClass.n.getParam("OperationMode", operationMode);

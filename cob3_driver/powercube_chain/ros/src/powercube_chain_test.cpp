@@ -61,12 +61,10 @@
 #include <ros/ros.h>
 
 // ROS message includes
-#include <cob3_msgs/CmdVel.h>
-#include <cob3_msgs/CmdPos.h>
+#include <cob3_msgs/JointCommand.h>
 
 // ROS service includes
 #include <cob3_srvs/Init.h>
-#include <cob3_srvs/Home.h>
 #include <cob3_srvs/Stop.h>
 #include <cob3_srvs/SetOperationMode.h>
 
@@ -92,14 +90,13 @@
 int main(int argc, char** argv)
 {
 	// initialize ROS, spezify name of node
-	ros::init(argc, argv, "cob3_driver_arm_test");
+	ros::init(argc, argv, "powercube_chain_test");
 
 	// create a handle for this node, initialize node
 	ros::NodeHandle n;
 
     // topics to publish
-    ros::Publisher topicPub_Vel = n.advertise<cob3_msgs::CmdVel>("CmdVel", 1);
-    ros::Publisher topicPub_Pos = n.advertise<cob3_msgs::CmdPos>("CmdPos", 1);
+    ros::Publisher topicPub_JointCommand = n.advertise<cob3_msgs::JointCommand>("joint_commands", 1);
         
 	// topics to subscribe, callback is called for new messages arriving
     //--
@@ -109,7 +106,6 @@ int main(int argc, char** argv)
         
     // service clients
     ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("Init");
-    ros::ServiceClient srvClient_Home = n.serviceClient<cob3_srvs::Home>("Home");
     ros::ServiceClient srvClient_Stop = n.serviceClient<cob3_srvs::Stop>("Stop");
     ros::ServiceClient srvClient_SetOperationMode = n.serviceClient<cob3_srvs::SetOperationMode>("SetOperationMode");
     
@@ -124,7 +120,7 @@ int main(int argc, char** argv)
     while(n.ok())
     {
         // process user inputs
-        std::cout << "Choose service to test ([s]top, [i]nit, [h]ome, setOperation[M]ode, send[C]ommand, [e]xit): ";
+        std::cout << "Choose service to test ([s]top, [i]nit, setOperation[M]ode, send[C]ommand, [e]xit): ";
         
         
         std::cin >> c;
@@ -146,16 +142,6 @@ int main(int argc, char** argv)
             	//ROS_INFO("querry service [cob3/arm/Stop]");
                 cob3_srvs::Init srv;
                 srv_querry = srvClient_Init.call(srv);
-                srv_execute = srv.response.success;
-                srv_errorMessage = srv.response.errorMessage.data.c_str();
-              	break;
-            }
-            
-            case 'h':
-            {
-            	//ROS_INFO("querry service [cob3/arm/Home]");
-                cob3_srvs::Home srv;
-                srv_querry = srvClient_Home.call(srv);
                 srv_execute = srv.response.success;
                 srv_errorMessage = srv.response.errorMessage.data.c_str();
               	break;
@@ -190,110 +176,76 @@ int main(int argc, char** argv)
             
             case 'C':
             {
-                std::cout << "Choose command type ([v] = velocity command, [p] = position command): ";
+                std::cout << "Choose preset target positions/velocities ([0] = , [1] = , [2] = ): ";
                 std::cin >> c;
-                if (c == 'v')
+                
+                int DOF = 7;
+                cob3_msgs::JointCommand msg;
+                msg.header.stamp = ros::Time::now();
+                msg.positions.resize(DOF);
+                msg.velocities.resize(DOF);
+                
+                if (c == '0')
                 {
-                    // create message
-                    int DOF = 7;
-                    std::vector<double> vel;
-                    vel.resize(DOF);
-                    cob3_msgs::CmdVel msg;
-                    msg.set_cmdVel_size(DOF);
-                    
-                    std::cout << "Choose preset target velocity ([0] = , [1] = , [2] = ): ";
-                    std::cin >> c;
-                    if (c == '0')
-                    {
-                        msg.cmdVel[0] = 0;
-                        msg.cmdVel[1] = 0;
-                        msg.cmdVel[2] = 0;
-                        msg.cmdVel[3] = 0;
-                        msg.cmdVel[4] = 0;
-                        msg.cmdVel[5] = 0;
-                        msg.cmdVel[6] = 0;
-                    }
-                    else if (c == '1')
-                    {
-                        msg.cmdVel[0] = 1;
-                        msg.cmdVel[1] = 1;
-                        msg.cmdVel[2] = 1;
-                        msg.cmdVel[3] = 1;
-                        msg.cmdVel[4] = 1;
-                        msg.cmdVel[5] = 1;
-                        msg.cmdVel[6] = 1;
-                    }
-                    else if (c == '2')
-                    {
-                        msg.cmdVel[0] = 2;
-                        msg.cmdVel[1] = 2;
-                        msg.cmdVel[2] = 2;
-                        msg.cmdVel[3] = 2;
-                        msg.cmdVel[4] = 2;
-                        msg.cmdVel[5] = 2;
-                        msg.cmdVel[6] = 2;
-                    }
-                    else
-                    {
-                        ROS_ERROR("invalid target");
-                    }
-                    
-                    topicPub_Vel.publish(msg);
+		            msg.positions[0] = 0;
+		            msg.positions[1] = 0;
+		            msg.positions[2] = 0;
+		            msg.positions[3] = 0;
+		            msg.positions[4] = 0;
+		            msg.positions[5] = 0;
+		            msg.positions[6] = 0;
+		            
+		            msg.velocities[0] = 0;
+		            msg.velocities[1] = 0;
+		            msg.velocities[2] = 0;
+		            msg.velocities[3] = 0;
+		            msg.velocities[4] = 0;
+		            msg.velocities[5] = 0;
+		            msg.velocities[6] = 0;
                 }
-                else if (c == 'p')
+                else if (c == '1')
                 {
-                    // create message
-                    int DOF = 7;
-                    std::vector<double> pos;
-                    pos.resize(DOF);
-                    cob3_msgs::CmdPos msg;
-                    msg.set_cmdPos_size(DOF);
-                    
-                    std::cout << "Choose preset target position ([0] = , [1] = , [2] = ): ";
-                    std::cin >> c;
-                    if (c == '0')
-                    {
-                        msg.cmdPos[0] = 0;
-                        msg.cmdPos[1] = 0;
-                        msg.cmdPos[2] = 0;
-                        msg.cmdPos[3] = 0;
-                        msg.cmdPos[4] = 0;
-                        msg.cmdPos[5] = 0;
-                        msg.cmdPos[6] = 0;
-                    }
-                    else if (c == '1')
-                    {
-                        msg.cmdPos[0] = 1;
-                        msg.cmdPos[1] = 1;
-                        msg.cmdPos[2] = 1;
-                        msg.cmdPos[3] = 1;
-                        msg.cmdPos[4] = 1;
-                        msg.cmdPos[5] = 1;
-                        msg.cmdPos[6] = 1;
-                    }
-                    else if (c == '2')
-                    {
-                        msg.cmdPos[0] = 1;
-                        msg.cmdPos[1] = 2;
-                        msg.cmdPos[2] = 2;
-                        msg.cmdPos[3] = 2;
-                        msg.cmdPos[4] = 2;
-                        msg.cmdPos[5] = 2;
-                        msg.cmdPos[6] = 2;
-                    }
-                    else
-                    {
-                        ROS_ERROR("invalid target");
-                    }
-                    
-                    topicPub_Pos.publish(msg);
-                    
+                    msg.positions[0] = 0.1;
+		            msg.positions[1] = 0.1;
+		            msg.positions[2] = 0.1;
+		            msg.positions[3] = 0.1;
+		            msg.positions[4] = 0.1;
+		            msg.positions[5] = 0.1;
+		            msg.positions[6] = 0.1;
+		            
+		            msg.velocities[0] = 0.1;
+		            msg.velocities[1] = 0.1;
+		            msg.velocities[2] = 0.1;
+		            msg.velocities[3] = 0.1;
+		            msg.velocities[4] = 0.1;
+		            msg.velocities[5] = 0.1;
+		            msg.velocities[6] = 0.1;
+                }
+                else if (c == '2')
+                {
+                    msg.positions[0] = 0.2;
+		            msg.positions[1] = 0.2;
+		            msg.positions[2] = 0.2;
+		            msg.positions[3] = 0.2;
+		            msg.positions[4] = 0.2;
+		            msg.positions[5] = 0.2;
+		            msg.positions[6] = 0.2;
+		            
+		            msg.velocities[0] = 0.2;
+		            msg.velocities[1] = 0.2;
+		            msg.velocities[2] = 0.2;
+		            msg.velocities[3] = 0.2;
+		            msg.velocities[4] = 0.2;
+		            msg.velocities[5] = 0.2;
+		            msg.velocities[6] = 0.2;
                 }
                 else
                 {
-                    ROS_ERROR("invalid command type");
+                    ROS_ERROR("invalid target");
                 }
-
+                    
+                topicPub_JointCommand.publish(msg);
+            
                 std::cout << std::endl;
                 srv_querry = true;
                 srv_execute = 0;
