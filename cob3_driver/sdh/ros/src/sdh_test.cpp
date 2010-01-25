@@ -61,10 +61,10 @@
 #include <ros/ros.h>
 
 // ROS message includes
-#include <cob3_msgs/CmdPos.h>
+#include <cob3_msgs/JointCommand.h>
 
 // ROS service includes
-//--
+#include <cob3_srvs/Init.h>
 
 // external includes
 //--
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
 	ros::NodeHandle n;
 
     // topics to publish
-    ros::Publisher topicPub_CmdPos = n.advertise<cob3_msgs::CmdPos>("CmdPos", 1);
+    ros::Publisher topicPub_JointCommand = n.advertise<cob3_msgs::JointCommand>("joint_commands", 1);
         
 	// topics to subscribe, callback is called for new messages arriving
     //--
@@ -103,7 +103,7 @@ int main(int argc, char** argv)
     //--
         
     // service clients
-	//--
+    ros::ServiceClient srvClient_Init = n.serviceClient<cob3_srvs::Init>("Init");
     
     // external code
 	bool srv_querry = false;
@@ -116,7 +116,7 @@ int main(int argc, char** argv)
     while(n.ok())
     {
         // process user inputs
-        std::cout << "Choose to test (send[C]ommand, [e]xit): ";
+        std::cout << "Choose to test ([i]nit, send[C]ommand, [e]xit): ";
         
         std::cin >> c;
 
@@ -125,93 +125,83 @@ int main(int argc, char** argv)
             case 'C':
             {
                 // create message
-                cob3_msgs::CmdPos msg;
-                msg.cmdPos.resize(7);
+                cob3_msgs::JointCommand msg;
+                msg.positions.resize(7);
                 
-                std::cout << "Choose preset target position ([0,1,2,3,4,5,6]): ";
+                std::cout << "Choose preset target position ([0=parallel, 1=cyl_closed, 2=cyl_open, 3=sher_closed, 4=sher_open]): ";
                 std::cin >> c;
                 if (c == '0')
                 {
-                    msg.cmdPos[0] = 0;
-                    msg.cmdPos[1] = 0;
-                    msg.cmdPos[2] = 0;
-                    msg.cmdPos[3] = 0;
-                    msg.cmdPos[4] = 0;
-                    msg.cmdPos[5] = 0;
-                    msg.cmdPos[6] = 0;
+                    msg.positions[0] = 0;
+                    msg.positions[1] = 0;
+                    msg.positions[2] = 0;
+                    msg.positions[3] = 0;
+                    msg.positions[4] = 0;
+                    msg.positions[5] = 0;
+                    msg.positions[6] = 0;
                 }
                 else if (c == '1')
                 {
-                    msg.cmdPos[0] = 1;
-                    msg.cmdPos[1] = 1;
-                    msg.cmdPos[2] = 1;
-                    msg.cmdPos[3] = 1;
-                    msg.cmdPos[4] = 1;
-                    msg.cmdPos[5] = 1;
-                    msg.cmdPos[6] = 1;
+                    msg.positions[0] = 1;
+                    msg.positions[1] = 1;
+                    msg.positions[2] = 1;
+                    msg.positions[3] = 1;
+                    msg.positions[4] = 1;
+                    msg.positions[5] = 1;
+                    msg.positions[6] = 1;
                 }
                 else if (c == '2')
                 {
-                    msg.cmdPos[0] = 2;
-                    msg.cmdPos[1] = 2;
-                    msg.cmdPos[2] = 2;
-                    msg.cmdPos[3] = 2;
-                    msg.cmdPos[4] = 2;
-                    msg.cmdPos[5] = 2;
-                    msg.cmdPos[6] = 2;
+                    msg.positions[0] = 2;
+                    msg.positions[1] = 2;
+                    msg.positions[2] = 2;
+                    msg.positions[3] = 2;
+                    msg.positions[4] = 2;
+                    msg.positions[5] = 2;
+                    msg.positions[6] = 2;
                 }
                 else if (c == '3')
                 {
-                    msg.cmdPos[0] = 0;
-                    msg.cmdPos[1] = 0;
-                    msg.cmdPos[2] = 0;
-                    msg.cmdPos[3] = 0;
-                    msg.cmdPos[4] = 0;
-                    msg.cmdPos[5] = 0;
-                    msg.cmdPos[6] = 0;
+                    msg.positions[0] = 0;
+                    msg.positions[1] = 0;
+                    msg.positions[2] = 0;
+                    msg.positions[3] = 0;
+                    msg.positions[4] = 0;
+                    msg.positions[5] = 0;
+                    msg.positions[6] = 0;
                 }
                 else if (c == '4')
                 {
-                    msg.cmdPos[0] = 0;
-                    msg.cmdPos[1] = 0;
-                    msg.cmdPos[2] = 0;
-                    msg.cmdPos[3] = 0;
-                    msg.cmdPos[4] = 0;
-                    msg.cmdPos[5] = 0;
-                    msg.cmdPos[6] = 0;
-                }
-                else if (c == '5')
-                {
-                    msg.cmdPos[0] = 0;
-                    msg.cmdPos[1] = 0;
-                    msg.cmdPos[2] = 0;
-                    msg.cmdPos[3] = 0;
-                    msg.cmdPos[4] = 0;
-                    msg.cmdPos[5] = 0;
-                    msg.cmdPos[6] = 0;
-                }
-                else if (c == '6')
-                {
-                    msg.cmdPos[0] = 0;
-                    msg.cmdPos[1] = 0;
-                    msg.cmdPos[2] = 0;
-                    msg.cmdPos[3] = 0;
-                    msg.cmdPos[4] = 0;
-                    msg.cmdPos[5] = 0;
-                    msg.cmdPos[6] = 0;
+                    msg.positions[0] = 0;
+                    msg.positions[1] = 0;
+                    msg.positions[2] = 0;
+                    msg.positions[3] = 0;
+                    msg.positions[4] = 0;
+                    msg.positions[5] = 0;
+                    msg.positions[6] = 0;
                 }
                 else
                 {
                     ROS_ERROR("invalid target");
                 }
                 
-                topicPub_CmdPos.publish(msg);
+                topicPub_JointCommand.publish(msg);
                 
                 std::cout << "ende" << std::endl;
                 srv_querry = true;
                 srv_execute = 0;
             	srv_errorMessage = "no error";
                 break;
+            }
+            
+            case 'i':
+            {
+            	ROS_INFO("querry service [Init]");
+                cob3_srvs::Init srv;
+                srv_querry = srvClient_Init.call(srv);
+                srv_execute = srv.response.success;
+                srv_errorMessage = srv.response.errorMessage.data.c_str();
+              	break;
             }
             
             case 'e':
