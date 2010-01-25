@@ -228,8 +228,18 @@ class NodeClass
             //get velocities
             sensor_msgs::JointState msg;
             msg.header.stamp = ros::Time::now();
-            msg.set_position_size(DOF);
-            msg.set_velocity_size(DOF);
+            msg.name.resize(DOF);
+            msg.position.resize(DOF);
+            msg.velocity.resize(DOF);
+            
+            // TODO: read joint names from parameter file
+            msg.name[0] = "joint_arm0_arm1";
+            msg.name[1] = "joint_arm1_arm2";
+            msg.name[2] = "joint_arm2_arm3";
+            msg.name[3] = "joint_arm3_arm4";
+            msg.name[4] = "joint_arm4_arm5";
+            msg.name[5] = "joint_arm5_arm6";
+            msg.name[6] = "joint_arm6_arm7";
             
             for (int i = 0; i<DOF; i++ )
             {
