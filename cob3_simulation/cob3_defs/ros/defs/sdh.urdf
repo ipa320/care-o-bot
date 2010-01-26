@@ -274,7 +274,7 @@
 		<child link="link_finger11"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<joint name="joint_finger11_finger12" type="revolute">
@@ -283,7 +283,7 @@
 		<child link="link_finger12"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<joint name="joint_finger12_finger13" type="revolute">
@@ -292,7 +292,7 @@
 		<child link="link_finger13"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<!-- finger2 -->
@@ -302,7 +302,7 @@
 		<child link="link_finger21"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<joint name="joint_finger21_finger22" type="revolute">
@@ -311,7 +311,7 @@
 		<child link="link_finger22"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<joint name="joint_finger22_finger23" type="revolute">
@@ -320,7 +320,7 @@
 		<child link="link_finger23"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" velocity="1.0" upper="0.5" lower="-0.5" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<!-- thumb -->
@@ -330,7 +330,7 @@
 		<child link="link_thumb1"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<joint name="joint_thumb1_thumb2" type="revolute">
@@ -339,7 +339,7 @@
 		<child link="link_thumb2"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
  
 	<joint name="joint_thumb2_thumb3" type="revolute">
@@ -348,7 +348,7 @@
 		<child link="link_thumb3"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-1" upper="1" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="-2" upper="2" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
 
 	<!-- ################################################################################# -->
