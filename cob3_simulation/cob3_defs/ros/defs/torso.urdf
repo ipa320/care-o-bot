@@ -200,13 +200,13 @@
 			<inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
 		</inertial>
 		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0.707 0 0" />
 			<geometry>
 				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl" />
 			</geometry>
 		</visual>
 		<collision>
-			<origin xyz="0 0 0" rpy="0 0 0" />
+			<origin xyz="0 0 0" rpy="0.707 0 0" />
 			<geometry>
 				<mesh filename="package://cob3_defs/common/files/meshes/tray.stl"/>
 			</geometry>
@@ -582,12 +582,12 @@
 
 	<!-- tray -->
 	<joint name="joint_platform_tray" type="revolute">
-		<origin xyz="0.21864 0.20061 0.83196" rpy="0 0 0" />
+		<origin xyz="0.21864 0.20061 0.83196" rpy="-0.707 0 0" />
 		<parent link="link_platform"/>
 		<child link="link_tray"/>
-		<axis xyz="0 1 1" />
+		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="100" lower="-2" upper="3" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="100" lower="0" upper="3.31612" velocity="5"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 	</joint>
 	
 	<!-- neck -->
