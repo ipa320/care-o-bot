@@ -1,12 +1,14 @@
-<stack name="cob3_extern" version="0.1.0">
+<stack>
   <description brief="cob3_extern">
 
      cob3_extern
 
   </description>
   <author>Maintained by Florian Weisshardt, email: florian.weisshardt@ipa.fhg.de</author>
-  <license>BSD</license>  
+  <license>BSD,LGPL</license>  
   <review status="unreviewed" notes=""/>
   <url>http://www.care-o-bot.org</url>
+  
+  <depend stack="ros" />
 
 </stack>
