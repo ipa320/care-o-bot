@@ -14,5 +14,6 @@
   <depend package="cob3_msgs"/>
   <depend package="cob3_srvs"/>
   <depend package="libntcan"/>
+  <depend package="cob3_defs"/>
 
 </package>

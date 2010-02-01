@@ -12,7 +12,6 @@
   <depend package="cob3_msgs"/>
   <depend package="cob3_srvs"/>
   <depend package="powercube_chain"/>
-
-
+  <depend package="cob3_defs"/>
 
 </package>
