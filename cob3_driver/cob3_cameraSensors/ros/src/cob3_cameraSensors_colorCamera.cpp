@@ -62,7 +62,6 @@
 // ROS message includes
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/fill_image.h>
-#include <cob3_msgs/SensorState.h>
 
 // ROS service includes
 #include <cob3_srvs/Init.h>
@@ -127,7 +126,6 @@ int main(int argc, char** argv)
 	
     // topics to publish
     ros::Publisher topicPub_Image = n.advertise<sensor_msgs::Image>("cob3/colorCamera/left/Image", 1);
-    ros::Publisher topicPub_SensorState = n.advertise<cob3_msgs::SensorState>("cob3/colorCamera/left/SensorState", 1);
     
 	// topics to subscribe, callback is called for new messages arriving
     //--

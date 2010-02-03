@@ -61,7 +61,6 @@
 
 // ROS message includes
 #include <sensor_msgs/PointCloud.h>
-#include <cob3_msgs/SensorState.h>
 
 // ROS service includes
 #include <cob3_srvs/Init.h>
@@ -125,7 +124,6 @@ int main(int argc, char** argv)
 	
     // topics to publish
     ros::Publisher topicPub_PointCloud = n.advertise<sensor_msgs::PointCloud>("cob3/swissRanger/PointCloud", 1);
-    ros::Publisher topicPub_SensorState = n.advertise<cob3_msgs::SensorState>("cob3/swissRanger/SensorState", 1);
     
 	// topics to subscribe, callback is called for new messages arriving
     //--
