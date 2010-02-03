@@ -9,13 +9,13 @@ arm_controller:
     - joint_arm5_arm6
     - joint_arm6_arm7
   gains:
-    joint_arm0_arm1: {p: 800.0, d: 10.0}
-    joint_arm1_arm2: {p: 800.0, d: 10.0}
-    joint_arm2_arm3: {p: 200.0, d: 3.0}
-    joint_arm3_arm4: {p: 100.0, d: 3.0}
-    joint_arm4_arm5: {p: 500.0, d: 6.0}
-    joint_arm5_arm6: {p: 400.0, d: 4.0}
-    joint_arm6_arm7: {p: 400.0, d: 4.0}
+    joint_arm0_arm1: {p: 500.0, d: 10.0}
+    joint_arm1_arm2: {p: 500.0, d: 10.0}
+    joint_arm2_arm3: {p: 500.0, d: 10.0}
+    joint_arm3_arm4: {p: 500.0, d: 10.0}
+    joint_arm4_arm5: {p: 500.0, d: 10.0}
+    joint_arm5_arm6: {p: 500.0, d: 10.0}
+    joint_arm6_arm7: {p: 500.0, d: 10.0}
   joint_trajectory_action_node:
     joints:
       - joint_arm0_arm1

@@ -180,6 +180,7 @@ int main(int argc, char** argv)
 
   RobotArm arm;
   // Start the trajectory
+  ROS_INFO("start trajectory");
   arm.startTrajectory(arm.armExtensionTrajectory());
   // Wait for trajectory completion
   while(!arm.getState().isDone() && ros::ok())
