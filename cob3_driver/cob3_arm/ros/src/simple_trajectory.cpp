@@ -99,7 +99,7 @@ public:
       goal.trajectory.points[ind].velocities[j] = 0.0;
     }
     // To be reached 2 seconds after starting along the trajectory
-    goal.trajectory.points[ind].time_from_start = ros::Duration(5.0);
+    goal.trajectory.points[ind].time_from_start = ros::Duration(4.0);
 
     // Third trajectory point
     // Positions
@@ -119,7 +119,7 @@ public:
       goal.trajectory.points[ind].velocities[j] = 0.0;
     }
     // To be reached 2 seconds after starting along the trajectory
-    goal.trajectory.points[ind].time_from_start = ros::Duration(15.0);
+    goal.trajectory.points[ind].time_from_start = ros::Duration(14.0);
 
     // Fourth trajectory point
     // Positions
@@ -159,7 +159,7 @@ public:
       goal.trajectory.points[ind].velocities[j] = 0.0;
     }
     // To be reached 2 seconds after starting along the trajectory
-    goal.trajectory.points[ind].time_from_start = ros::Duration(20.0);
+    goal.trajectory.points[ind].time_from_start = ros::Duration(27.0);
 
     //we are done; return the goal
     return goal;
@@ -187,5 +187,6 @@ int main(int argc, char** argv)
   {
     usleep(50000);
   }
+  ROS_INFO("trajectory ended");
 }
 

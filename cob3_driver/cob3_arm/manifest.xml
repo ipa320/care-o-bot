@@ -17,7 +17,6 @@
   <depend package="actionlib"/>
   <depend package="pr2_controllers_msgs"/>
   <depend package="geometry_msgs"/>
-  <depend package="pr2_arm_ik"/>
   <depend package="kinematics_msgs"/>
 
 </package>
