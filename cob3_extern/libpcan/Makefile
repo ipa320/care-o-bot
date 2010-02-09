@@ -16,6 +16,7 @@ libpcan: $(SOURCE_DIR)/unpacked
 	cp $(SOURCE_DIR)/lib/*.so* common/lib
 	cp common/lib/libpcan.so common/lib/libpcan.so.0
 	cp $(SOURCE_DIR)/lib/*.h common/include
+	cp $(SOURCE_DIR)/driver/*.h common/include
 clean:
 	rm -rf common $(SOURCE_DIR) $(TARBALL)
 wipe: clean
