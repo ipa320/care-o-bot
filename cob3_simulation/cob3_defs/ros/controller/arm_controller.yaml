@@ -1,55 +1,43 @@
-controller_arm0_arm1:
-  type: JointPositionController
-  joint: joint_arm0_arm1
-  pid:
-    p: 500
-    i: 100
-    d: 200
-
-controller_arm1_arm2:
-  type: JointPositionController
-  joint: joint_arm1_arm2
-  pid:
-    p: 500
-    i: 100
-    d: 200
-        
-controller_arm2_arm3:
-  type: JointPositionController
-  joint: joint_arm2_arm3
-  pid:
-    p: 500
-    i: 100
-    d: 200
-    
-controller_arm3_arm4:
-  type: JointPositionController
-  joint: joint_arm3_arm4
-  pid:
-    p: 500
-    i: 100
-    d: 200
-    
-controller_arm4_arm5:
-  type: JointPositionController
-  joint: joint_arm4_arm5
-  pid:
-    p: 500
-    i: 100
-    d: 200
-       
-controller_arm5_arm6:
-  type: JointPositionController
-  joint: joint_arm5_arm6
-  pid:
-    p: 500
-    i: 100
-    d: 200
-    
-controller_arm6_arm7:
-  type: JointPositionController
-  joint: joint_arm6_arm7
-  pid:
-    p: 500
-    i: 100
-    d: 200
+arm_controller:
+  type: "JointSplineTrajectoryController"
+  joints:
+    - joint_arm0_arm1
+    - joint_arm1_arm2
+    - joint_arm2_arm3
+    - joint_arm3_arm4
+    - joint_arm4_arm5
+    - joint_arm5_arm6
+    - joint_arm6_arm7
+  gains:
+    joint_arm0_arm1: {p: 800.0, d: 5.0}
+    joint_arm1_arm2: {p: 800.0, d: 5.0}
+    joint_arm2_arm3: {p: 800.0, d: 5.0}
+    joint_arm3_arm4: {p: 800.0, d: 5.0}
+    joint_arm4_arm5: {p: 800.0, d: 5.0}
+    joint_arm5_arm6: {p: 800.0, d: 5.0}
+    joint_arm6_arm7: {p: 800.0, d: 5.0}
+  joint_trajectory_action_node:
+    joints:
+      - joint_arm0_arm1
+      - joint_arm1_arm2
+      - joint_arm2_arm3
+      - joint_arm3_arm4
+      - joint_arm4_arm5
+      - joint_arm5_arm6
+      - joint_arm6_arm7
+    constraints:
+      goal_time: 0.6
+      joint_arm0_arm1:
+        goal: 0.02
+      joint_arm1_arm2:
+        goal: 0.02
+      joint_arm2_arm3:
+        goal: 0.02
+      joint_arm3_arm4:
+        goal: 0.02
+      joint_arm4_arm5:
+        goal: 0.02
+      joint_arm5_arm6:
+        goal: 0.02
+      joint_arm6_arm7:
+        goal: 0.02
