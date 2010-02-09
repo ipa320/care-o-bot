@@ -22,9 +22,15 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/common/lib)
 #rosbuild_gensrv()
 
 #common commands for building c++ executables and libraries
-rosbuild_add_library(${PROJECT_NAME} common/src/IniFile.cpp)
+#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
 #target_link_libraries(${PROJECT_NAME} another_library)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
+
+# add include search paths
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
+
+# add project libs
+rosbuild_add_library(${PROJECT_NAME} common/src/IniFile.cpp)

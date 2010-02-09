@@ -19,7 +19,7 @@
  */
 
 //#include "stdafx.h"
-#include <common/include/IniFile.h>
+#include <IniFile.h>
 #include "math.h"
 
 #include <string.h>
