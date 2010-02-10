@@ -58,6 +58,7 @@
 ROOT=$PWD
 if [ "$1" = "-a" ]; then
 	echo "source $ROOT/setup.sh $ROOT" >> ~/.bashrc
+	. setup.sh $ROOT
 else
 	. setup.sh $ROOT
 fi
