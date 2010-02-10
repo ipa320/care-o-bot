@@ -9,7 +9,7 @@
 	<link name="link_arm0">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0" />
-			<mass value="1"/>
+			<mass value="1.8"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -29,7 +29,7 @@
 	<link name="link_arm1">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="2"/>
+			<mass value="3.6"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -49,7 +49,7 @@
 	<link name="link_arm2">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.2"/>
+			<mass value="2.8"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -69,7 +69,7 @@
 	<link name="link_arm3">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.2"/>
+			<mass value="2.0"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -89,7 +89,7 @@
 	<link name="link_arm4">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.2"/>
+			<mass value="1.6"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -109,7 +109,7 @@
 	<link name="link_arm5">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.2"/>
+			<mass value="1.2"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -129,7 +129,7 @@
 	<link name="link_arm6">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.2"/>
+			<mass value="1.1"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -149,7 +149,7 @@
 	<link name="link_arm7">
 		<inertial>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<mass value="0.2"/>
+			<mass value="0.5"/>
 			<inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
 		</inertial>
 		<visual>
@@ -207,125 +207,125 @@
 	</gazebo>
 
 	<!-- ################################################################################# -->
-	<!-- add joints -->
-	<joint name="joint_arm0_arm1" type="revolute">
+	<!-- add joints, corresponding to powercubes PRL 120,120,100,100,80,80,60 -->
+	<joint name="joint_arm1" type="revolute">
 		<origin xyz="0 0 0.0569" rpy="0 0 0"/>
 		<parent link="link_arm0"/>
 		<child link="link_arm1"/>
 		<axis xyz="0 0 1"/>
-	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/>
+	    <calibration reference_position="1.0"/>
+		<limit effort="370" velocity="1.4363" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>
 	
-	<joint name="joint_arm1_arm2" type="revolute">
+	<joint name="joint_arm2" type="revolute">
 		<origin xyz="0 0 0.1931" rpy="0 0 0"/>
 		<parent link="link_arm1"/>
 		<child link="link_arm2"/>
 		<axis xyz="0 1 0"/>
 	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" lower="-2.0943951" upper="2.0943951"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/>
+		<limit effort="370" velocity="1.4363" lower="-2.0943951" upper="2.0943951"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>
 
-	<joint name="joint_arm2_arm3" type="revolute">
+	<joint name="joint_arm3" type="revolute">
 		<origin xyz="0 0 0.110" rpy="0 0 0"/>
 		<parent link="link_arm2"/>
 		<child link="link_arm3"/>
 		<axis xyz="0 0 1"/>
 	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/>
+		<limit effort="176" velocity="1.4189" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>	
 
-	<joint name="joint_arm3_arm4" type="revolute">
+	<joint name="joint_arm4" type="revolute">
 		<origin xyz="0 0 0.298" rpy="0 0 0" />
 		<parent link="link_arm3"/>
 		<child link="link_arm4"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/>
+		<limit effort="176" velocity="1.4189" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>
 
-	<joint name="joint_arm4_arm5" type="revolute">
+	<joint name="joint_arm5" type="revolute">
 		<origin xyz="0 0 0.100" rpy="0 0 0" />
 		<parent link="link_arm4"/>
 		<child link="link_arm5"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/>
+		<limit effort="41.6" velocity="1.4363" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>
 	
-	<joint name="joint_arm5_arm6" type="revolute">
+	<joint name="joint_arm6" type="revolute">
 		<origin xyz="0 0 0.2165" rpy="0 0 0" />
 		<parent link="link_arm5"/>
 		<child link="link_arm6"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/>
+		<limit effort="20.1" velocity="1.4363" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>
 	
-	<joint name="joint_arm6_arm7" type="revolute">
+	<joint name="joint_arm7" type="revolute">
 		<origin xyz="0 0 0.080" rpy="0 0 0" />
 		<parent link="link_arm6"/>
 		<child link="link_arm7"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="320" velocity="2.0" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
-		<safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/>
+		<limit effort="9.6" velocity="1.8727" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
 		<dynamics damping="10.0" friction="10.0"/>
 	</joint>
 
 	<!-- ################################################################################# -->
 	<!-- add transmissions -->
-	<transmission name="trans_arm0_arm1" type="SimpleTransmission">
-		<actuator name="motor_arm0_arm1"/>
-		<joint name="joint_arm0_arm1"/>
+	<transmission name="trans_arm1" type="SimpleTransmission">
+		<actuator name="motor_arm1"/>
+		<joint name="joint_arm1"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
-	<transmission name="trans_arm1_arm2" type="SimpleTransmission">
-		<actuator name="motor_arm1_arm2"/>
-		<joint name="joint_arm1_arm2"/>
+	<transmission name="trans_arm2" type="SimpleTransmission">
+		<actuator name="motor_arm2"/>
+		<joint name="joint_arm2"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
-	<transmission name="trans_arm2_arm3" type="SimpleTransmission">
-		<actuator name="motor_arm2_arm3"/>
-		<joint name="joint_arm2_arm3"/>
+	<transmission name="trans_arm3" type="SimpleTransmission">
+		<actuator name="motor_arm3"/>
+		<joint name="joint_arm3"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
-	<transmission name="trans_arm3_arm4" type="SimpleTransmission">
-		<actuator name="motor_arm3_arm4"/>
-		<joint name="joint_arm3_arm4"/>
+	<transmission name="trans_arm4" type="SimpleTransmission">
+		<actuator name="motor_arm4"/>
+		<joint name="joint_arm4"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
-	<transmission name="trans_arm4_arm5" type="SimpleTransmission">
-		<actuator name="motor_arm4_arm5"/>
-		<joint name="joint_arm4_arm5"/>
+	<transmission name="trans_arm5" type="SimpleTransmission">
+		<actuator name="motor_arm5"/>
+		<joint name="joint_arm5"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
-	<transmission name="trans_arm5_arm6" type="SimpleTransmission">
-		<actuator name="motor_arm5_arm6"/>
-		<joint name="joint_arm5_arm6"/>
+	<transmission name="trans_arm6" type="SimpleTransmission">
+		<actuator name="motor_arm6"/>
+		<joint name="joint_arm6"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 	
-	<transmission name="trans_arm6_arm7" type="SimpleTransmission">
-		<actuator name="motor_arm6_arm7"/>
-		<joint name="joint_arm6_arm7"/>
+	<transmission name="trans_arm7" type="SimpleTransmission">
+		<actuator name="motor_arm7"/>
+		<joint name="joint_arm7"/>
 		<mechanicalReduction>1</mechanicalReduction>
 	</transmission>
 
