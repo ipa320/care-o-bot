@@ -213,10 +213,10 @@
 		<parent link="link_arm0"/>
 		<child link="link_arm1"/>
 		<axis xyz="0 0 1"/>
-	    <calibration reference_position="1.0"/>
-		<limit effort="370" velocity="1.4363" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+	    <calibration reference_position="0.0"/>
+		<limit effort="370" velocity="0.4363" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>
 	
 	<joint name="joint_arm2" type="revolute">
@@ -225,9 +225,9 @@
 		<child link="link_arm2"/>
 		<axis xyz="0 1 0"/>
 	    <calibration reference_position="0.0"/>
-		<limit effort="370" velocity="1.4363" lower="-2.0943951" upper="2.0943951"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="370" velocity="0.4363" lower="-2.0943951" upper="2.0943951"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>
 
 	<joint name="joint_arm3" type="revolute">
@@ -236,9 +236,9 @@
 		<child link="link_arm3"/>
 		<axis xyz="0 0 1"/>
 	    <calibration reference_position="0.0"/>
-		<limit effort="176" velocity="1.4189" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="176" velocity="0.4189" lower="-6.2831853" upper="6.2831853"/> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>	
 
 	<joint name="joint_arm4" type="revolute">
@@ -247,9 +247,9 @@
 		<child link="link_arm4"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="176" velocity="1.4189" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="176" velocity="0.4189" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>
 
 	<joint name="joint_arm5" type="revolute">
@@ -258,9 +258,9 @@
 		<child link="link_arm5"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="41.6" velocity="1.4363" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="41.6" velocity="0.4363" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>
 	
 	<joint name="joint_arm6" type="revolute">
@@ -269,9 +269,9 @@
 		<child link="link_arm6"/>
 		<axis xyz="0 1 0" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="20.1" velocity="1.4363" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="20.1" velocity="0.4363" upper="2.0943951" lower="-2.0943951" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="2.0"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>
 	
 	<joint name="joint_arm7" type="revolute">
@@ -280,9 +280,9 @@
 		<child link="link_arm7"/>
 		<axis xyz="0 0 1" />
 	    <calibration reference_position="0.0"/>
-		<limit effort="9.6" velocity="1.8727" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
+		<limit effort="9.6" velocity="0.8727" upper="6.2831853" lower="-6.2831853" /> <!-- rads. effort is N-m applied force. vel is rad/s. -->
 		<!--safety_controller k_position="10" k_velocity="10" soft_lower_limit="-6.2" soft_upper_limit="6.2"/-->
-		<dynamics damping="10.0" friction="10.0"/>
+		<!--dynamics damping="10.0" friction="10.0"/-->
 	</joint>
 
 	<!-- ################################################################################# -->

@@ -176,7 +176,7 @@ public:
 int main(int argc, char** argv)
 {
   // Init the ROS node
-  ros::init(argc, argv, "robot_driver");
+  ros::init(argc, argv, "arm_driver");
 
   RobotArm arm;
   // Start the trajectory
