@@ -30,4 +30,3 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 #target_link_libraries(example ${PROJECT_NAME})
 
 rosbuild_add_executable(simple_trajectory ros/src/simple_trajectory.cpp)
-rosbuild_add_executable(ik_tutorial ros/src/ik_tutorial.cpp)
