@@ -582,7 +582,7 @@
 
 	<!-- tray -->
 	<joint name="joint_platform_tray" type="revolute">
-		<origin xyz="0.21864 0.20061 0.83196" rpy="-0.707 0 0" />
+		<origin xyz="0.21864 0.20061 0.73196" rpy="-0.707 0 0" />
 		<parent link="link_platform"/>
 		<child link="link_tray"/>
 		<axis xyz="0 0 1" />
