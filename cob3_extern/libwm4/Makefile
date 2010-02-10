@@ -16,8 +16,9 @@ libwm4:
 	mkdir -p common
 	mkdir -p common/lib
 	mkdir -p common/include
+	mkdir -p common/include/libwm4
 	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Library/Release/lib* common/lib
-	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Include/* common/include
+	cp $(SOURCE_DIR)/GeometricTools/WildMagic4/SDK/Include/* common/include/libwm4
 clean:
 	rm -rf common $(SOURCE_DIR)
 wipe: clean

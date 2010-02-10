@@ -71,8 +71,7 @@ PACKAGES_TO_BUILD=\
 	sickS300\
 	cob3_hokuyo\
 	sdh\
-	libCameraSensors\
-	cob3_cameraSensors\
+	cob3_camera_sensors\
 	powercube_chain\
 	cob3_arm\
 	cob3_arm_ik\
@@ -86,10 +85,7 @@ PACKAGES_TO_BUILD=\
 #--------------------------------------------------------------------
 
 all:
-	@for dir in $(PACKAGES_TO_BUILD); do \
-		$(MAKE) -C $$(rospack find $$dir); \
-		done
-
+	make ros
 ros:
 	rosmake $(PACKAGES_TO_BUILD)
 
