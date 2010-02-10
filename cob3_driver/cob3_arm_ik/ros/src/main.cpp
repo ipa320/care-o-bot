@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include <cob3_arm_ik_node.h>
+#include <cob3_arm_ik/cob3_arm_ik_node.h>
 
 int main(int argc, char** argv)
 {

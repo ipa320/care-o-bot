@@ -52,7 +52,7 @@
  ****************************************************************/
 
 #include <angles/angles.h>
-#include <cob3_arm_ik.h>
+#include <cob3_arm_ik/cob3_arm_ik.h>
 
 /**** List of angles (for reference) *******
       th1 = shoulder/turret pan

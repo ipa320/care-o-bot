@@ -30,7 +30,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 #target_link_libraries(example ${PROJECT_NAME})
 
 # add include search paths
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/ros/include/cob3_arm_ik)
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/ros/include)
 
 # add project libs
 rosbuild_add_library(cob3_arm_ik 

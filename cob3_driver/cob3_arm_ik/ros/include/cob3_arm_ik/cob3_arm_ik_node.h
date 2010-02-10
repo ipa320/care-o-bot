@@ -59,7 +59,7 @@
 #include <tf/transform_listener.h>
 
 #include <angles/angles.h>
-#include <cob3_arm_ik_solver.h>
+#include <cob3_arm_ik/cob3_arm_ik_solver.h>
 #include <tf_conversions/tf_kdl.h>
 
 #include <kinematics_msgs/GetPositionFK.h>

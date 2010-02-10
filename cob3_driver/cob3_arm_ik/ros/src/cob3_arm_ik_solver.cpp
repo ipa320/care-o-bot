@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include <cob3_arm_ik_solver.h>
+#include <cob3_arm_ik/cob3_arm_ik_solver.h>
 
 using namespace Eigen;
 using namespace cob3_arm_ik;

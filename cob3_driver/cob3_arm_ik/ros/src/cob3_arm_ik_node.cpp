@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include <cob3_arm_ik_node.h>
+#include <cob3_arm_ik/cob3_arm_ik_node.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <kdl_parser/kdl_parser.hpp>
 #include <tf_conversions/tf_kdl.h>

@@ -57,8 +57,8 @@
 #include <urdf/model.h>
 #include <Eigen/Array>
 #include <kdl/chainiksolver.hpp>
-#include <cob3_arm_ik.h>
-#include <cob3_arm_ik_utils.h>
+#include <cob3_arm_ik/cob3_arm_ik.h>
+#include <cob3_arm_ik/cob3_arm_ik_utils.h>
 #include <kinematics_msgs/GetKinematicTreeInfo.h>
 #include <kinematics_msgs/PositionIKRequest.h>
 #include <geometry_msgs/PoseStamped.h>

@@ -51,8 +51,8 @@
  *
  ****************************************************************/
 
-#include <cob3_arm_ik_utils.h>
-#include <cob3_arm_ik_constants.h>
+#include <cob3_arm_ik/cob3_arm_ik_utils.h>
+#include <cob3_arm_ik/cob3_arm_ik_constants.h>
 
 namespace cob3_arm_ik
 {
