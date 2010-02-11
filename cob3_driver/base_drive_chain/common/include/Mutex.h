@@ -9,8 +9,8 @@
  *
  * Project name: care-o-bot
  * ROS stack name: cob3_common
- * ROS package name: canopen_motor
- * Description:
+ * ROS package name: base_drive_chain
+ * Description: custom Mutex implementation
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *			
@@ -18,7 +18,7 @@
  * Supervised by: Christian Connette, email:christian.connette@ipa.fhg.de
  *
  * Date of creation: Feb 2009
- * ToDo:
+ * ToDo: - Remove this class
  *
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *
@@ -51,33 +51,60 @@
  *
  ****************************************************************/
 
-
-#ifndef CAN_DUMMY_INCLUDEDEF_H
-#define CAN_DUMMY_INCLUDEDEF_H
-
+#ifndef MUTEX_INCLUDEDEF_H
+#define MUTEX_INCLUDEDEF_H
 //-----------------------------------------------
-#include <CanMsg.h>
-//-----------------------------------------------
+#include <pthread.h>
 
-/**
- * Dummy interface of the CAN bus.
- * \ingroup DriversCanModul	
- */
-class CanDummy : public CanItf
+const unsigned int INFINITE = 0;
+
+
+class Mutex
 {
+private:
+	pthread_mutex_t m_hMutex;
+
 public:
+	Mutex()
+	{
+		pthread_mutex_init(&m_hMutex, 0);
+	}
 
-	~CanDummy();
-	
-	void init(){};
-	
-	bool transmitMsg(CanMsg CMsg, bool bBlocking){ return true; }
+	Mutex( std::string sName)
+	{
+// no named Mutexes for POSIX
+		pthread_mutex_init(&m_hMutex, 0);
+	}
 
-	bool receiveMsg(CanMsg* pCMsg){ return false; }
+	~Mutex()
+	{
+		pthread_mutex_destroy(&m_hMutex);
+	}
 
-	bool receiveMsgRetry(CanMsg* pCMsg, int iNrOfRetry){ return false; }
+	/** Returns true if log was successful.
+	 */
+	bool lock( unsigned int uiTimeOut = INFINITE )
+	{
+		int ret;
 
-	bool isObjectMode() { return false; }
+		if (uiTimeOut == INFINITE)
+		{
+			ret = pthread_mutex_lock(&m_hMutex);
+		}
+		else
+		{
+			timespec abstime = { time(0) + uiTimeOut, 0 };
+			ret = pthread_mutex_timedlock(&m_hMutex, &abstime);
+		}
+
+		return ! ret;
+	}
+
+	void unlock()
+	{
+		pthread_mutex_unlock(&m_hMutex);
+	}
 };
 //-----------------------------------------------
 #endif
+
