@@ -31,7 +31,7 @@
 #ifndef DBG_h_
 #define DBG_h_
 
-#include "sdhlibrary_settings.h"
+#include <sdh/sdhlibrary_settings.h>
 
 #if SDH_USE_VCC
 # pragma warning(disable : 4996)

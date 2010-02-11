@@ -32,7 +32,7 @@
 #ifndef SDH_h_
 #define SDH_h_
 
-#include "sdhlibrary_settings.h"
+#include <sdh/sdhlibrary_settings.h>
 
 #if SDH_USE_VCC
 # pragma warning(disable : 4996)
@@ -48,10 +48,10 @@
 // Project Includes - include with ""
 //----------------------------------------------------------------------
 
-#include "sdhbase.h"
-#include "sdhserial.h"
-#include "unit_converter.h"
-#include "serialbase.h"
+#include <sdh/sdhbase.h>
+#include <sdh/sdhserial.h>
+#include <sdh/unit_converter.h>
+#include <sdh/serialbase.h>
 
 //----------------------------------------------------------------------
 // Defines, enums, unions, structs
@@ -70,7 +70,7 @@
 NAMESPACE_SDH_START
 
 #if WITH_ESD_CAN
-# include "ntcan.h"
+# include "libntcan/ntcan.h"
 #if defined( OSNAME_LINUX ) && ! defined( NTCAN_HANDLE )
 // Linux ntcan.h uses HANDLE where Windows ntcan uses NTCAN_HANDLE:
 # define NTCAN_HANDLE HANDLE
