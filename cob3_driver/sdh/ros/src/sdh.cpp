@@ -67,7 +67,7 @@
 #include <cob3_srvs/Init.h>
 
 // external includes
-#include <include/sdh.h>
+#include <sdh/sdh.h>
 
 //####################
 //#### node class ####
