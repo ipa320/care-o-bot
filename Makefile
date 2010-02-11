@@ -68,7 +68,7 @@ PACKAGES_TO_BUILD=\
 	libntcan\
 	cob3_msgs\
 	cob3_srvs\
-	sickS300\
+	sick_s300\
 	cob3_hokuyo\
 	sdh\
 	cob3_camera_sensors\

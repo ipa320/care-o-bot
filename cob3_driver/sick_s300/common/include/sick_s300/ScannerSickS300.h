@@ -9,7 +9,7 @@
  *
  * Project name: care-o-bot
  * ROS stack name: cob3_driver
- * ROS package name: sickS300
+ * ROS package name: sick_s300
  * Description:
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -61,7 +61,7 @@
 #include <iostream>
 #include <math.h>
 
-#include <include/SerialIO.h>
+#include <sick_s300/SerialIO.h>
 
 /** 
  * Driver class for the laser scanner SICK S300 Professional.

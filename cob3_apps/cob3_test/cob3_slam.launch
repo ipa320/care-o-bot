@@ -5,7 +5,7 @@
   <node pkg="cob3_platform" type="cob3_platform" name="cob3_platform" cwd="node" respawn="false" output="screen" />
 
   <!-- get scan from sickS300 -->
-  <node pkg="sickS300" type="sickS300" name="sickS300" respawn="false" output="log" >
+  <node pkg="sick_s300" type="sick_s300" name="sick_s300" respawn="false" output="log" >
 	<remap from="laserScan" to="scan" />
   </node>
 

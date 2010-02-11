@@ -71,7 +71,7 @@ cob3_msgs,\
 cob3_srvs
 
 PACKAGES_DRIVER=\
-sickS300,\
+sick_s300,\
 cob3_hokuyo,\
 sdh,\
 cob3_camera_sensors,\

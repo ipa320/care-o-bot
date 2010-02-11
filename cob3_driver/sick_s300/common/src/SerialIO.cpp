@@ -9,7 +9,7 @@
  *
  * Project name: care-o-bot
  * ROS stack name: cob3_driver
- * ROS package name: sickS300
+ * ROS package name: sick_s300
  * Description:
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -52,7 +52,7 @@
  ****************************************************************/
 
 //#include "stdafx.h"
-#include "include/SerialIO.h"
+#include "sick_s300/SerialIO.h"
 #include <math.h>
 #include <iostream>
 
