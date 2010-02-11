@@ -35,7 +35,7 @@ rosbuild_add_executable(${PROJECT_NAME} ros/src/${PROJECT_NAME}.cpp)
 rosbuild_add_executable(${PROJECT_NAME}_test ros/src/${PROJECT_NAME}_test.cpp)
 
 # add include search paths
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common)
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # link libraries
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/common/lib/libPlatformHardwareCOb3.so pcan ntcan)

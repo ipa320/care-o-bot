@@ -70,7 +70,7 @@
 #include <cob3_srvs/Shutdown.h>
 
 // external includes
-#include <include/PlatformHardware.h>
+#include <cob3_platform/PlatformHardware.h>
 
 //####################
 //#### node class ####
