@@ -7,6 +7,7 @@ panels = [
 	 ( "home", cob3.arm.Home),
 	 ( "folded", cob3.arm.Folded),
 	 ( "simple_trajectory", cob3.arm.SimpleTrajectory),
+	 ( "simple_trajectory2", cob3.arm.SimpleTrajectory2),
 	 ]),
 
   ( "sdh", [

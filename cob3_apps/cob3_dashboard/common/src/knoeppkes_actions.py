@@ -5,6 +5,7 @@ import roslib; roslib.load_manifest('cob3_dashboard')
 from home import *
 from folded import *
 from simple_trajectory import *
+from simple_trajectory2 import *
 
 class arm:
 	def Home(self):
@@ -15,6 +16,9 @@ class arm:
 	   
 	def SimpleTrajectory(self):
 		simple_trajectory()
+		
+	def SimpleTrajectory2(self):
+		simple_trajectory2()
 
 class sdh:
 	def Home(self):
