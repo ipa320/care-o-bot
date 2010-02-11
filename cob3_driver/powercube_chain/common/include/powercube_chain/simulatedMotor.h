@@ -54,7 +54,7 @@
 #ifndef _SIMULATED_MOTOR_H_
 #define _SIMULATED_MOTOR_H_
 
-#include "moveCommand.h"
+#include <powercube_chain/moveCommand.h>
 #include <string>
 
 class simulatedMotor

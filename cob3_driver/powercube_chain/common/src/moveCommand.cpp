@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include "moveCommand.h"
+#include <powercube_chain/moveCommand.h>
 #include <math.h>
 #include <stddef.h>
 

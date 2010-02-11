@@ -54,12 +54,8 @@
 #ifndef __POWER_CUBE_SIM_H_
 #define __POWER_CUBE_SIM_H_
 
-#include "Joint.h"
-#include "datastructsManipulator.h"
-#ifdef COB3
-	#include "ManipUtil/ManipulatorXML.h"
-	#include "ManipUtil/millisleep.h"
-#endif
+#include <powercube_chain/Joint.h>
+#include <powercube_chain/datastructsManipulator.h>
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

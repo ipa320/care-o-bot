@@ -51,8 +51,8 @@
  *
  ****************************************************************/
 
-#include "simulatedArm.h"
-#include "simulatedMotor.h"
+#include <powercube_chain/simulatedArm.h>
+#include <powercube_chain/simulatedMotor.h>
 #include <math.h>
 
 #define PSIM_CHECK_INITIALIZED() \

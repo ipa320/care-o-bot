@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include "PowerCubeSim.h"
+#include <powercube_chain/PowerCubeSim.h>
 #include <string>
 #include <sstream>
 #ifdef PYTHON_THREAD

@@ -51,4 +51,4 @@
  *
  ****************************************************************/
 
-#include <Manipulation/ManipUtil/Joint.h>
+#include <powercube_chain/Joint.h>

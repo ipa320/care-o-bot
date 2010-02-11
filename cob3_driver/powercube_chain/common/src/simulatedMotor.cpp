@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include "simulatedMotor.h"
+#include <powercube_chain/simulatedMotor.h>
 #include <math.h>
 
 #include <rtt/TaskContext.hpp>

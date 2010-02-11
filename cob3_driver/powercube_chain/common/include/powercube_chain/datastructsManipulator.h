@@ -54,9 +54,9 @@
 #ifndef __DATASTRUCTS_MANIPULATOR_H_
 #define __DATASTRUCTS_MANIPULATOR_H_
 
-#include "Wm4/Wm4Matrix4.h"
-#include "Wm4/Wm4Matrix3.h"
-#include "Joint.h"
+#include <libwm4/Wm4Matrix4.h>
+#include <libwm4/Wm4Matrix3.h>
+#include <powercube_chain/Joint.h>
 #include <iostream>
 
 // never in headerfiles!
@@ -65,7 +65,7 @@
 #ifdef SWIG
 %module PowerCubeCtrl
 %{
-	#include "Source/Manipulation/ManipUtil/datastructsManipulator.h"
+	#include <powercube_chain/datastructsManipulator.h>
 %}
 #endif 
 

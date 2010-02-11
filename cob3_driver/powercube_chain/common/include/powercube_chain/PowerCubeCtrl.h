@@ -56,8 +56,8 @@
 
 //#define __LINUX__
 
-#include "m5apiw32.h"
-#include "moveCommand.h"
+#include <libm5api/m5apiw32.h>
+#include <powercube_chain/moveCommand.h>
 //#include "Utilities/mutex.h"
 
 #include <iostream>
