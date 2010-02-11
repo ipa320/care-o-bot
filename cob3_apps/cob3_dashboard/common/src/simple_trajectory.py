@@ -28,19 +28,19 @@ def simple_trajectory():
     point=JointTrajectoryPoint()
     point.positions=[0,0.7,0,0.7,1.5,1.5,0]
     point.velocities=[0,0,0,0,0,0,0]
-    point.time_from_start=rospy.Duration(3)
+    point.time_from_start=rospy.Duration(5)
     goal.trajectory.points.append(point)
 
     point=JointTrajectoryPoint()
     point.positions=[0,-0.7,0,-0.7,1.5,1.5,0]
     point.velocities=[0,0,0,0,0,0,0]
-    point.time_from_start=rospy.Duration(9)
+    point.time_from_start=rospy.Duration(10)
     goal.trajectory.points.append(point)
     
     point=JointTrajectoryPoint()
     point.positions=[0,0,0,0,0,0,0]
     point.velocities=[0,0,0,0,0,0,0]
-    point.time_from_start=rospy.Duration(12)
+    point.time_from_start=rospy.Duration(14)
     goal.trajectory.points.append(point)
 
     # print goal for debugging reasons
@@ -48,6 +48,5 @@ def simple_trajectory():
     #print goal
 
     client.send_goal(goal)
-    client.wait_for_result()
-    
-    print "movement finished"
+#    client.wait_for_result()
+#    print "movement finished"

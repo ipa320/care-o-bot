@@ -30,6 +30,5 @@ def home():
     #print goal
 
     client.send_goal(goal)
-    client.wait_for_result()
-    
-    print "movement finished"
+#    client.wait_for_result()
+#    print "movement finished"

@@ -2,6 +2,7 @@
 <launch>
 
 	<!-- launch empty world -->
+	<param name="/use_sim_time" value="true" />
 	<include file="$(find cob3_gazebo)/ros/launch/cob3_world.launch" />
 
 	<!-- send arm urdf to param server -->
