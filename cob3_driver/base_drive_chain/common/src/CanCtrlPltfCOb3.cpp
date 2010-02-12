@@ -750,11 +750,14 @@ int CanCtrlPltfCOb3::evalCanBuffer()
 	
 	m_Mutex.lock();
 
+	// as long as there is something in the can buffer -> read out next message
 	while(m_pCanCtrl->receiveMsg(&m_CanMsgRec) == true)
 	{
 		bRet = false;
+		// check for every motor if message belongs to it
 		for (unsigned int i = 0; i < m_vpMotor.size(); i++)
 		{
+			// if message belongs to this motor write data (Pos, Vel, ...) to internal member vars
 			bRet |= m_vpMotor[i]->evalReceivedMsg(m_CanMsgRec);
 		}
 

@@ -691,14 +691,15 @@ void CanDriveHarmonica::setGearVelRadS(double dVelGearRadS)
 	IntprtSetInt(4, 'B', 'G', 0, 0);
 
 	// request pos and vel by TPDO1, triggered by SYNC msg
-	// (to request pos by SDO usesendSDOUpload(0x6064, 0) )
+	// (to request pos by SDO use sendSDOUpload(0x6064, 0) )
+	// sync msg is: iID 0x08 with msg (0,0,0,0,0,0,0,0)
 	CanMsg msg;
 	msg.m_iID  = 0x80;
 	msg.m_iLen = 0;
 	msg.set(0,0,0,0,0,0,0,0);
 	m_pCanCtrl->transmitMsg(msg);
 
-	// send heartbeat to kepp watchdog inactive
+	// send heartbeat to keep watchdog inactive
 	msg.m_iID  = 0x700;
 	msg.m_iLen = 5;
 	msg.set(0x00,0,0,0,0,0,0,0);
@@ -755,9 +756,29 @@ void CanDriveHarmonica::getData(double* pdPosGearRad, double* pdVelGearRadS,
 }
 
 //-----------------------------------------------
+void CanDriveHarmonica::requestPosVel()
+{
+	// request pos and vel by TPDO1, triggered by SYNC msg
+	CanMsg msg;
+	msg.m_iID  = 0x80;
+	msg.m_iLen = 0;
+	msg.set(0,0,0,0,0,0,0,0);
+	m_pCanCtrl->transmitMsg(msg);
+	// (to request pos by SDO use sendSDOUpload(0x6064, 0) )
+}
+
+//-----------------------------------------------
 void CanDriveHarmonica::requestStatus()
 {
 	IntprtSetInt(4, 'S', 'R', 0, 0);
+}
+
+//-----------------------------------------------
+void CanDriveHarmonica::requestMotorTorque()
+{	
+   	// send command for requesting motor current:
+ 	IntprtSetInt(4, 'I', 'Q', 0, 0);	// active current
+	//IntprtSetInt(4, 'I', 'D', 0, 0);	// reactive current
 }
 
 //-----------------------------------------------
@@ -1175,13 +1196,7 @@ void CanDriveHarmonica::setMotorTorque(double dTorqueNm)
 	}
 
 }
-//-----------------------------------------------
-void CanDriveHarmonica::requestMotorTorque()
-{	
-   	// send command for requesting motor current:
- 	IntprtSetInt(4, 'I', 'Q', 0, 0);	// active current
-	//IntprtSetInt(4, 'I', 'D', 0, 0);	// reactive current
-}
+
 //-----------------------------------------------
 void CanDriveHarmonica::getMotorTorque(double* dTorqueNm)
 {
