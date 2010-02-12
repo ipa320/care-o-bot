@@ -82,6 +82,7 @@ PACKAGES_TO_BUILD=\
 	cob3_defs\
 	cob3_ogre\
 	cob3_gazebo\
+	cob3_dashboard
 #--------------------------------------------------------------------
 
 all:

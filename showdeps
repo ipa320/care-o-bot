@@ -64,6 +64,7 @@
 # list all packages here
 PACKAGES_APPS=\
 cob3_teleop,\
+cob3_dashboard,\
 cob3_test
 
 PACKAGES_COMMON=\
