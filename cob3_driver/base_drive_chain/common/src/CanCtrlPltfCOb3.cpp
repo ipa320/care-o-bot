@@ -63,7 +63,7 @@
 #include <CanPeakSysUSB.h>
 #include <CanDummy.h>
 
-#include <CanCtrlPltfCOb3.h>
+#include <base_drive_chain/CanCtrlPltfCOb3.h>
 
 //-----------------------------------------------
 CanCtrlPltfCOb3::CanCtrlPltfCOb3()

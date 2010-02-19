@@ -1,4 +1,4 @@
 std_msgs/String operationMode
 ---
-int64 success
+bool success
 std_msgs/String errorMessage
