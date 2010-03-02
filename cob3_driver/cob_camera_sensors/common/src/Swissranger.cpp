@@ -1,57 +1,61 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description:
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: Mai 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
-
-#include "cob3_camera_sensors/SR31.h"
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: Mai 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+ 
+#ifdef __COB_ROS__
+#include "cob_camera_sensors/Swissranger.h"
+#else
+#include "Swissranger.h"
+#endif
 
 using namespace ipa_CameraSensors;
 
@@ -61,14 +65,14 @@ extern "C" {
 #endif
 __DLL_ABSTRACTRANGEIMAGINGSENSOR_H__ AbstractRangeImagingSensor* APIENTRY CreateRangeImagingSensor_SR3000()
 {
-	return (new SR31());
+	return (new Swissranger());
 }
 #ifdef __cplusplus
 }
 #endif
 
 
-SR31::SR31()
+Swissranger::Swissranger()
 {
 	m_initialized = false;
 	m_open = false;
@@ -85,7 +89,7 @@ SR31::SR31()
 }
 
 
-SR31::~SR31()
+Swissranger::~Swissranger()
 {
 	if (isOpen())
 	{
@@ -120,7 +124,7 @@ int ipa_CameraSensors::LibMesaCallback(SRCAM srCam, unsigned int msg, unsigned i
 }
 
 
-unsigned long SR31::Init(std::string directory, int cameraIndex)
+unsigned long Swissranger::Init(std::string directory, int cameraIndex)
 {
 	if (isInitialized())
 	{
@@ -132,7 +136,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 	/// Load SR parameters from xml-file
 	if (LoadParameters((directory + "cameraSensorsIni.xml").c_str(), cameraIndex) & RET_FAILED)
 	{
-		std::cerr << "INFO - SR31::Init:" << std::endl;
+		std::cerr << "INFO - Swissranger::Init:" << std::endl;
 		std::cerr << "\t ... Parsing xml configuration file failed." << std::endl;
 		return (RET_FAILED | RET_INIT_CAMERA_FAILED);	
 	}
@@ -147,7 +151,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 		/// Load z-calibration files
 		if(m_CoeffsA0.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA0.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA0.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -157,7 +161,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 		/// Load z-calibration files
 		if(m_CoeffsA1.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA1.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA1.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -167,7 +171,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 		/// Load z-calibration files
 		if(m_CoeffsA2.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA2.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA2.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -177,7 +181,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 		/// Load z-calibration files
 		if(m_CoeffsA3.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA3.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA3.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -187,7 +191,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 		/// Load z-calibration files
 		if(m_CoeffsA4.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA4.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA4.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -197,7 +201,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 		/// Load z-calibration files
 		if(m_CoeffsA5.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA5.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA5.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -206,7 +210,7 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 
 		if(m_CoeffsA6.Load(directory + "MatlabCalibrationData/SR/ZCoeffsA6.txt") & RET_FAILED)
 		{
-			std::cerr << "ERROR - SR31::Init:" << std::endl;
+			std::cerr << "ERROR - Swissranger::Init:" << std::endl;
 			std::cerr << "\t ... Error while loading " << directory + "MatlabCalibrationData/ZcoeffsA6.txt" << "." << std::endl;
 			std::cerr << "\t ... Data is necessary for z-calibration of swissranger camera" << std::endl;
 			m_CoeffsInitialized = false;
@@ -216,12 +220,13 @@ unsigned long SR31::Init(std::string directory, int cameraIndex)
 	
 	// set init flag
 	m_initialized = true;
+	m_GrayImageAcquireCalled = false;
 
 	return RET_OK;
 }
 
 
-unsigned long SR31::Open()
+unsigned long Swissranger::Open()
 {
 	if (!isInitialized())
 	{
@@ -242,7 +247,7 @@ unsigned long SR31::Open()
 	{
 		if(SR_OpenUSB(&m_SRCam, 0)<=0)
 		{
-			std::cerr << "ERROR - SR31::Open():" << std::endl;
+			std::cerr << "ERROR - Swissranger::Open():" << std::endl;
 			std::cerr << "\t ... Could not open swissranger camera on USB port" << std::endl;
 			std::cerr << "\t ... Unplug and Replugin camera power cable.\n";
 			return RET_FAILED;
@@ -256,7 +261,7 @@ unsigned long SR31::Open()
 		m_RangeCameraParameters.m_IP >> sIP;
 		if(SR_OpenETH(&m_SRCam, sIP.c_str())<=0)
 		{
-			std::cerr << "ERROR - SR31::Open():" << std::endl;
+			std::cerr << "ERROR - Swissranger::Open():" << std::endl;
 			std::cerr << "\t ... Could not open swissranger camera on ETHERNET port" << std::endl;
 			std::cerr << "\t ... with ip '" << sIP << "'." << std::endl;
 			std::cerr << "\t ... Unplug and Replugin camera power cable to fix problem\n";
@@ -265,14 +270,14 @@ unsigned long SR31::Open()
 	}
 	else
 	{
-		std::cerr << "ERROR - SR31::Open():" << std::endl;
+		std::cerr << "ERROR - Swissranger::Open():" << std::endl;
 		std::cerr << "\t ... Unknown interface type '" << sInterface << "'" << std::endl;
 		return RET_FAILED;
 	}
 
 	//char DevStr[1024];
 	//SR_GetDeviceString(m_SRCam, DevStr, 1024);
-	//std::cout << "SR31::Open(): INFO" << std::endl;
+	//std::cout << "Swissranger::Open(): INFO" << std::endl;
 	//std::cout << "\t ... " << DevStr << std::endl;
 
 	if (SetParameters() & ipa_CameraSensors::RET_FAILED)
@@ -283,7 +288,7 @@ unsigned long SR31::Open()
 	}
 
 	std::cout << "******************************************" << std::endl;
-	std::cout << "SR31::Open: Swissranger camera device OPEN" << std::endl;
+	std::cout << "Swissranger::Open: Swissranger camera device OPEN" << std::endl;
 	std::cout << "******************************************" << std::endl << std::endl;
 	m_open = true;
 
@@ -291,7 +296,7 @@ unsigned long SR31::Open()
 }
 
 
-unsigned long SR31::Close()
+unsigned long Swissranger::Close()
 {
 	if (!isOpen())
 	{
@@ -300,7 +305,7 @@ unsigned long SR31::Close()
 
 	if(SR_Close(m_SRCam)<0)
 	{
-		std::cout << "ERROR - SR31::Close():" << std::endl;
+		std::cout << "ERROR - Swissranger::Close():" << std::endl;
 		std::cerr << "\t ... Could not close swissranger SR3000 camera." << std::endl;
 		return RET_FAILED;
 	}
@@ -312,7 +317,7 @@ unsigned long SR31::Close()
 }
 
 
-unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty) 
+unsigned long Swissranger::SetProperty(t_cameraProperty* cameraProperty) 
 {
 	if (!m_SRCam)
 	{
@@ -331,7 +336,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 					err =SR_SetAmplitudeThreshold(m_SRCam, val);
 					if(err<0)
 					{
-						std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 						std::cerr << "\t ... Could not set amplitude threshold to AUTO mode" << std::endl;
 						return RET_FAILED;
 					}
@@ -342,7 +347,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Special value 'VALUE_AUTO' or 'VALUE_DEFAULT' expected." << std::endl;
 					return RET_FAILED;
 				}
@@ -351,7 +356,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 			{
 				if (cameraProperty->u_shortData < 0)
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Amplitude threshold must be >= 0" << std::endl;
 					return RET_FAILED;
 				}
@@ -360,7 +365,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 					err =SR_SetAmplitudeThreshold(m_SRCam, cameraProperty->u_shortData);
 					if(err<0)
 					{
-						std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 						std::cerr << "\t ... Could not set amplitude threshold to AUTO mode" << std::endl;
 						return RET_FAILED;
 					}
@@ -368,7 +373,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 			}
 			else
 			{
-				std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+				std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 				std::cerr << "\t ... Wrong property type. '(TYPE_SHORT|TYPE_UNSIGNED)' or special value 'TYPE_SPECIAL' expected." << std::endl;
 				return RET_FAILED;
 			}
@@ -381,7 +386,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 					err = SR_SetAutoExposure(m_SRCam, 1, 150, 1, 5);
 					if(err<0)
 					{
-						std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 						std::cerr << "\t ... Could not set integration time to AUTO mode" << std::endl;
 						return RET_FAILED;
 					}
@@ -392,7 +397,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Special value 'VALUE_AUTO' or 'VALUE_DEFAULT' expected." << std::endl;
 					return RET_FAILED;
 				}
@@ -401,7 +406,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 			{
 				if (cameraProperty->u_longData < 0 || cameraProperty->u_charData > 255)
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Amplitude threshold must be between 0 and 255" << std::endl;
 					return RET_FAILED;
 				}
@@ -410,14 +415,14 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 					err = SR_SetAutoExposure(m_SRCam, 0xff, 150, 5, 70);
 					if(err<0)
 					{
-						std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 						std::cerr << "\t ... Could not turn off auto exposure" << std::endl;
 						return RET_FAILED;
 					}
 					err = SR_SetIntegrationTime(m_SRCam, cameraProperty->u_charData);
 					if(err<0)
 					{
-						std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 						std::cerr << "\t ... Could not set amplitude threshold to '" << cameraProperty->u_charData << "'" << std::endl;
 						return RET_FAILED;
 					}
@@ -425,7 +430,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 			}
 			else
 			{
-				std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+				std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 				std::cerr << "\t ... Wrong property type. '(TYPE_LONG|TYPE_UNSIGNED)' or special value 'TYPE_SPECIAL' expected." << std::endl;
 				return RET_FAILED;
 			}
@@ -438,7 +443,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 					err = SR_SetModulationFrequency(m_SRCam, MF_LAST);
 					if(err<0)
 					{
-						std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 						std::cerr << "\t ... Could not set modulation frequency to AUTO mode" << std::endl;
 						return RET_FAILED;
 					}
@@ -449,7 +454,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Special value 'VALUE_AUTO' or 'VALUE_DEFAULT' expected." << std::endl;
 					return RET_FAILED;
 				}
@@ -508,13 +513,13 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Modulation frequency " << cameraProperty->stringData << " unknown" << std::endl;
 				}
 				
 				if(err<0)
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Could not set modulation frequency " << cameraProperty->stringData << std::endl;
 					return RET_FAILED;
 				}
@@ -522,7 +527,7 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 			}
 			else
 			{
-				std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+				std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 				std::cerr << "\t ... Wrong property type. '(TYPE_LONG|TYPE_UNSIGNED)' or special value 'TYPE_SPECIAL' expected." << std::endl;
 				return RET_FAILED;
 			}
@@ -533,20 +538,20 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 				err = SR_SetMode(m_SRCam, cameraProperty->integerData);
 				if(err<0)
 				{
-					std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 					std::cerr << "\t ... Could not set acquire mode" << std::endl;
 					return RET_FAILED;
 				}
 			}
 			else
 			{
-				std::cerr << "ERROR - SR31::SetProperty:" << std::endl;
+				std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
 				std::cerr << "\t ... Wrong property type. 'TYPE_INTEGER' expected." << std::endl;
 				return RET_FAILED;
 			}
 			break;
 		default: 				
-			std::cout << "SR31::SetProperty: Property " << cameraProperty->propertyID << " unspecified.\n";
+			std::cout << "Swissranger::SetProperty: Property " << cameraProperty->propertyID << " unspecified.\n";
 			return RET_FAILED;
 			break;
 	}
@@ -555,13 +560,13 @@ unsigned long SR31::SetProperty(t_cameraProperty* cameraProperty)
 }
 
 
-unsigned long SR31::SetPropertyDefaults() 
+unsigned long Swissranger::SetPropertyDefaults() 
 {
 	return RET_FUNCTION_NOT_IMPLEMENTED;
 }
 
 
-unsigned long SR31::GetProperty(t_cameraProperty* cameraProperty) 
+unsigned long Swissranger::GetProperty(t_cameraProperty* cameraProperty) 
 {
 	switch (cameraProperty->propertyID)
 	{
@@ -621,7 +626,7 @@ unsigned long SR31::GetProperty(t_cameraProperty* cameraProperty)
 			break;
 
 		default: 				
-			std::cout << "ERROR - SR31::GetProperty:" << std::endl;
+			std::cout << "ERROR - Swissranger::GetProperty:" << std::endl;
 			std::cout << "\t ... Property " << cameraProperty->propertyID << " unspecified.";
 			return RET_FAILED;
 			break;
@@ -634,10 +639,11 @@ unsigned long SR31::GetProperty(t_cameraProperty* cameraProperty)
 
 /// Wrapper for IplImage retrival from AcquireImage
 /// Images have to be initialized prior to calling this function
-unsigned long SR31::AcquireImages(IplImage* rangeImage, IplImage* intensityImage, IplImage* cartesianImage, bool getLatestFrame, bool undistort)
+unsigned long Swissranger::AcquireImages(IplImage* rangeImage, IplImage* grayImage, IplImage* cartesianImage, 
+										 bool getLatestFrame, bool undistort, ipa_CameraSensors::t_ToFGrayImageType grayImageType)
 {
 	char* rangeImageData = 0;
-	char* intensityImageData = 0;
+	char* grayImageData = 0;
 	char* cartesianImageData = 0;
 	int widthStepOneChannel = -1;
 
@@ -661,25 +667,25 @@ unsigned long SR31::AcquireImages(IplImage* rangeImage, IplImage* intensityImage
 		}
 		else
 		{
-			std::cerr << "ERROR - SR31::AcquireImages:" << std::endl;
+			std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 			std::cerr << "\t ... Could not acquire range image. Wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
 	}
 
-	if(intensityImage)
+	if(grayImage)
 	{
-		if(intensityImage->depth == IPL_DEPTH_32F &&
-			intensityImage->nChannels == 1 &&
-			intensityImage->width == width &&
-			intensityImage->height == height)
+		if(grayImage->depth == IPL_DEPTH_32F &&
+			grayImage->nChannels == 1 &&
+			grayImage->width == width &&
+			grayImage->height == height)
 		{
-			intensityImageData = intensityImage->imageData;
-			widthStepOneChannel = intensityImage->widthStep;
+			grayImageData = grayImage->imageData;
+			widthStepOneChannel = grayImage->widthStep;
 		}
 		else
 		{
-			std::cerr << "ERROR - SR31::AcquireImages:" << std::endl;
+			std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 			std::cerr << "\t ... Could not acquire intensity image. Wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
@@ -697,7 +703,7 @@ unsigned long SR31::AcquireImages(IplImage* rangeImage, IplImage* intensityImage
 		}
 		else
 		{
-			std::cout << "ERROR - SR31::AcquireImages:" << std::endl;
+			std::cout << "ERROR - Swissranger::AcquireImages:" << std::endl;
 			std::cerr << "\t ... Could not acquire cartesian image. Wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
@@ -708,15 +714,16 @@ unsigned long SR31::AcquireImages(IplImage* rangeImage, IplImage* intensityImage
 		return RET_OK;
 	}
 
-	return AcquireImages(widthStepOneChannel, rangeImageData, intensityImageData,  cartesianImageData, getLatestFrame, undistort);
+	return AcquireImages(widthStepOneChannel, rangeImageData, grayImageData, cartesianImageData, getLatestFrame, undistort, grayImageType);
 	
 }
 
 /// Wrapper for IplImage retrival from AcquireImage
-unsigned long SR31::AcquireImages2(IplImage** rangeImage, IplImage** intensityImage, IplImage** cartesianImage, bool getLatestFrame, bool undistort)
+unsigned long Swissranger::AcquireImages2(IplImage** rangeImage, IplImage** grayImage, IplImage** cartesianImage,
+										  bool getLatestFrame, bool undistort, ipa_CameraSensors::t_ToFGrayImageType grayImageType)
 {
 	char* rangeImageData = 0;
-	char* intensityImageData = 0;
+	char* grayImageData = 0;
 	char* cartesianImageData = 0;
 	int widthStepOneChannel = -1;
 
@@ -735,11 +742,11 @@ unsigned long SR31::AcquireImages2(IplImage** rangeImage, IplImage** intensityIm
 		widthStepOneChannel = (*rangeImage)->widthStep;
 	} 
 
-	if(intensityImage)
+	if(grayImage)
 	{
-		*intensityImage = cvCreateImage(cvSize(width, height), IPL_DEPTH_32F, 1);
-		intensityImageData = (*intensityImage)->imageData;
-		widthStepOneChannel = (*intensityImage)->widthStep;
+		*grayImage = cvCreateImage(cvSize(width, height), IPL_DEPTH_32F, 1);
+		grayImageData = (*grayImage)->imageData;
+		widthStepOneChannel = (*grayImage)->widthStep;
 	}
 
 	if(cartesianImage)
@@ -754,18 +761,19 @@ unsigned long SR31::AcquireImages2(IplImage** rangeImage, IplImage** intensityIm
 		return RET_OK;
 	}
 	
-	return AcquireImages(widthStepOneChannel, rangeImageData, intensityImageData,  cartesianImageData, getLatestFrame, undistort);
+	return AcquireImages(widthStepOneChannel, rangeImageData, grayImageData, cartesianImageData, getLatestFrame, undistort, grayImageType);
 }
 
 // Enables faster image retrival than AcquireImage
-unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData, char* intensityImageData, char* cartesianImageData, bool getLatestFrame, bool undistort)
+unsigned long Swissranger::AcquireImages(int widthStepOneChannel, char* rangeImageData, char* grayImageData, char* cartesianImageData,
+										 bool getLatestFrame, bool undistort, ipa_CameraSensors::t_ToFGrayImageType grayImageType)
 {
 ///***********************************************************************
 /// Get data from camera
 ///***********************************************************************
 	if (!m_open)
 	{
-		std::cerr << "ERROR - SR31::AcquireImages:" << std::endl;
+		std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 		std::cerr << "t ... Camera not open." << std::endl;
 		return (RET_FAILED | RET_CAMERA_NOT_OPEN);
 	}
@@ -787,7 +795,7 @@ unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData,
 	bytesRead = SR_Acquire(m_SRCam);
 	if(bytesRead < 0)
 	{
-		std::cerr << "ERROR - SR31::AcquireImages:" << std::endl;
+		std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 		std::cerr << "\t ... Could not acquire image!" << std::endl;
 		return RET_FAILED;
 	}
@@ -797,7 +805,7 @@ unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData,
 		bytesRead = SR_Acquire(m_SRCam);
 		if(bytesRead < 0)
 		{
-			std::cerr << "ERROR - SR31::AcquireImages:" << std::endl;
+			std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 			std::cerr << "\t ... Could not acquire image!" << std::endl;
 			return RET_FAILED;
 		}
@@ -836,28 +844,38 @@ unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData,
 	} // End if (rangeImage)
 
 ///***********************************************************************
-/// Intensity image
+/// Intensity/Amplitude image
+/// ATTENTION: SR provides only amplitude information
 ///***********************************************************************
-	if(intensityImageData)
+	if(grayImageData)
 	{
-		int widthStepIntensityImage = widthStepOneChannel;
-		float intensityValue = 0;
+		if (grayImageType == ipa_CameraSensors::INTENSITY &&
+			m_GrayImageAcquireCalled == false)
+		{
+			std::cout << "WARNING - Swissranger::AcquireImages:" << std::endl;
+			std::cout << "\t ... Intensity image for swissranger not available" << std::endl;
+			std::cout << "\t ... falling back to amplitude image" << std::endl;
+			m_GrayImageAcquireCalled = true;
+		}
+
+		int widthStepGrayImage = widthStepOneChannel;
+		float grayValue = 0;
 		int imageSize = width*height;
 
 		for(unsigned int row=0; row<(unsigned int)height-1; row++)
 		{
 			for (unsigned int col=0; col<(unsigned int)width-1; col++)
 			{
-				intensityValue = (float)(pixels[imageSize+row*width+col]);
-				((float*) (intensityImageData + row*widthStepIntensityImage))[col] = intensityValue;
-				//cvSetReal2D(*intensityImage, row, col, intensityValue);
+				grayValue = (float)(pixels[imageSize+row*width+col]);
+				((float*) (grayImageData + row*widthStepGrayImage))[col] = grayValue;
+				//cvSetReal2D(*grayImage, row, col, grayValue);
 			}	
 		}
 		
 		if (undistort)
 		{
 			CvMat* undistortedData = cvCreateMat( height, width, CV_32FC1 );
-			undistortedData->data.fl = (float*) intensityImageData;
+			undistortedData->data.fl = (float*) grayImageData;
 
 			CvMat* distortedData = cvCloneMat(undistortedData);
  
@@ -938,7 +956,7 @@ unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData,
 			}
 			else
 			{
-				std::cerr << "ERROR - SR31::AcquireImages: \n";
+				std::cerr << "ERROR - Swissranger::AcquireImages: \n";
 				std::cerr << "\t ... At least one of m_CoeffsA0 ... m_CoeffsA6 not initialized.\n";
 				return RET_FAILED;
 			}
@@ -1004,7 +1022,7 @@ unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData,
 		}
 		else
 		{
-			std::cerr << "ERROR - SR31::AcquireImages:" << std::endl;
+			std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 			std::cerr << "\t ... Calibration method unknown.\n";
 			return RET_FAILED;
 		}
@@ -1012,12 +1030,12 @@ unsigned long SR31::AcquireImages(int widthStepOneChannel, char* rangeImageData,
 	return RET_OK;
 }
 
-unsigned long SR31::SaveParameters(const char* filename) 
+unsigned long Swissranger::SaveParameters(const char* filename) 
 {
 	return RET_FUNCTION_NOT_IMPLEMENTED;
 }
 
-unsigned long SR31::GetCalibratedZMatlab(int u, int v, float zRaw, float& zCalibrated)
+unsigned long Swissranger::GetCalibratedZMatlab(int u, int v, float zRaw, float& zCalibrated)
 {
 	if (!m_Fake)
 	{
@@ -1035,7 +1053,7 @@ unsigned long SR31::GetCalibratedZMatlab(int u, int v, float zRaw, float& zCalib
 }
 
 /// Return value is in m
-unsigned long SR31::GetCalibratedZSwissranger(int u, int v, int width, float& zCalibrated)
+unsigned long Swissranger::GetCalibratedZSwissranger(int u, int v, int width, float& zCalibrated)
 {
 	if (!m_Fake)
 	{
@@ -1049,7 +1067,7 @@ unsigned long SR31::GetCalibratedZSwissranger(int u, int v, int width, float& zC
 }
 
 /// u and v are assumed to be distorted coordinates
-unsigned long SR31::GetCalibratedXYMatlab(int u, int v, float z, float& x, float& y)
+unsigned long Swissranger::GetCalibratedXYMatlab(int u, int v, float z, float& x, float& y)
 {
 	/// Conversion form m to mm
 	z *= 1000;
@@ -1065,7 +1083,7 @@ unsigned long SR31::GetCalibratedXYMatlab(int u, int v, float z, float& x, float
 	/// Fundamental equation: u = (fx*x)/z + cx
 	if (fx == 0)
 	{
-		std::cerr << "ERROR - SR31::GetCalibratedXYZ:" << std::endl;
+		std::cerr << "ERROR - Swissranger::GetCalibratedXYZ:" << std::endl;
 		std::cerr << "\t ... fx is 0.\n";
 		return RET_FAILED;
 	}
@@ -1074,7 +1092,7 @@ unsigned long SR31::GetCalibratedXYMatlab(int u, int v, float z, float& x, float
 	/// Fundamental equation: v = (fy*y)/z + cy
 	if (fy == 0)
 	{
-		std::cerr << "ERROR - SR31::GetCalibratedXYZ:" << std::endl;
+		std::cerr << "ERROR - Swissranger::GetCalibratedXYZ:" << std::endl;
 		std::cerr << "\t ... fy is 0.\n";
 		return RET_FAILED;
 	}
@@ -1087,7 +1105,7 @@ unsigned long SR31::GetCalibratedXYMatlab(int u, int v, float z, float& x, float
 	return RET_OK;
 }
 
-unsigned long SR31::GetCalibratedXYSwissranger(int u, int v, int width, float& x, float& y)
+unsigned long Swissranger::GetCalibratedXYSwissranger(int u, int v, int width, float& x, float& y)
 {
 	// make sure, that m_X, m_Y and m_Z have been initialized by Acquire image
 	int i = v*width + u;
@@ -1097,7 +1115,7 @@ unsigned long SR31::GetCalibratedXYSwissranger(int u, int v, int width, float& x
 	return RET_OK;
 }
 
-unsigned long SR31::SetParameters()
+unsigned long Swissranger::SetParameters()
 {
 	ipa_CameraSensors::t_cameraProperty cameraProperty;
 
@@ -1130,7 +1148,7 @@ unsigned long SR31::SetParameters()
 
 	if (SetProperty(&cameraProperty) & ipa_CameraSensors::RET_FAILED)
 	{
-		std::cout << "WARNING - SR31::SetParameters:" << std::endl;
+		std::cout << "WARNING - Swissranger::SetParameters:" << std::endl;
 		std::cout << "\t ... Could not set amplitude threshold" << std::endl;
 	}
 
@@ -1164,7 +1182,7 @@ unsigned long SR31::SetParameters()
 
 	if (SetProperty(&cameraProperty) & ipa_CameraSensors::RET_FAILED)
 	{
-		std::cout << "WARNING - SR31::SetParameters:" << std::endl;
+		std::cout << "WARNING - Swissranger::SetParameters:" << std::endl;
 		std::cout << "\t ... Could not set integration time" << std::endl;
 	}
 
@@ -1196,7 +1214,7 @@ unsigned long SR31::SetParameters()
 
 	if (SetProperty(&cameraProperty) & ipa_CameraSensors::RET_FAILED)
 	{
-		std::cout << "WARNING - SR31::SetParameters:" << std::endl;
+		std::cout << "WARNING - Swissranger::SetParameters:" << std::endl;
 		std::cout << "\t ... Could not set modulation frequency" << std::endl;
 	}
 
@@ -1210,25 +1228,25 @@ unsigned long SR31::SetParameters()
 	m_RangeCameraParameters.m_AcquireMode >> cameraProperty.integerData;
 	if (SetProperty(&cameraProperty) & ipa_CameraSensors::RET_FAILED)
 	{
-		std::cout << "WARNING - SR31::SetParameters:" << std::endl;
+		std::cout << "WARNING - Swissranger::SetParameters:" << std::endl;
 		std::cout << "\t ... Could not set acquire mode" << std::endl;
 	}
 
 	return RET_OK;
 }
 
-unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
+unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 {
 	/// Load SwissRanger parameters.
 	TiXmlDocument* p_configXmlDocument = new TiXmlDocument( filename );
 	if (!p_configXmlDocument->LoadFile())
 	{
-		std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+		std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 		std::cerr << "\t ... Error while loading xml configuration file (Check filename and syntax of the file):\n";
 		std::cerr << "\t ... '" << filename << "'" << std::endl;
 		return (RET_FAILED | RET_FAILED_OPEN_FILE);
 	}
-	std::cout << "INFO - SR31::LoadParameters:" << std::endl;
+	std::cout << "INFO - Swissranger::LoadParameters:" << std::endl;
 	std::cout << "\t ... Parsing xml configuration file:" << std::endl;
 	std::cout << "\t ... '" << filename << "'" << std::endl;
 
@@ -1268,7 +1286,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "value", &tempString ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'value' of tag 'Role'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1277,7 +1295,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					else if (tempString == "SLAVE") m_RangeCameraParameters.m_CameraRole = SLAVE;
 					else
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Role " << tempString << " unspecified." << std::endl;
 						return (RET_FAILED);
 					}
@@ -1285,7 +1303,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'Role'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1302,7 +1320,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "value", &tempString ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'value' of tag 'Interface'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1320,7 +1338,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 						// read and save value of attribute
 						if ( p_xmlElement_Child->QueryValueAttribute( "ip", &tempString ) != TIXML_SUCCESS)
 						{
-							std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+							std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 							std::cerr << "\t ... Can't find attribute 'ip' of tag 'Interface'." << std::endl;
 							return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 						}
@@ -1330,14 +1348,14 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					}
 					else
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Interface " << tempString << " unspecified." << std::endl;
 						return (RET_FAILED);
 					}
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'Interface'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1353,7 +1371,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "value", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'value' of tag 'AmplitudeThreshold'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1366,7 +1384,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'AmplitudeThreshold'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1382,7 +1400,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "value", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'value' of tag 'IntegrationTime'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1395,7 +1413,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'IntegrationTime'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1411,7 +1429,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "frequency", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'frequency' of tag 'Modulation'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1424,7 +1442,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'Modulation'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1441,7 +1459,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_COR_FIX_PTRN", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_COR_FIX_PTRN' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1452,7 +1470,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_MEDIAN", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_MEDIAN' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1463,7 +1481,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_TOGGLE_FRQ", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_TOGGLE_FRQ' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1474,7 +1492,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_CONV_GRAY", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_CONV_GRAY' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1485,7 +1503,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_SW_ANF", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_SW_ANF' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1496,7 +1514,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_SR3K_2TAP_PROC", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_SR3K_2TAP_PROC' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1507,7 +1525,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_SHORT_RANGE", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_SHORT_RANGE' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1518,7 +1536,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_CONF_MAP", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_CONF_MAP' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1529,7 +1547,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_HW_TRIGGER", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_HW_TRIGGER' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1540,7 +1558,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_SW_TRIGGER", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_SW_TRIGGER' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1551,7 +1569,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_DENOISE_ANF", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_DENOISE_ANF' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1562,7 +1580,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 
 					if ( p_xmlElement_Child->QueryValueAttribute( "AM_MEDIANCROSS", &tempString) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'AM_MEDIANCROSS' of tag 'AcquireMode'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1577,7 +1595,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'AcquireMode'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1593,7 +1611,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "name", &tempString ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'name' of tag 'CalibrationMethod'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1602,14 +1620,14 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					else if (tempString == "NATIVE") m_CalibrationMethod = NATIVE;
 					else
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Calibration mode " << tempString << " unspecified." << std::endl;
 						return (RET_FAILED);
 					}
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'CalibrationMethod'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1626,25 +1644,25 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "fx", &fx ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'fx' of tag 'IntrinsicParameters'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
 					if ( p_xmlElement_Child->QueryValueAttribute( "fy", &fy ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'fy' of tag 'IntrinsicParameters'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
 					if ( p_xmlElement_Child->QueryValueAttribute( "cx", &cx ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'cx' of tag 'IntrinsicParameters'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
 					if ( p_xmlElement_Child->QueryValueAttribute( "cy", &cy ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'cy' of tag 'IntrinsicParameters'." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1652,7 +1670,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'IntrinsicParameters'." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1669,25 +1687,25 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 					// read and save value of attribute
 					if ( p_xmlElement_Child->QueryValueAttribute( "k1", &k1 ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'k1' of tag 'DistortionCoeffs '." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
 					if ( p_xmlElement_Child->QueryValueAttribute( "k2", &k2 ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'k2' of tag 'DistortionCoeffs '." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
 					if ( p_xmlElement_Child->QueryValueAttribute( "p1", &p1 ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'p1' of tag 'DistortionCoeffs '." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
 					if ( p_xmlElement_Child->QueryValueAttribute( "p2", &p2 ) != TIXML_SUCCESS)
 					{
-						std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+						std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 						std::cerr << "\t ... Can't find attribute 'p2' of tag 'DistortionCoeffs '." << std::endl;
 						return (RET_FAILED | RET_XML_ATTR_NOT_FOUND);
 					}
@@ -1695,7 +1713,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 				}
 				else
 				{
-					std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+					std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 					std::cerr << "\t ... Can't find tag 'DistortionCoeffs '." << std::endl;
 					return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 				}
@@ -1705,7 +1723,7 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 //************************************************************************************
 			else 
 			{
-				std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+				std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 				std::cerr << "\t ... Can't find tag '" << ss.str() << "'" << std::endl;
 				return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 			}
@@ -1716,14 +1734,14 @@ unsigned long SR31::LoadParameters(const char* filename, int cameraIndex)
 //************************************************************************************
 		else 
 		{
-			std::cerr << "ERROR - SR31::LoadParameters:" << std::endl;
+			std::cerr << "ERROR - Swissranger::LoadParameters:" << std::endl;
 			std::cerr << "\t ... Can't find tag 'LibCameraSensors'." << std::endl;
 			return (RET_FAILED | RET_XML_TAG_NOT_FOUND);
 		}
 	}
 
 	
-	std::cout << "INFO - SR31::LoadParameters:" << std::endl;
+	std::cout << "INFO - Swissranger::LoadParameters:" << std::endl;
 	std::cout << "\t ... Parsing xml calibration file: Done.\n";
 
 	return RET_OK;

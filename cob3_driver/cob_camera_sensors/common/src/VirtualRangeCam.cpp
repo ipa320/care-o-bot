@@ -1,57 +1,61 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description:
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: Mai 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
-
-#include "cob3_camera_sensors/VirtualRangeCam.h"
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: Mai 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+ 
+#ifdef __COB_ROS__
+#include "cob_camera_sensors/VirtualRangeCam.h"
+#else
+#include "VirtualRangeCam.h"
+#endif
 
 using namespace ipa_CameraSensors;
 
@@ -223,6 +227,7 @@ unsigned long VirtualRangeCam::Open()
 		return (ipa_CameraSensors::RET_FAILED | ipa_CameraSensors::RET_FAILED_OPEN_FILE);
 	}
 
+	int amplitudeImageCounter = 0;
 	int intensityImageCounter = 0;
 	int rangeImageCounter = 0;
 	int coordinateImageCounter = 0;
@@ -240,6 +245,7 @@ unsigned long VirtualRangeCam::Open()
 				if (fs::is_regular_file(dir_itr->status()))
 				{
 					std::string filename = dir_itr->path().string();
+
 					if ((dir_itr->path().extension() == ".xml") &&
 						filename.find( "RangeCamIntensity_32F1_" + sCameraIndex, 0 ) != std::string::npos)
 					{
@@ -249,6 +255,21 @@ unsigned long VirtualRangeCam::Open()
 						if (m_ImageWidth == -1 || m_ImageHeight == -1)
 						{
 							image = (IplImage*) cvLoad(m_IntensityImageFileNames.back().c_str(), 0);
+							m_ImageWidth = image->width;
+							m_ImageHeight = image->height;
+							cvReleaseImage(&image);
+						}
+					}
+
+					if ((dir_itr->path().extension() == ".xml") &&
+						filename.find( "RangeCamAmplitude_32F1_" + sCameraIndex, 0 ) != std::string::npos)
+					{
+						++amplitudeImageCounter;
+						//std::cout << "VirtualRangeCam::Open(): Reading '" << dir_itr->path().string() << "\n";
+						m_AmplitudeImageFileNames.push_back(dir_itr->path().string());
+						if (m_ImageWidth == -1 || m_ImageHeight == -1)
+						{
+							image = (IplImage*) cvLoad(m_AmplitudeImageFileNames.back().c_str(), 0);
 							m_ImageWidth = image->width;
 							m_ImageHeight = image->height;
 							cvReleaseImage(&image);
@@ -293,10 +314,12 @@ unsigned long VirtualRangeCam::Open()
 			}
 		}
 		std::sort(m_IntensityImageFileNames.begin(),m_IntensityImageFileNames.end());
+		std::sort(m_AmplitudeImageFileNames.begin(),m_AmplitudeImageFileNames.end());
 		std::sort(m_RangeImageFileNames.begin(),m_RangeImageFileNames.end());
 		std::sort(m_CoordinateImageFileNames.begin(),m_CoordinateImageFileNames.end());
 		std::cout << "INFO - VirtualRangeCam::Open:" << std::endl;
 		std::cout << "\t ... Extracted '" << intensityImageCounter << "' intensity images (16 bit/value)\n";
+		std::cout << "\t ... Extracted '" << amplitudeImageCounter << "' amplitude images (16 bit/value)\n";
 		std::cout << "\t ... Extracted '" << rangeImageCounter << "' range images (16 bit/value)\n";
 		std::cout << "\t ... Extracted '" << coordinateImageCounter << "' coordinate images (3*16 bit/value)\n";
 
@@ -411,10 +434,11 @@ unsigned long VirtualRangeCam::GetProperty(t_cameraProperty* cameraProperty)
 
 /// Wrapper for IplImage retrival from AcquireImage
 /// Images have to be initialized prior to calling this function
-unsigned long VirtualRangeCam::AcquireImages(IplImage* rangeImage, IplImage* intensityImage, IplImage* cartesianImage, bool getLatestFrame, bool undistort)
+unsigned long VirtualRangeCam::AcquireImages(IplImage* rangeImage, IplImage* grayImage, IplImage* cartesianImage,
+											 bool getLatestFrame, bool undistort, ipa_CameraSensors::t_ToFGrayImageType grayImageType)
 {
 	char* rangeImageData = 0;
-	char* intensityImageData = 0;
+	char* grayImageData = 0;
 	char* cartesianImageData = 0;
 	int widthStepOneChannel = -1;
 
@@ -436,15 +460,15 @@ unsigned long VirtualRangeCam::AcquireImages(IplImage* rangeImage, IplImage* int
 		}
 	}
 
-	if(intensityImage)
+	if(grayImage)
 	{
-		if(intensityImage->depth == IPL_DEPTH_32F &&
-			intensityImage->nChannels == 1 &&
-			intensityImage->width == m_ImageWidth &&
-			intensityImage->height == m_ImageHeight)
+		if(grayImage->depth == IPL_DEPTH_32F &&
+			grayImage->nChannels == 1 &&
+			grayImage->width == m_ImageWidth &&
+			grayImage->height == m_ImageHeight)
 		{
-			intensityImageData = intensityImage->imageData;
-			widthStepOneChannel = intensityImage->widthStep;
+			grayImageData = grayImage->imageData;
+			widthStepOneChannel = grayImage->widthStep;
 		}
 		else
 		{
@@ -452,7 +476,7 @@ unsigned long VirtualRangeCam::AcquireImages(IplImage* rangeImage, IplImage* int
 			std::cerr << "\t ... Could not acquire intensity image. Wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
-	}	
+	}
 
 	if(cartesianImage)
 	{
@@ -477,15 +501,16 @@ unsigned long VirtualRangeCam::AcquireImages(IplImage* rangeImage, IplImage* int
 		return RET_OK;
 	}
 
-	return AcquireImages(widthStepOneChannel, rangeImageData, intensityImageData,  cartesianImageData, getLatestFrame, undistort);
+	return AcquireImages(widthStepOneChannel, rangeImageData, grayImageData, cartesianImageData, getLatestFrame, undistort, grayImageType);
 	
 }
 
 /// Wrapper for IplImage retrival from AcquireImage
-unsigned long VirtualRangeCam::AcquireImages2(IplImage** rangeImage, IplImage** intensityImage, IplImage** cartesianImage, bool getLatestFrame, bool undistort)
+unsigned long VirtualRangeCam::AcquireImages2(IplImage** rangeImage, IplImage** grayImage, IplImage** cartesianImage, 
+											  bool getLatestFrame, bool undistort, ipa_CameraSensors::t_ToFGrayImageType grayImageType)
 {
 	char* rangeImageData = 0;
-	char* intensityImageData = 0;
+	char* grayImageData = 0;
 	char* cartesianImageData = 0;
 	int widthStepOneChannel = -1;
 
@@ -496,11 +521,11 @@ unsigned long VirtualRangeCam::AcquireImages2(IplImage** rangeImage, IplImage** 
 		widthStepOneChannel = (*rangeImage)->widthStep;
 	} 
 
-	if(intensityImage)
+	if(grayImage)
 	{
-		*intensityImage = cvCreateImage(cvSize(m_ImageWidth, m_ImageHeight), IPL_DEPTH_32F, 1);
-		intensityImageData = (*intensityImage)->imageData;
-		widthStepOneChannel = (*intensityImage)->widthStep;
+		*grayImage = cvCreateImage(cvSize(m_ImageWidth, m_ImageHeight), IPL_DEPTH_32F, 1);
+		grayImageData = (*grayImage)->imageData;
+		widthStepOneChannel = (*grayImage)->widthStep;
 	}
 
 	if(cartesianImage)
@@ -515,13 +540,14 @@ unsigned long VirtualRangeCam::AcquireImages2(IplImage** rangeImage, IplImage** 
 		return RET_OK;
 	}
 	
-	AcquireImages(widthStepOneChannel, rangeImageData, intensityImageData,  cartesianImageData, getLatestFrame, undistort);
+	AcquireImages(widthStepOneChannel, rangeImageData, grayImageData, cartesianImageData, getLatestFrame, undistort, grayImageType);
 
 	return RET_OK;
 }
 
 
-unsigned long VirtualRangeCam::AcquireImages(int widthStepOneChannel, char* rangeImageData, char* intensityImageData, char* cartesianImageData, bool getLatestFrame, bool undistort)
+unsigned long VirtualRangeCam::AcquireImages(int widthStepOneChannel, char* rangeImageData, char* grayImageData, char* cartesianImageData,
+											 bool getLatestFrame, bool undistort, ipa_CameraSensors::t_ToFGrayImageType grayImageType)
 {
 	if (!m_open)
 	{
@@ -563,11 +589,19 @@ unsigned long VirtualRangeCam::AcquireImages(int widthStepOneChannel, char* rang
 	} // End if (rangeImage)
 
 ///***********************************************************************
-/// Intensity image (distorted or undistorted)
+/// Gray image based on amplitude or intensity (distorted or undistorted)
 ///***********************************************************************
-	if(intensityImageData)
+	if(grayImageData)
 	{
-		IplImage* intensityImage = (IplImage*) cvLoad(m_IntensityImageFileNames[m_ImageCounter].c_str());
+		IplImage* grayImage = 0;
+		if (grayImageType == ipa_CameraSensors::INTENSITY)
+		{
+			grayImage = (IplImage*) cvLoad(m_IntensityImageFileNames[m_ImageCounter].c_str());
+		}
+		else
+		{
+			grayImage = (IplImage*) cvLoad(m_AmplitudeImageFileNames[m_ImageCounter].c_str());
+		}
 
 		int widthStepIntensityImage = widthStepOneChannel;
 
@@ -577,20 +611,20 @@ unsigned long VirtualRangeCam::AcquireImages(int widthStepOneChannel, char* rang
 			{
 				for (unsigned int col=0; col<(unsigned int)m_ImageWidth; col++)
 				{
-					float* f_intensity_ptr = &((float*) (intensityImage->imageData + row*intensityImage->widthStep))[col];
-					((float*) (intensityImageData + row*widthStepIntensityImage))[col] = f_intensity_ptr[0];
+					float* f_intensity_ptr = &((float*) (grayImage->imageData + row*grayImage->widthStep))[col];
+					((float*) (grayImageData + row*widthStepIntensityImage))[col] = f_intensity_ptr[0];
 				}	
 			}
 		}
 		else
 		{
 			CvMat* undistortedData = cvCreateMatHeader( m_ImageHeight, m_ImageWidth, CV_32FC1 );
-			undistortedData->data.fl = (float*) intensityImageData;
+			undistortedData->data.fl = (float*) grayImageData;
  
-			RemoveDistortion(intensityImage, undistortedData);
+			RemoveDistortion(grayImage, undistortedData);
 		}
 		
-		cvReleaseImage(&intensityImage);
+		cvReleaseImage(&grayImage);
 	}
 
 ///***********************************************************************
@@ -707,7 +741,10 @@ unsigned long VirtualRangeCam::AcquireImages(int widthStepOneChannel, char* rang
 	}
 
 	m_ImageCounter++;
-	if (m_ImageCounter >= m_IntensityImageFileNames.size())
+	if ((m_IntensityImageFileNames.size() != 0 && m_ImageCounter >= m_IntensityImageFileNames.size()) ||
+		(m_AmplitudeImageFileNames.size() != 0 && m_ImageCounter >= m_AmplitudeImageFileNames.size()) ||
+		(m_RangeImageFileNames.size() != 0 && m_ImageCounter >= m_RangeImageFileNames.size()) ||
+		(m_CoordinateImageFileNames.size() != 0 && m_ImageCounter >= m_CoordinateImageFileNames.size()))
 	{
 		/// Reset image counter
 		m_ImageCounter = 0;

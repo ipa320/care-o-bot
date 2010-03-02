@@ -1,65 +1,80 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description: Utility functions for OpenCV.
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: July 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description: Utility functions for OpenCV.
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: July 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+ 
+/// @file OpenCVUtils.h
+/// Utility functions for OpenCV
+/// @author Jan Fischer and Jens Kubacki
+/// @date July, 2008.
 
 #ifndef OPENCVUTILS_H
 #define OPENCVUTILS_H
 
+#ifdef __COB_ROS__
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
+
+#include "cob_vision_utils/MathUtils.h"
+#include "cob_vision_utils/ThreeDUtils.h"
+#else
+#include <cv.h>
+#include <highgui.h>
+
+#include "Vision/Utilities/MathUtils.h"
+#include "Vision/Utilities/ThreeDUtils.h"
+#endif
+
 #include <iostream>
 #include <locale.h>
-#include "cob3_camera_sensors/MathUtils.h"
-#include "cob3_camera_sensors/ThreeDUtils.h"
 
 namespace ipa_Utils {
 /// class Point3Dbl;
@@ -114,7 +129,30 @@ void InitUndistortMap( const CvMat* A, const CvMat* dist_coeffs,
 /// @return Return code
 unsigned long ConvertToShowImage(IplImage* Source, IplImage* Dest, int channel = 1, double min = -1, double max = -1);
 
-unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float maskThreshold = 20000, int sourcChannel = 1, double sourceMin = -1, double sourceMax = -1);
+/// Function to mask image <code>source</code> with image <code>mask</code>. All Pixels in <code>source</code> will be set to 0
+/// if the corresponding pixel in <code>mask</code> is outside the interval <code>[minMaskThresh, maxMaskTresh]</code>.
+/// Additionally the source image values can be bounded to <code>[sourceMin, sourceMax]</code>.
+/// @param source The source image.
+/// @param dest The destination image.
+/// @param mask The image used as mask for the source image.
+unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, IplImage* destMask, float minMaskThresh = 0,
+						float maxMaskTresh = 20000, int sourceChannel = 1, double sourceMin = -1, double sourceMax = -1);
+
+/// Function to mask image <code>source</code> with image <code>mask</code>. All Pixels in <code>source</code> will be set to 0
+/// if the corresponding pixel in <code>mask</code> is outside the interval <code>[minMaskThresh, maxMaskTresh]</code>.
+/// Additionally the source image values can be bounded to <code>[sourceMin, sourceMax]</code>.
+/// This function keeps image format at 32F1.
+/// @param source The source image.
+/// @param dest The destination image (32F1).
+/// @param mask The image used as mask for the source image.
+/// @param destMask The destination mask image (32F1).
+/// @param minMaskThresh Lower border for masking.
+/// @param maxMaskThresh Upper border for masking.
+/// @param sourceChannel Channel to be bounded in source image.
+/// @param sourceMin Lower border for bounding source image.
+/// @param sourceMax Upper border for bounding source image.
+unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplImage* destMask, float minMaskThresh = 100,
+						float maxMaskTresh = 20000, int sourceChannel = 1, double sourceMin = -1, double sourceMax = -1);
 
 // function to get the min and max values for a three layer images
 void GetMinMax(IplImage* Image, Point3Dbl& Min, Point3Dbl& Max);

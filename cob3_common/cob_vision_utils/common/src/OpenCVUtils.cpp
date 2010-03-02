@@ -1,57 +1,61 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description:
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: Mai 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
-
-#include "cob3_camera_sensors/OpenCVUtils.h"
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: Mai 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+ 
+#ifdef __COB_ROS__
+#include "cob_vision_utils/OpenCVUtils.h"
+#else
+#include "OpenCVUtils.h"
+#endif
 
 namespace ipa_Utils {
 
@@ -213,10 +217,14 @@ void InitUndistortMap( const CvMat* A, const CvMat* dist_coeffs,
     cvFree( &buffer );
 }
 
-unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float maskThreshold, int sourceChannel, double sourceMin, double sourceMax)
+unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, IplImage* destMask, float minMaskThresh, float maxMaskThresh,
+						int sourceChannel, double sourceMin, double sourceMax)
 {
         double globalMin = -1;
 		double globalMax = -1;
+
+		double maskMin = -1;
+		double maskMax = -1;
 
 		/// Check if destination image has been initialized correctly
 		if(dest->depth != IPL_DEPTH_8U ||
@@ -228,6 +236,17 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 			std::cout << "\t ... Destination image has wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}	
+
+		/// Check if destination image has been initialized correctly
+		if(destMask->depth != IPL_DEPTH_8U ||
+			destMask->nChannels != 3 ||
+			destMask->width != source->width ||
+			destMask->height != source->height)
+		{
+			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "\t ... Destination mask image has wrong image attributes." << std::endl;
+			return RET_FAILED;
+		}
 
 		/// Check if mask image has been initialized correctly
 		if(mask->depth != IPL_DEPTH_32F ||
@@ -242,7 +261,7 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 
 		/// Calculate minmal and maximal value within the specified image sourceChannel
 		/// Channel must be within [1, source->nChannels]
-		if (sourceChannel >= 1 && source->nChannels >= sourceChannel)
+		if (sourceChannel >= 1 && sourceChannel <= source->nChannels)
 			
 		{
 			if (sourceMin == -1 || sourceMax == -1)
@@ -262,6 +281,9 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 		if (sourceMin == -1) sourceMin = globalMin;
 		if (sourceMax == -1) sourceMax = globalMax;
 
+		cvMinMaxLoc(mask, &maskMin, &maskMax);
+		double wMask = maskMax-maskMin;
+
 		double w = sourceMax-sourceMin;
 		int destIndex = 0;
 		int sourceIndex = 0;
@@ -273,31 +295,51 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 			{
 				float* f_source_ptr = (float*) (source->imageData + j*source->widthStep);
 				float* f_mask_ptr = (float*) (mask->imageData + j*mask->widthStep);
-				char* c_dest_ptr = (char*) (dest->imageData + j*dest->widthStep);
+				
+				unsigned char* c_dest_ptr = (unsigned char*) (dest->imageData + j*dest->widthStep);
+				unsigned char* c_destMask_ptr = (unsigned char*) (destMask->imageData + j*destMask->widthStep);
 		
 				for(int i=0; i<source->width; i++)
 				{
+					unsigned char V = 0;
+					unsigned char vMask = 0;
 					destIndex = i*3;
 					sourceIndex = i*source->nChannels;
 					maskIndex = i*mask->nChannels;
 
 					double z = (double)f_source_ptr[sourceIndex + sourceChannel-1];
 					float maskVal = f_mask_ptr[maskIndex];
-					if (maskVal > maskThreshold)
+					if (maskVal < maxMaskThresh &&
+						maskVal > minMaskThresh)
 					{
-						if (z < sourceMin) z = sourceMin;
-						if (z > sourceMax) z = sourceMax;
+						if (z < sourceMin) 
+						{
+							z = sourceMin;
+							maskVal = maskMin;
+						}
+						if (z > sourceMax)
+						{
+							z = sourceMax;
+							maskVal = maskMax;
+						}
+						V= (unsigned char)(255.0 * ((z-sourceMin)/w));
+
+						vMask= (unsigned char)(255.0 * ((maskVal-globalMin)/wMask));
+						
 					}
 					else
 					{
-						z = sourceMin;
+						V = 0;
+						vMask = 0;
 					}
-
-					int V= (int)(255.0 * ((z-sourceMin)/w));
 
 					c_dest_ptr[destIndex] = V;
 					c_dest_ptr[destIndex + 1] = V;
 					c_dest_ptr[destIndex + 2] = V;
+
+					c_destMask_ptr[destIndex] = vMask;
+					c_destMask_ptr[destIndex + 1] = vMask;
+					c_destMask_ptr[destIndex + 2] = vMask;
 				}
 			}
 		}
@@ -305,17 +347,29 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 		{
 			for(int j=0; j<source->height; j++)
 			{
+				float* f_mask_ptr = (float*) (mask->imageData + j*mask->widthStep);
+
 				for(int i=0; i<source->width; i++)
 				{
+					unsigned char V = 0;
+
 					int* i_source_ptr = &((int*) (source->imageData + j*source->widthStep))[i*source->nChannels];
 					char* c_dest_ptr = &((char*) (dest->imageData + j*dest->widthStep))[i*3];
 		
 					double z = (double)i_source_ptr[sourceChannel-1];
 				
-					if (z < sourceMin) z = sourceMin;
-					if (z > sourceMax) z = sourceMax;		
-
-					int V= (int)(255.0 * ((z-sourceMin)/w));
+					float maskVal = f_mask_ptr[maskIndex];
+					if (maskVal < maxMaskThresh &&
+						maskVal > minMaskThresh)
+					{
+						if (z < sourceMin) z = sourceMin;
+						if (z > sourceMax) z = sourceMax;
+						V = (unsigned char)(255.0 * ((z-sourceMin)/w));
+					}
+					else
+					{
+						V = 0;
+					}
 
 					c_dest_ptr[0] = V;
 					c_dest_ptr[1] = V;
@@ -327,17 +381,29 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 		{
 			for(int j=0; j<source->height; j++)
 			{
+				float* f_mask_ptr = (float*) (mask->imageData + j*mask->widthStep);
+
 				for(int i=0; i<source->width; i++)
 				{
+					unsigned char V = 0;
+
 					char* c_source_ptr = &((char*) (source->imageData + j*source->widthStep))[i*source->nChannels];
 					char* c_dest_ptr = &((char*) (dest->imageData + j*dest->widthStep))[i*3];
 		
 					double z = (double)c_source_ptr[sourceChannel-1];
 	
-					if (z < sourceMin) z = sourceMin;
-					if (z > sourceMax) z = sourceMax;
-
-					int V= (int)(255.0 * ((z-sourceMin)/w));
+					float maskVal = f_mask_ptr[maskIndex];
+					if (maskVal < maxMaskThresh &&
+						maskVal > minMaskThresh)
+					{
+						if (z < sourceMin) z = sourceMin;
+						if (z > sourceMax) z = sourceMax;
+						V = (unsigned char)(255.0 * ((z-sourceMin)/w));
+					}
+					else
+					{
+						V = 0;
+					}
 
 					c_dest_ptr[0] = V;
 					c_dest_ptr[1] = V;
@@ -352,6 +418,139 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, float 
 			return RET_FAILED;
 		}
 		
+
+		return RET_OK;
+}
+
+unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplImage* destMask, float minMaskThresh, float maxMaskThresh,
+						int sourceChannel, double sourceMin, double sourceMax)
+{
+        double globalMin = -1;
+		double globalMax = -1;
+
+		double maskMin = -1;
+		double maskMax = -1;
+
+		/// Check if destination image has been initialized correctly
+		if(dest->depth != IPL_DEPTH_32F ||
+			dest->nChannels != 3 ||
+			dest->width != source->width ||
+			dest->height != source->height)
+		{
+			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "\t ... Destination image has wrong image attributes." << std::endl;
+			return RET_FAILED;
+		}
+
+		/// Check if destination image has been initialized correctly
+		if(destMask->depth != IPL_DEPTH_32F ||
+			destMask->nChannels != 1 ||
+			destMask->width != source->width ||
+			destMask->height != source->height)
+		{
+			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "\t ... Destination mask image has wrong image attributes." << std::endl;
+			return RET_FAILED;
+		}
+
+		/// Check if mask image has been initialized correctly
+		if(mask->depth != IPL_DEPTH_32F ||
+			mask->nChannels != 1 ||
+			mask->width != source->width ||
+			mask->height != source->height)
+		{
+			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "\t ... Mask image has wrong image attributes." << std::endl;
+			return RET_FAILED;
+		}
+
+		/// Calculate minmal and maximal value within the specified image sourceChannel
+		/// Channel must be within [1, source->nChannels]
+		if (sourceChannel >= 1 && sourceChannel <= source->nChannels)
+
+		{
+			if (sourceMin == -1 || sourceMax == -1)
+			{
+				cvSetImageCOI(source, sourceChannel);
+				cvMinMaxLoc(source, &globalMin, &globalMax);
+				cvSetImageCOI(source, 0);
+			}
+		}
+		else
+		{
+			std::cerr << "ERROR - OpenCVUtils::MaskImage:" << std::endl;
+			std::cerr << "\t ... Parameter sourceChannel ('" << sourceChannel << "') out of range.\n";
+			return RET_FAILED;
+		}
+
+		if (sourceMin == -1) sourceMin = globalMin;
+		if (sourceMax == -1) sourceMax = globalMax;
+
+		cvMinMaxLoc(mask, &maskMin, &maskMax);
+
+		int destIndex = 0;
+		int sourceIndex = 0;
+		int maskIndex = 0;
+
+		if (source->depth == IPL_DEPTH_32F)
+		{
+			for(int j=0; j<source->height; j++)
+			{
+				float* f_source_ptr = (float*) (source->imageData + j*source->widthStep);
+				float* f_mask_ptr = (float*) (mask->imageData + j*mask->widthStep);
+
+				float* c_dest_ptr = (float*) (dest->imageData + j*dest->widthStep);
+				float* c_destMask_ptr = (float*) (destMask->imageData + j*destMask->widthStep);
+
+				for(int i=0; i<source->width; i++)
+				{
+					float V = 0;
+					float vMask = 0;
+					destIndex = i*3;
+					sourceIndex = i*source->nChannels;
+					maskIndex = i*mask->nChannels;
+
+					double z = (double)f_source_ptr[sourceIndex + sourceChannel-1];
+					float maskVal = f_mask_ptr[maskIndex];
+					if (maskVal < maxMaskThresh &&
+						maskVal > minMaskThresh)
+					{
+						/*if (z < sourceMin)
+						{
+							z = sourceMin;
+							maskVal = maskMin;
+						}
+						if (z > sourceMax)
+						{
+							z = sourceMax;
+							maskVal = maskMax;
+						}*/
+						V = (float)z;
+						vMask= (float)maskVal;
+
+					}
+					else
+					{
+						V = 0;
+						vMask = 0;
+						c_dest_ptr[destIndex] = V;
+						c_dest_ptr[destIndex + 1] = V;
+					}
+
+					c_dest_ptr[destIndex + 2] = V;
+
+					c_destMask_ptr[maskIndex] = vMask;
+				}
+			}
+		}
+
+		else
+		{
+			std::cout << "ERROR - OpenCVUtils::ConvertToShowImage:" << std::endl;
+			std::cout << "\t ... Image depth of source not supported.\n";
+			return RET_FAILED;
+		}
+
 
 		return RET_OK;
 }

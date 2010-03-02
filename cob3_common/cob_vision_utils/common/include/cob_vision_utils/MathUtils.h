@@ -1,60 +1,83 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description: Basic utilities. These include double and integer vectors and matrices,
- *     basic linear algebra tools (solving a linear equation system), and simple 
- *     regression functions.
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: Nov 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description: Basic utilities. These include double and integer vectors and matrices,
+* basic linear algebra tools (solving a linear equation system), and simple
+* regression functions.
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: Nov 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+
+/// @file MathUtils.h
+/// Basic utilities. These include double and integer vectors and matrices,
+/// basic linear algebra tools (solving a linear equation system),
+/// and simple regression functions.
+/// This file and the corresponding .cpp file were written by Jens Kubacki and Jan Fischer in 2005-2008.
+/// Latest updates: November 2008.
 
 #ifndef MATHUTILS_H
 #define MATHUTILS_H
+
+#ifdef __COB_ROS__
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
+
+#include <libwm4/Wm4ApprPolyFit2.h>
+ 
+#include "cob_camera_sensors/GlobalDefines.h"
+#else
+#include <cv.h>
+#include <highgui.h>
+
+#include <Wm4ApprPolyFit2.h>
+
+#include "Vision/Utilities/GlobalDefines.h"
+#endif
 
 #include <vector>
 #include <iostream>
@@ -62,14 +85,9 @@
 #include <limits.h>
 #include <fstream>
 #include <map>
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+
 #include <sstream>
 #include <algorithm>
-
-#include <libwm4/Wm4ApprPolyFit2.h>
-
-#include "cob3_camera_sensors/GlobalDefines.h"
 
 #ifndef __LINUX__
 #pragma warning (disable: 4786)

@@ -1,66 +1,85 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description: Abstract interface for range imaging sensors.
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: Mai 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description: Abstract interface for time789-of-flight cameras.
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: May 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+
+/// @file AbstractRangeImagingSensor.h
+/// Abstract interface for range imaging sensors.
+/// @author Jan Fischer
+/// @date May 2008.
 
 #ifndef __ABSTRACTRANGEIMAGINGSENSOR_H__
 #define __ABSTRACTRANGEIMAGINGSENSOR_H__
 
-#include <opencv/cv.h>
+#ifdef __COB_ROS__
 #include <opencv/highgui.h>
-#include <iostream>
+#include <opencv/cv.h>
+#include <opencv/cxcore.h>
+
 #include "tinyxml/tinyxml.h"
-#include "cob3_camera_sensors/ThreeDUtils.h"
-#include "cob3_camera_sensors/OpenCVUtils.h"
-#include "cob3_camera_sensors/LibCameraSensorsTypes.h"
+#include "cob_vision_utils/ThreeDUtils.h"
+#include "cob_vision_utils/OpenCVUtils.h"
+#include "cob_camera_sensors/LibCameraSensorsTypes.h"
+#else
+#include <highgui.h>
+#include <cv.h>
+#include <cxcore.h>
+
+#include "Vision/Extern/TinyXml/tinyxml.h"
+#include "Vision/Utilities/ThreeDUtils.h"
+#include "Vision/Utilities/OpenCVUtils.h"
+#include "Vision/CameraSensors/LibCameraSensorsTypes.h"
+#endif
+
+#include <iostream>
 
 #ifdef __LINUX__
 #define __DLL_ABSTRACTRANGEIMAGINGSENSOR_H__
@@ -86,7 +105,7 @@ public:
 	/// All values may also be set to AUTO or DEFAULT
 	struct t_RangeCameraParameters
 	{
-		ipa_CameraSensors::t_cameraRole m_CameraRole;///< Master or slave camera
+		ipa_CameraSensors::t_cameraRole m_CameraRole;	///< Master or slave camera
 		std::stringstream m_AmplitudeThreshold;		///< Setting this value will set all distance values to 0 if
 													///< their amplitude is lower than the amplitude threshold
 		std::stringstream m_IntegrationTime;		///< Integration time of the camera
@@ -137,37 +156,46 @@ public:
 	/// @return Return code.
 	virtual unsigned long GetProperty(t_cameraProperty* cameraProperty) =0;
 
-	/// Acquires an image from SwissRanger SR-3000/SR-4000.
+	/// Acquires an image from SwissRanger camera.
 	/// Data is read from the camera and put into a corresponding openCV IplImage data type.
 	/// The IplImages must be allocated already and are initialized within the function.
 	/// @param rangeImage OpenCV IplImage with depth information.
-	/// @param intensityImage OpenCV IplImage with intensity (grayscale) information.
+	/// @param grayImage OpenCV IplImage with grayscale information.
 	/// @param cartesianImage OpenCV IplImage with cartesian (x,y,z) information in meters.
 	/// @param getLatestFrame Set true to acquire a new image on calling instead of returning the one acquired last time
 	/// @param useCalibratedZ Calibrate z values 
+	/// @param grayImageType Either gray image data is filled with amplitude image or intensity image
 	/// @return Return code.
-	virtual unsigned long AcquireImages(IplImage* rangeImage=NULL, IplImage* intensityImage=NULL, IplImage* cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true) = 0;
+	virtual unsigned long AcquireImages(IplImage* rangeImage=NULL, IplImage* intensityImage=NULL,
+		IplImage* cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true,
+		ipa_CameraSensors::t_ToFGrayImageType grayImageType = ipa_CameraSensors::INTENSITY) = 0;
 
-	/// Acquires an image from SwissRanger SR-3000/SR-4000.
+	/// Acquires an image from SwissRanger.
 	/// Data is read from the camera and put into a corresponding openCV IplImage data type.
 	/// The IplImages are allocated and initialized within the function.
 	/// @param rangeImage OpenCV IplImage with depth information.
-	/// @param intensityImage OpenCV IplImage with intensity (grayscale) information.
+	/// @param grayImage OpenCV IplImage with grayscale information.
 	/// @param cartesianImage OpenCV IplImage with cartesian (x,y,z) information in meters.
 	/// @param getLatestFrame Set true to acquire a new image on calling instead of returning the one acquired last time
 	/// @param useCalibratedZ Calibrate z values 
+	/// @param grayImageType Either gray image data is filled with amplitude image or intensity image
 	/// @return Return code.
-	virtual unsigned long AcquireImages2(IplImage** rangeImage=NULL, IplImage** intensityImage=NULL, IplImage** cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true) = 0;
+	virtual unsigned long AcquireImages2(IplImage** rangeImage=NULL, IplImage** intensityImage=NULL,
+		IplImage** cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true,
+		ipa_CameraSensors::t_ToFGrayImageType grayImageType = ipa_CameraSensors::INTENSITY) = 0;
 
-	/// Acquires an image from SwissRanger SR-3000/SR-4000.
+	/// Acquires an image from SwissRanger.
 	/// This implementation is designated for people that do not use openCV image type.
 	/// @param rangeImage character array with depth information.
-	/// @param intensityImage character array  with intensity (grayscale) information.
+	/// @param grayImage character array  with intensity (grayscale) information.
 	/// @param cartesianImage character array  with cartesian (x,y,z) information in meters.
 	/// @param getLatestFrame Set true to acquire a new image on calling instead of returning the one acquired last time
 	/// @param useCalibratedZ Calibrate z values 
+	/// @param grayImageType Either gray image data is filled with amplitude image or intensity image
 	/// @return Return code.
-	virtual unsigned long AcquireImages(int widthStepOneChannel, char* RangeImage=NULL, char* IntensityImage=NULL, char* cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true) = 0;
+	virtual unsigned long AcquireImages(int widthStepOneChannel, char* rangeImage=NULL, char* grayImage=NULL,
+		char* cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true, 
+		ipa_CameraSensors::t_ToFGrayImageType grayImageType = ipa_CameraSensors::INTENSITY) = 0;
 
 	/// Save camera parameters.
 	/// Saves the on-line set parameters for the range imaging camera to a file.

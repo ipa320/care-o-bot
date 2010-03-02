@@ -1,59 +1,65 @@
 /****************************************************************
- *
- * Copyright (c) 2010
- *
- * Fraunhofer Institute for Manufacturing Engineering	
- * and Automation (IPA)
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Project name: care-o-bot
- * ROS stack name: cob3_driver
- * ROS package name: cob3_camera_sensors
- * Description: Platform independent interface to SwissRanger camera 
- *     SR-3000. Implementation depends on libusbSR library.
- *								
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *			
- * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
- * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
- *
- * Date of creation: July 2008
- * ToDo:
- *
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
- *       Engineering and Automation (IPA) nor the names of its
- *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
- * If not, see <http://www.gnu.org/licenses/>.
- *
- ****************************************************************/
+*
+* Copyright (c) 2010
+*
+* Fraunhofer Institute for Manufacturing Engineering
+* and Automation (IPA)
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Project name: care-o-bot
+* ROS stack name: cob3_driver
+* ROS package name: cob_camera_sensors
+* Description: Platform independent interface to MESA Swissranger camera.
+* Implementation depends on libusbSR library.
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
+* Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
+*
+* Date of creation: July 2008
+* ToDo:
+*
+* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the Fraunhofer Institute for Manufacturing
+* Engineering and Automation (IPA) nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License LGPL as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License LGPL for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License LGPL along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+****************************************************************/
+ 
+/// @file Swissranger.h
+/// Platform independent interface to MESA Swissranger camera. Implementation depends on
+/// libusbSR library.
+/// @author Jan Fischer
+/// @date July 2008
 
-#ifndef __SR3000CAM_H__
-#define __SR3000CAM_H__
+#ifndef __IPA_SWISSRANGER_H__
+#define __IPA_SWISSRANGER_H__
 
 // Windows
 #ifndef __LINUX__
@@ -79,22 +85,27 @@ typedef unsigned long DWORD;
 
 #include <libMesaSR.h>
 
-
 #include <sstream>
 
-#include <libMesaSR.h>
-
-#include <cob3_camera_sensors/MathUtils.h>
-#include <cob3_camera_sensors/ThreeDUtils.h>
-#include <cob3_camera_sensors/OpenCVUtils.h>
-#include <cob3_camera_sensors/AbstractRangeImagingSensor.h>
+#ifdef __COB_ROS__
+#include <cob_vision_utils/MathUtils.h>
+#include <cob_vision_utils/ThreeDUtils.h>
+#include <cob_vision_utils/OpenCVUtils.h>
+#include <cob_camera_sensors/AbstractRangeImagingSensor.h>
 #include <tinyxml/tinyxml.h>
+#else
+#include <Vision/Utilities/MathUtils.h>
+#include <Vision/Utilities/ThreeDUtils.h>
+#include <Vision/Utilities/OpenCVUtils.h>
+#include <Vision/CameraSensors/AbstractRangeImagingSensor.h>
+#include <Vision/Extern/TinyXml/tinyxml.h>
+#endif
 
 #ifdef SWIG
 %module Sensors3D
 
 %{
-	#include "SR31.h"
+	#include "Swissranger.h"
 %}
 #endif
 
@@ -120,12 +131,12 @@ int LibMesaCallback(SRCAM srCam, unsigned int msg, unsigned int param, void* dat
 /// Interface class to SwissRanger camera SR-3000.
 /// Platform independent interface to SwissRanger camera SR-3000. Implementation depends on
 /// libusbSR library.
-class SR31 : public AbstractRangeImagingSensor
+class Swissranger : public AbstractRangeImagingSensor
 {
 public:
 
-	SR31();
-	~SR31();
+	Swissranger();
+	~Swissranger();
 
 	//*******************************************************************************
 	// AbstractRangeImagingSensor interface implementation
@@ -140,9 +151,15 @@ public:
 	unsigned long SetPropertyDefaults();
 	unsigned long GetProperty(t_cameraProperty* cameraProperty);
 
-	unsigned long AcquireImages(int widthStepOneChannel, char* RangeImage=NULL, char* IntensityImage=NULL, char* cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true);
-	unsigned long AcquireImages(IplImage* rangeImage=NULL, IplImage* intensityImage=NULL, IplImage* cartesianImage=NULL, bool getLatestFrame = true, bool undistort = true);
-	unsigned long AcquireImages2(IplImage** rangeImage=NULL, IplImage** intensityImage=NULL, IplImage** cartesianImage=NULL, bool getLatestFrame = true, bool undistort = true);
+	unsigned long AcquireImages(int widthStepOneChannel, char* RangeImage=NULL, char* IntensityImage=NULL,
+		char* cartesianImage=NULL, bool getLatestFrame=true, bool undistort=true,
+		ipa_CameraSensors::t_ToFGrayImageType grayImageType = ipa_CameraSensors::INTENSITY);
+	unsigned long AcquireImages(IplImage* rangeImage=NULL, IplImage* grayImage=NULL,
+		IplImage* cartesianImage=NULL, bool getLatestFrame = true, bool undistort = true,
+		ipa_CameraSensors::t_ToFGrayImageType grayImageType = ipa_CameraSensors::INTENSITY);
+	unsigned long AcquireImages2(IplImage** rangeImage=NULL, IplImage** grayImage=NULL,
+		IplImage** cartesianImage=NULL,	bool getLatestFrame = true, bool undistort = true,
+		ipa_CameraSensors::t_ToFGrayImageType grayImageType = ipa_CameraSensors::INTENSITY);
 
 	unsigned long SaveParameters(const char* filename);
 
@@ -159,7 +176,7 @@ private:
 	unsigned long GetCalibratedXYMatlab(int u, int v, float z, float& x, float& y);
 	unsigned long GetCalibratedXYSwissranger(int u, int v, int width, float& x, float& y);
 
-	/// Load general SR31 parameters and previously determined calibration parameters.
+	/// Load general Swissranger parameters and previously determined calibration parameters.
 	/// @param filename Swissranger parameter path and file name.
 	/// @param cameraIndex The index of the camera within the configuration file
 	///		   i.e. SR_CAM_0 or SR_CAM_1
@@ -181,6 +198,7 @@ private:
 	float m_Z[SWISSRANGER_COLUMNS * SWISSRANGER_ROWS];
 
 	bool m_CoeffsInitialized; ///< True, when m_CoeffsAx have been initialized
+	bool m_GrayImageAcquireCalled; ///< Is false, when acquiring gray image has not been called, yet
 
 	/// Given a 32 bit swissranger depth value, the real depth value in meteres is given by:
 	/// z(u,v)=a0(u,v)+a1(u,v)*d(u,v)+a2(u,v)*d(u,v)^2
@@ -197,6 +215,6 @@ private:
 
 
 } // End namespace ipa_CameraSensors
-#endif // __SR3000CAM_H__
+#endif // __IPA_SWISSRANGER_H__
 
 
