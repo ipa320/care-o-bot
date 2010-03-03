@@ -30,21 +30,19 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/common/lib)
 #target_link_libraries(example ${PROJECT_NAME})
 
 # add project libraries
-rosbuild_add_library(camera_sensors	common/src/AVTPikeCam.cpp
-									common/src/AbstractColorCamera.cpp
-									common/src/AbstractRangeImagingSensor.cpp
-									common/src/CameraSensorToolbox.cpp
-									common/src/VirtualColorCam.cpp
-									common/src/VirtualRangeCam.cpp
-									common/src/MathUtils.cpp
-									common/src/OpenCVUtils.cpp
-									common/src/SR31.cpp)
+rosbuild_add_library(cob_camera_sensors	common/src/AVTPikeCam.cpp
+					common/src/AbstractColorCamera.cpp
+					common/src/AbstractRangeImagingSensor.cpp
+					common/src/CameraSensorToolbox.cpp
+					common/src/VirtualColorCam.cpp
+					common/src/VirtualRangeCam.cpp
+					common/src/Swissranger.cpp)
 									
 # add include search paths
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # add compile flag
-rosbuild_add_compile_flags(camera_sensors -D__LINUX__)
+rosbuild_add_compile_flags(cob_camera_sensors -D__LINUX__ -D__COB_ROS__)
 
 
 # add project executable
@@ -57,13 +55,13 @@ rosbuild_add_executable(color_camera_show ros/src/color_camera_show.cpp)
 #INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # add compile flag
-rosbuild_add_compile_flags(swiss_ranger -D__LINUX__)
-rosbuild_add_compile_flags(swiss_ranger_show -D__LINUX__)
-rosbuild_add_compile_flags(color_camera -D__LINUX__)
-rosbuild_add_compile_flags(color_camera_show -D__LINUX__)
+rosbuild_add_compile_flags(swiss_ranger -D__LINUX__ -D__COB_ROS__)
+rosbuild_add_compile_flags(swiss_ranger_show -D__LINUX__ -D__COB_ROS__)
+rosbuild_add_compile_flags(color_camera -D__LINUX__ -D__COB_ROS__)
+rosbuild_add_compile_flags(color_camera_show -D__LINUX__ -D__COB_ROS__)
 
 # link libraries
-target_link_libraries(swiss_ranger dc1394 cv cxcore highgui mesasr Wm4Foundation camera_sensors tinyxml)
-target_link_libraries(swiss_ranger_show cv cxcore highgui mesasr Wm4Foundation camera_sensors tinyxml)
-target_link_libraries(color_camera dc1394 cv cxcore highgui mesasr Wm4Foundation camera_sensors tinyxml)
-target_link_libraries(color_camera_show cv cxcore highgui mesasr Wm4Foundation camera_sensors tinyxml)
+target_link_libraries(swiss_ranger dc1394 cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
+target_link_libraries(swiss_ranger_show cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
+target_link_libraries(color_camera dc1394 cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
+target_link_libraries(color_camera_show cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)

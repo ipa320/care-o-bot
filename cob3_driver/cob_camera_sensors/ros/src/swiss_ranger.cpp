@@ -62,11 +62,8 @@
 // ROS message includes
 #include <sensor_msgs/PointCloud.h>
 
-// ROS service includes
-#include <cob3_srvs/GetCameraInfo.h>
-
 // external includes
-#include <cob3_camera_sensors/AbstractRangeImagingSensor.h>
+#include <cob_camera_sensors/AbstractRangeImagingSensor.h>
 
 using namespace ipa_CameraSensors;
 
@@ -82,7 +79,7 @@ using namespace ipa_CameraSensors;
 //####################################
 //#### service callback functions ####
 // function will be called when a service is querried
-bool srvCallback_GetCameraInfo(cob3_srvs::GetCameraInfo::Request &req,
+/*bool srvCallback_GetCameraInfo(cob3_srvs::GetCameraInfo::Request &req,
                                cob3_srvs::GetCameraInfo::Response &res )
 {
     ROS_INFO("get camera info");
@@ -91,7 +88,7 @@ bool srvCallback_GetCameraInfo(cob3_srvs::GetCameraInfo::Request &req,
     res.cameraInfo = cameraInfo;
     res.success = 0; // 0 = true, else = false
     return true;
-}
+}*/
 
 //#######################
 //#### main programm ####
@@ -110,7 +107,7 @@ int main(int argc, char** argv)
     //--
     
     // service servers
-    ros::ServiceServer srvServer_GetCameraInfo = n.advertiseService("GetCameraInfo", srvCallback_GetCameraInfo);
+    //ros::ServiceServer srvServer_GetCameraInfo = n.advertiseService("GetCameraInfo", srvCallback_GetCameraInfo);
         
     // service clients
     //--

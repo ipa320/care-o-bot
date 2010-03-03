@@ -69,7 +69,7 @@
 
 #include <libwm4/Wm4ApprPolyFit2.h>
  
-#include "cob_camera_sensors/GlobalDefines.h"
+#include "cob_vision_utils/GlobalDefines.h"
 #else
 #include <cv.h>
 #include <highgui.h>

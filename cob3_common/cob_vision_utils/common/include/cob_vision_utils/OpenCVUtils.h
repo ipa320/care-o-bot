@@ -9,7 +9,7 @@
 *
 * Project name: care-o-bot
 * ROS stack name: cob3_driver
-* ROS package name: cob_camera_sensors
+* ROS package name: cob_vision_utils
 * Description: Utility functions for OpenCV.
 *
 * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

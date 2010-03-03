@@ -66,7 +66,7 @@
 //--
 
 // external includes
-#include <cob3_camera_sensors/AbstractRangeImagingSensor.h>
+#include <cob_camera_sensors/AbstractRangeImagingSensor.h>
 
 //####################
 //#### node class ####

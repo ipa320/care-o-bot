@@ -31,13 +31,12 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/common/lib)
 
 # add project libraries
 rosbuild_add_library(cob_vision_utils	common/src/MathUtils.cpp
-					common/src/ThreeDUtils.cpp
 					common/src/OpenCVUtils.cpp)	
 # add include search paths
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # add compile flag
-rosbuild_add_compile_flags(cob_vision_utils -D__LINUX__ -D__IPA_ROS__)
+rosbuild_add_compile_flags(cob_vision_utils -D__LINUX__ -D__COB_ROS__)
 
 # add project executable
 
