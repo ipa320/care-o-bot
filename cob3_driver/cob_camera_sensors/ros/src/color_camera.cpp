@@ -61,7 +61,12 @@
 
 // ROS message includes
 #include <sensor_msgs/Image.h>
+#include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/fill_image.h>
+#include <sensor_msgs/SetCameraInfo.h>
+#include <image_transport/image_transport.h>
+#include <polled_camera/publication_server.h>
+#include <cv_bridge/CvBridge.h>
 
 // external includes
 #include <cob_camera_sensors/AbstractColorCamera.h>
@@ -69,116 +74,133 @@
 
 using namespace ipa_CameraSensors;
 
-//##########################
-//#### global variables ####
-//--
-
-//##################################
-//#### topic callback functions ####
-// function will be called when a new message arrives on a topic
-//--
-
-//####################################
-//#### service callback functions ####
-// function will be called when a service is querried
-/*bool srvCallback_GetCameraInfo(cob3_srvs::GetCameraInfo::Request &req,
-                               cob3_srvs::GetCameraInfo::Response &res )
+class CobColorCameraNode
 {
-    ROS_INFO("get camera info");
-    sensor_msgs::CameraInfo cameraInfo;
-    //TODO: get real camera Info
-    res.cameraInfo = cameraInfo;
-    res.success = 0; // 0 = true, else = false
-    return true;
-}*/
+private:
+	ros::NodeHandle m_NodeHandle;
+	image_transport::ImageTransport m_ImageTransport;
+	polled_camera::PublicationServer m_ImagePollServer;
+
+	AbstractColorCamera* m_ColorCamera;	///< Color camera instance
+
+	sensor_msgs::Image m_ImageMessage;	///< ROS image message
+	sensor_msgs::CameraInfo m_CameraInfoMessage;	///< ROS camera information message (e.g. holding intrinsic parameters)
+
+	ros::ServiceServer m_CameraInfoService;
+
+	IplImage* m_IplImage;
+
+public:
+	CobColorCameraNode(const ros::NodeHandle& node_handle)
+	: m_NodeHandle(node_handle),
+	  m_ImageTransport(m_NodeHandle),
+	  m_ColorCamera(0),
+	  m_IplImage(0)
+	{
+		/// Camera index ranges from 0 (right) to 1 (left)
+		int cameraIndex = 1;
+		std::string directory = "../files/cob3-sim";
+	
+		m_ColorCamera = ipa_CameraSensors::CreateColorCamera_AVTPikeCam();
+	
+		if (m_ColorCamera->Init(directory, cameraIndex) & ipa_CameraSensors::RET_FAILED)
+		{
+			std::stringstream ss;
+			ss << "Initialization of color camera ";
+			ss << cameraIndex;
+			ss << " failed"; 
+			ROS_ERROR("ss.str()");
+			m_ColorCamera = 0;
+		}
+
+		if (m_ColorCamera && (m_ColorCamera->Open() & ipa_CameraSensors::RET_FAILED))
+		{
+			std::stringstream ss;
+			ss << "Could not open color camera ";
+			ss << cameraIndex;
+			ROS_ERROR("ss.str()");
+			m_ColorCamera = 0;
+		}
+
+		/// Advertise service for other nodes to retrieve intrinsic calibration parameters
+		m_CameraInfoService = m_NodeHandle.advertiseService("set_camera_info", &CobColorCameraNode::SetCameraInfo, this);
+	
+		/// Topics to publish
+		m_ImagePollServer = polled_camera::advertise(m_NodeHandle, "request_image", &CobColorCameraNode::PollCallback, this);
+	}
+
+	~CobColorCameraNode()
+	{
+		m_ImagePollServer.shutdown();
+		m_ColorCamera->Close();
+		ipa_CameraSensors::ReleaseColorCamera(m_ColorCamera);
+	} 
+
+	/// Enables the user to modify camera parameters.
+	/// @param req Requested camera parameters
+	/// @param rsp Response, telling if requested parameters have been set
+	/// @return <code>True</code>
+	bool SetCameraInfo(sensor_msgs::SetCameraInfo::Request& req,
+			sensor_msgs::SetCameraInfo::Response& rsp)
+	{
+		/// TODO: Enable the setting of intrinsic parameters
+		sensor_msgs::CameraInfo &info = req.camera_info;
+    
+		rsp.success = false;
+	        rsp.status_message = "Setting camera parameters through ROS not implemented";
+
+    		return true;
+  	}
+
+	/// Callback function for image requests on topic 'request_image'
+	bool PollCallback(polled_camera::GetPolledImage::Request& req, 
+			sensor_msgs::Image& rosImage, sensor_msgs::CameraInfo& info)
+	{
+   		/// Release previously acquired IplImage 
+		if (m_IplImage) 
+		{
+			cvReleaseImage(&m_IplImage);
+			m_IplImage = 0;
+		}
+
+		/// Acquire new image
+		if (m_ColorCamera->GetColorImage2(&m_IplImage) & ipa_Utils::RET_FAILED)
+		{
+			ROS_ERROR("Color image acquisition failed");
+			return false;
+		}
+
+		try
+  		{
+			rosImage = *(sensor_msgs::CvBridge::cvToImgMsg(m_IplImage, "bgr8"));
+		}
+		catch (sensor_msgs::CvBridgeException error)
+		{
+			ROS_ERROR("Could not convert IplImage to ROS message");
+		}
+	
+		/// Set time stamp
+		rosImage.header.stamp = ros::Time::now();    
+
+		info = m_CameraInfoMessage;
+    		return true;
+	}
+};
 
 //#######################
 //#### main programm ####
 int main(int argc, char** argv)
 {
-	// initialize ROS, spezify name of node
+	/// initialize ROS, spezify name of node
 	ros::init(argc, argv, "color_camera");
 
-	// create a handle for this node, initialize node
-	ros::NodeHandle n;
+	/// Create a handle for this node, initialize node
+	ros::NodeHandle nh;
 	
-    // topics to publish
-    ros::Publisher topicPub_Image = n.advertise<sensor_msgs::Image>("Image", 1);
-    
-	// topics to subscribe, callback is called for new messages arriving
-    //--
-    
-    // service servers
-    //ros::ServiceServer srvServer_GetCameraInfo = n.advertiseService("GetCameraInfo", srvCallback_GetCameraInfo);
-        
-    // service clients
-    //--
-    
-    // external code
+	/// Create camera node class instance	
+	CobColorCameraNode cameraNode(nh);
 
-	/// Camera index ranges from 0 (right) to 1 (left)
-	int cameraIndex = 1;
-	IplImage* image = 0;
-	std::string directory = "../files/cob3-sim";
-
-  	AbstractColorCamera* colorCamera = 0;
-	colorCamera = ipa_CameraSensors::CreateColorCamera_AVTPikeCam();
-
-	if (colorCamera->Init(directory, cameraIndex) & ipa_CameraSensors::RET_FAILED)
-    {
-            std::cerr << "ERROR - CameraDataViewerControlFlow::Init:" << std::endl;
-            std::cerr << "\t ... Error while initializing color sensor 0.\n";
-            colorCamera = 0;
-    }
-
-    if (colorCamera && (colorCamera->Open() & ipa_CameraSensors::RET_FAILED))
-    {
-            std::cerr << "ERROR - CameraDataViewerControlFlow::Init:" << std::endl;
-            std::cerr << "\t ... Error while opening color sensor 0.\n";
-            colorCamera = 0;
-    }
-
-	// display image
-	//cvNamedWindow("Image", CV_WINDOW_AUTOSIZE);
-
-    // main loop
-    ros::Rate loop_rate(3); // Hz
-	while (n.ok())
-	{
-		if (image != 0)
-		{
-			cvReleaseImage(&image);
-			image = 0;
-		}
-
-        if (colorCamera->GetColorImage2(&image) & ipa_Utils::RET_FAILED)
-        {
-                std::cerr << "ERROR - CameraDataViewerControlFlow::ShowSharedImage:" << std::endl;
-                std::cerr << "\t ... Color image acquisition from camera 0 failed." << std::endl;
-                return ipa_Utils::RET_FAILED;
-        }
-
-        // create message
-        sensor_msgs::Image msg;
-		fillImage(msg, "bgr8", image->height, image->width, image->widthStep, image->imageData);
-		msg.header.stamp = ros::Time::now();    
-  
-        // publish message
-        ROS_INFO("published image from color_camera");
-		
-		// uncomment to display image
-		//cvShowImage("Image", image);
-		//cvWaitKey(10);
-
-        topicPub_Image.publish(msg);
-
-        // sleep and waiting for messages, callbacks    
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
-
-	colorCamera->Close();
-	ipa_CameraSensors::ReleaseColorCamera(colorCamera);
-    
-    return 0;
+	ros::spin();
+	
+	return 0;
 }

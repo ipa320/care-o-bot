@@ -14,6 +14,9 @@
   <depend package="tinyxml"/>
   <depend package="opencv2"/>
   <depend package="libwm4"/>
+  <depend package="image_transport"/>
+  <depend package="polled_camera"/>
+  <depend package="cv_bridge"/>
   <depend package="cob_vision_utils"/>
 
   <export>
