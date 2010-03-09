@@ -97,36 +97,7 @@ public:
 	  m_ColorCamera(0),
 	  m_IplImage(0)
 	{
-		/// Camera index ranges from 0 (right) to 1 (left)
-		int cameraIndex = 1;
-		std::string directory = "../files/cob3-sim";
-	
-		m_ColorCamera = ipa_CameraSensors::CreateColorCamera_AVTPikeCam();
-	
-		if (m_ColorCamera->Init(directory, cameraIndex) & ipa_CameraSensors::RET_FAILED)
-		{
-			std::stringstream ss;
-			ss << "Initialization of color camera ";
-			ss << cameraIndex;
-			ss << " failed"; 
-			ROS_ERROR("ss.str()");
-			m_ColorCamera = 0;
-		}
-
-		if (m_ColorCamera && (m_ColorCamera->Open() & ipa_CameraSensors::RET_FAILED))
-		{
-			std::stringstream ss;
-			ss << "Could not open color camera ";
-			ss << cameraIndex;
-			ROS_ERROR("ss.str()");
-			m_ColorCamera = 0;
-		}
-
-		/// Advertise service for other nodes to retrieve intrinsic calibration parameters
-		m_CameraInfoService = m_NodeHandle.advertiseService("set_camera_info", &CobColorCameraNode::SetCameraInfo, this);
-	
-		/// Topics to publish
-		m_ImagePollServer = polled_camera::advertise(m_NodeHandle, "request_image", &CobColorCameraNode::PollCallback, this);
+		/// Void
 	}
 
 	~CobColorCameraNode()
@@ -135,6 +106,58 @@ public:
 		m_ColorCamera->Close();
 		ipa_CameraSensors::ReleaseColorCamera(m_ColorCamera);
 	} 
+
+	/// Opens the camera sensor
+	bool Init()
+	{
+		int cameraIndex = -1;
+		std::string directory = "NULL/";
+
+		/// Parameters are set within the launch file
+		if (m_NodeHandle.getParam("color_camera/camera_index", cameraIndex) == false)
+		{
+			ROS_ERROR("Color camera index (0 or 1) not specified");
+			return false;
+		}
+	
+		/// Parameters are set within the launch file
+		if (m_NodeHandle.getParam("color_camera/configuration_files", directory) == false)
+		{
+			ROS_ERROR("Path to xml configuration for color camera not specified");
+			return false;
+		}
+
+		m_ColorCamera = ipa_CameraSensors::CreateColorCamera_AVTPikeCam();
+	
+		if (m_ColorCamera->Init(directory, cameraIndex) & ipa_CameraSensors::RET_FAILED)
+		{
+			std::stringstream ss;
+			ss << "Initialization of color camera ";
+			ss << cameraIndex;
+			ss << " failed"; 
+			ROS_ERROR("%s", ss.str().c_str());
+			m_ColorCamera = 0;
+			return false;
+		}
+
+		if (m_ColorCamera && (m_ColorCamera->Open() & ipa_CameraSensors::RET_FAILED))
+		{
+			std::stringstream ss;
+			ss << "Could not open color camera ";
+			ss << cameraIndex;
+			ROS_ERROR("%s", ss.str().c_str());
+			m_ColorCamera = 0;
+			return false;
+		}
+
+		/// Advertise service for other nodes to set intrinsic calibration parameters
+		m_CameraInfoService = m_NodeHandle.advertiseService("set_camera_info", &CobColorCameraNode::SetCameraInfo, this);
+	
+		/// Topics to publish
+		m_ImagePollServer = polled_camera::advertise(m_NodeHandle, "request_image", &CobColorCameraNode::PollCallback, this);
+		
+		return true;
+	}
 
 	/// Enables the user to modify camera parameters.
 	/// @param req Requested camera parameters
@@ -199,6 +222,9 @@ int main(int argc, char** argv)
 	
 	/// Create camera node class instance	
 	CobColorCameraNode cameraNode(nh);
+
+	/// Initialize camera node
+	if (!cameraNode.Init()) return 0;
 
 	ros::spin();
 	

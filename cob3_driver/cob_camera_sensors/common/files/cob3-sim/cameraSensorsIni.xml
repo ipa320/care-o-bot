@@ -37,7 +37,7 @@
   <!-- A GUID consists of a 32-Bit high part that holds the VendorId (Highest 24 Bits) -->
   <!-- and the ChipIdHigh (8 Bits) and a 32-Bit low part that holds the ChipIdLow. -->
   <!-- The GUID is unique for all FireWire devices on the world. -->
-  <GUID high="0x000A4701" low="0x10077005" />
+  <GUID high="0x000A4701" low="0x10077026" />
 
   <!-- The master initializes and releases the camera library and is -->
   <!-- respnsible for emitting the trigger signal to other cameras -->
@@ -127,13 +127,13 @@
   <!-- A GUID consists of a 32-Bit high part that holds the VendorId (Highest 24 Bits) -->
   <!-- and the ChipIdHigh (8 Bits) and a 32-Bit low part that holds the ChipIdLow. -->
   <!-- The GUID is unique for all FireWire devices on the world. -->
-  <GUID high="0X000A4701" low="0X1006C012" />
+  <GUID high="0X000A4701" low="0X10073080" />
 
   <!-- The master initializes and releases the camera library and is -->
   <!-- responsible for emitting the trigger signal to other cameras -->
   <!-- The slave is synchronizing its image acquisition with the trigger signal -->
   <!-- Valid roles: MASTER oR SLAVE -->
-  <Role value="SLAVE" />
+  <Role value="MASTER" />
 
   <!-- Valid values: appropriate framerte or AUTO and DEFAULT -->
   <FrameRate fps="3" />
