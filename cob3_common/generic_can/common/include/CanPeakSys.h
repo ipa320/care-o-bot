@@ -57,7 +57,7 @@
 //-----------------------------------------------
 #include <CanItf.h>
 #include <libpcan.h>
-#include <IniFile.h>
+#include <cob3_utilities7IniFile.h>
 //-----------------------------------------------
 
 class CanPeakSys : public CanItf
