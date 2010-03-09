@@ -9,7 +9,7 @@
  *
  * Project name: care-o-bot
  * ROS stack name: cob3_common
- * ROS package name: generic_can
+ * ROS package name: cob3_utilities
  * Description:
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -17,8 +17,8 @@
  * Author: Christian Connette, email:christian.connette@ipa.fhg.de
  * Supervised by: Christian Connette, email:christian.connette@ipa.fhg.de
  *
- * Date of creation: Feb 2009
- * ToDo: Remove dependency to inifiles_old -> Inifile.h
+ * Date of creation: Feb 2010
+ * ToDo:
  *
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *
@@ -52,38 +52,8 @@
  ****************************************************************/
 
 
-#ifndef CANPEAKSYS_INCLUDEDEF_H
-#define CANPEAKSYS_INCLUDEDEF_H
-//-----------------------------------------------
-#include <CanItf.h>
-#include <libpcan.h>
-#include <cob3_utilities/IniFile.h>
-//-----------------------------------------------
+#include <cob3_utilities/MathSup.h>
 
-class CanPeakSys : public CanItf
-{
-public:
-	// --------------- Interface
-	CanPeakSys(const char* cIniFile);
-	~CanPeakSys();
-	void init();
-	void destroy() {}
-	bool transmitMsg(CanMsg CMsg, bool bBlocking = true);
-	bool receiveMsg(CanMsg* pCMsg);
-	bool receiveMsgRetry(CanMsg* pCMsg, int iNrOfRetry);
-	bool isObjectMode() { return false; }
-
-private:
-	// --------------- Types
-	HANDLE m_handle;
-	
-	bool m_bInitialized;
-	IniFile m_IniFile;
-	bool m_bSimuEnabled;
-
-	static const int c_iInterrupt;
-	static const int c_iPort;
-};
-//-----------------------------------------------
-#endif
-
+const double MathSup::PI = 3.14159265358979323846;
+const double MathSup::TWO_PI = 6.283185307179586476925286766559;
+const double MathSup::HALF_PI = 1.5707963267948966192313216916398;

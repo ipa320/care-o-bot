@@ -255,10 +255,11 @@ public:
 	/**
 	 * Dummy implementation for completing CanDriveItf.
 	 */
-	void requestPosVel(){}
+	void requestPosVel();
 
 	/**
-	 * Dummy implementation for completing CanDriveItf.
+	 * Requests status :) checks whether motor is operational, switched off or in error state.
+	 * If motor is in which error state it checks which error occured
 	 */
 	void requestStatus();
 

@@ -56,7 +56,7 @@
 //-----------------------------------------------
 #include <CanItf.h>
 #include <libpcan.h>
-#include <IniFile.h>
+#include <cob3_utilities/IniFile.h>
 //-----------------------------------------------
 
 class CANPeakSysUSB : public CanItf

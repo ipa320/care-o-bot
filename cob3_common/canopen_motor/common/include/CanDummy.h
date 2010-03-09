@@ -67,9 +67,7 @@ class CanDummy : public CanItf
 {
 public:
 
-	~CanDummy() {
-		LOG_OUT("Destructor");
-	}
+	~CanDummy();
 	
 	void init(){};
 	
