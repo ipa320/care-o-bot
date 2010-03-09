@@ -67,11 +67,11 @@
 #include <CanItf.h>
 
 // Headers provided by cob-packages which should be avoided/removed
-#include <IniFile.h>
+#include <cob3_utilities/IniFile.h>
 
 // remove (not supported)
 //#include "stdafx.h"
-#include <Mutex.h>
+#include <base_drive_chain/Mutex.h>
 //#include <Neobotix/Drivers/Can/CanCtrlPltfItf.h>
 //#include <Neobotix/Drivers/RelayBoard/SerRelayBoard.h>
 //#include <Neobotix/Drivers/Can/CanIOBoardNeo.h>

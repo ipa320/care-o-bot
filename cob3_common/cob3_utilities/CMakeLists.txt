@@ -33,9 +33,5 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/common/lib)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # add project libs
-rosbuild_add_library(${PROJECT_NAME}_peaksysusb common/src/CanPeakSysUSB.cpp)
-rosbuild_add_library(${PROJECT_NAME}_peaksys common/src/CanPeakSys.cpp)
-
-# link libraries
-target_link_libraries(${PROJECT_NAME}_peaksysusb pcan cob3_utilities)
-target_link_libraries(${PROJECT_NAME}_peaksys pcan cob3_utilities)
+rosbuild_add_library(${PROJECT_NAME} common/src/IniFile.cpp)
+rosbuild_add_library(${PROJECT_NAME} common/src/MathSup.cpp)

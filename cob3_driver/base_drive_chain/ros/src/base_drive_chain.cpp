@@ -116,7 +116,7 @@ class NodeClass
         NodeClass()
         {
 			// initialization of variables
-			isInitialized = false;
+			m_bisInitialized = false;
 
 			// implementation of topics
             // published topics
@@ -185,8 +185,9 @@ class NodeClass
         {
             if(m_bisInitialized == false)
             {
-                ROS_INFO("...initializing can-nodes...");
-		        m_bisInitialized = m_CanCtrlPltf.initPltf();
+                m_bisInitialized = initDrives();
+                //ROS_INFO("...initializing can-nodes...");
+		        //m_bisInitialized = m_CanCtrlPltf.initPltf();
 		        res.success = m_bisInitialized;
                 if(m_bisInitialized)
 		        {
@@ -194,7 +195,7 @@ class NodeClass
 		        }
 		        else
 		        {
-                    res.errorMessage.data = "platform already initialized";
+                    res.errorMessage.data = "initialization of can-nodes failed";
                   	ROS_INFO("Initialization FAILED");
 		        }
             }
@@ -215,6 +216,7 @@ class NodeClass
 		    if (res.success)
        	        ROS_INFO("Can-Node resetted");
 		    else
+                res.errorMessage.data = "reset of can-nodes failed";
             	ROS_INFO("Reset of Can-Node FAILED");
 
 		    return true;
@@ -236,13 +238,24 @@ class NodeClass
         bool srvCallback_GetJointState(cob3_srvs::GetJointState::Request &req,
                                      cob3_srvs::GetJointState::Response &res )
         {
+            // init local variables
             int iCanEvalStatus, ret, j;
             bool bIsError;
-            std::vector<double> vdAngGearRad, vdVelGearRad;
+            std::vector<double> vdAngGearRad, vdVelGearRad, vdEffortGearNM;
 
+            // set default values
             j = 0;
-            vdAngGearRad.resize(m_iNumMotors);
-            vdVelGearRad.resize(m_iNumMotors);
+            vdAngGearRad.resize(m_iNumMotors, 0);
+            vdVelGearRad.resize(m_iNumMotors, 0);
+            vdEffortGearNM.resize(m_iNumMotors, 0);
+
+            // create temporary (local) JointState/Diagnostics Data-Container
+            sensor_msgs::JointState jointstate;
+            diagnostic_msgs::Diagnostics diagnostics; 
+			// get time stamp for header
+			jointstate.header.stamp = ros::Time::now();
+            // set frame_id for header
+            jointstate.header.frame_id = frame_id;
 
             // read Can-Buffer
     		iCanEvalStatus = m_CanCtrlPltf.evalCanBuffer();
@@ -260,13 +273,46 @@ class NodeClass
                 }
             }
 
+            // set data to jointstate
+            for(int i = 0; i<m_iNumMotors; i++)
+            {
+                jointstate.position[i] = vdAngGearRad[i];
+                jointstate.velocity[i] = vdVelGearRad[i];
+                jointstate.effort[i] = vdEffortGearNM[i];
+            }
+
+            // set answer to srv request
+            res.jointstate = jointstate;
+
+        	// publish jointstate message
+            topicPub_JointState.publish(jointstate);
+        	ROS_DEBUG("published new drive-chain configuration (JointState message)");
+
     		bIsError = m_CanCtrlPltf.isPltfError();
+
+            // set data to diagnostics
+            if bIsError
+            {
+                diagnostics.level = 2;
+                diagnostics.name = "drive-chain can node"
+                diagnostics.message = "one or more drives are in Error mode"
+            }
+            else
+            {
+                diagnostics.level = 0;
+                diagnostics.name = "drive-chain can node"
+                diagnostics.message = "drives operating normal"
+            }
+
+            // publish diagnostic message
+            topicPub_Diagnostic.publish(diagnostics);
+        	ROS_DEBUG("published new drive-chain configuration (JointState message)");
 
             return true;
         }
         
         // other function declarations
-        void initDrives();
+        bool initDrives();
 };
 
 //#######################
@@ -277,8 +323,6 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "base_drive_chain");
     
     NodeClass nodeClass;
-
-    initDrives();
  	
 	// currently only waits for callbacks -> if it should run cyclical
 	// -> specify looprate
@@ -308,7 +352,10 @@ void NodeClass::initDrives()
     // ToDo: replace the following steps by ROS configuration files
     // create Inifile class and set target inifile (from which data shall be read)
 	IniFile iniFile;
-	iniFile.SetFileName("Platform/IniFiles/Platform.ini", "PltfHardwareCoB3.h");
+    std::string sIniFileName;
+
+    nodeClass.n.param<std::string>("PltfIniLoc", sIniFileName, "Platform/IniFiles/Platform.ini");
+	iniFile.SetFileName(sIniFileName, "PltfHardwareCoB3.h");
 
     // get max Joint-Velocities (in rad/s) for Steer- and Drive-Joint
 	iniFile.GetKeyDouble("DrivePrms", "MaxDriveRate", &m_Param.dMaxDriveRateRadpS, true);
@@ -332,4 +379,6 @@ void NodeClass::initDrives()
 	bTemp1 =  m_CanCtrlPltf.initPltf();
 	// debug log
 	ROS_INFO("Initializing done");
+
+    return bTemp1;
 }
