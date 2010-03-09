@@ -56,8 +56,8 @@
 #define CANDRIVEITF_INCLUDEDEF_H
 
 //-----------------------------------------------
-#include <CanItf.h>
-#include <DriveParam.h>
+#include <generic_can/CanItf.h>
+#include <canopen_motor/DriveParam.h>
 //-----------------------------------------------
 
 /**

@@ -9,7 +9,7 @@
  *
  * Project name: care-o-bot
  * ROS stack name: cob3_common
- * ROS package name: canopen_motor
+ * ROS package name: generic_can
  * Description:
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -18,7 +18,7 @@
  * Supervised by: Christian Connette, email:christian.connette@ipa.fhg.de
  *
  * Date of creation: Feb 2009
- * ToDo:
+ * ToDo: Check if this is still neccessary. Can we use the ROS-Infrastructure within the implementation?
  *
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *
@@ -51,33 +51,83 @@
  *
  ****************************************************************/
 
+#ifndef _TimeStamp_H
+#define _TimeStamp_H
 
-#ifndef CAN_DUMMY_INCLUDEDEF_H
-#define CAN_DUMMY_INCLUDEDEF_H
+#include <time.h>
+#include <canopen_motor/StrUtil.h>
 
-//-----------------------------------------------
-#include <CanMsg.h>
-//-----------------------------------------------
+//-------------------------------------------------------------------
 
-/**
- * Dummy interface of the CAN bus.
- * \ingroup DriversCanModul	
+/** Measure system time.
+ * Use this class for measure system time accurately. Under Windows, it uses
+ * QueryPerformanceCounter(), which has a resolution of approx. one micro-second.
+ * The difference between two time stamps can be calculated.
  */
-class CanDummy : public CanItf
+class TimeStamp
 {
-public:
+	public:
+		/// Constructor.
+		TimeStamp();
 
-	~CanDummy();
-	
-	void init(){};
-	
-	bool transmitMsg(CanMsg CMsg, bool bBlocking){ return true; }
+		/// Destructor.
+		virtual ~TimeStamp() {};
 
-	bool receiveMsg(CanMsg* pCMsg){ return false; }
+		/// Makes time measurement.
+		void SetNow();
 
-	bool receiveMsgRetry(CanMsg* pCMsg, int iNrOfRetry){ return false; }
+		/// Retrieves time difference in seconds.
+		double operator- ( const TimeStamp& EarlierTime ) const;
 
-	bool isObjectMode() { return false; }
+		/// Increase the timestamp by TimeS seconds.
+		/** @param TimeS must be >0!.
+		 */
+		void operator+= ( double TimeS );
+
+		/// Reduces the timestamp by TimeS seconds.
+		/** @param TimeS must be >0!.
+		 */
+		void operator-= ( double TimeS );
+
+		/// Checks if this time is after time "Time".
+		bool operator> ( const TimeStamp& Time );
+
+		/// Checks if this time is before time "Time".
+		bool operator< ( const TimeStamp& Time );
+
+		/**
+		 * Gets seconds and nanoseconds of the timestamp.
+		 */
+		void getTimeStamp ( long& lSeconds, long& lNanoSeconds );
+
+		/**
+		 * Sets timestamp from seconds and nanoseconds.
+		 */
+		void setTimeStamp ( const long& lSeconds, const long& lNanoSeconds );
+
+		/**
+		 * return the current time as string, in long format YYYY-MM-DD HH:MM:SS.ssssss
+		 *** Attention *** call SetNow() before calling this function
+		 */
+		std::string CurrentToString();
+
+		std::string ToString();
+
+	protected:
+
+		/// Internal time stamp data.
+		timespec m_TimeStamp;
+
+	private:
+
+		/// Conversion timespec -> double
+		static double TimespecToDouble ( const ::timespec& LargeInt );
+
+		/// Conversion double -> timespec
+		static ::timespec DoubleToTimespec ( double TimeS );
+
 };
-//-----------------------------------------------
+
+
 #endif
+

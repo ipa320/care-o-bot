@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include <StrUtil.h>
+#include <canopen_motor/StrUtil.h>
 #include <algorithm>
 
 std::string StringToUpper(std::string strToConvert) {
