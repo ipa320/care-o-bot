@@ -54,8 +54,8 @@
 #ifndef CANPEAKSYSUSB_INCLUDEDEF_H
 #define CANPEAKSYSUSB_INCLUDEDEF_H
 //-----------------------------------------------
-#include <CanItf.h>
-#include <libpcan.h>
+#include <generic_can/CanItf.h>
+#include <libpcan/libpcan.h>
 #include <cob3_utilities/IniFile.h>
 //-----------------------------------------------
 

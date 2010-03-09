@@ -51,7 +51,7 @@
  *
  ****************************************************************/
 
-#include <CanPeakSys.h>
+#include <generic_can/CanPeakSys.h>
 #include <stdlib.h>
 #include <cerrno>
 #include <cstring>
