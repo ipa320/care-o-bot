@@ -75,7 +75,8 @@ PACKAGES_DRIVER=\
 sick_s300,\
 cob3_hokuyo,\
 sdh,\
-cob3_camera_sensors,\
+cob_camera_sensors,\
+cob_vision_utils,\
 powercube_chain,\
 cob3_arm,\
 cob3_platform,\
