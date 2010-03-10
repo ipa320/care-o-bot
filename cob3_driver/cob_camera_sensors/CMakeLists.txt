@@ -46,22 +46,19 @@ rosbuild_add_compile_flags(cob_camera_sensors -D__LINUX__ -D__COB_ROS__)
 
 
 # add project executable
-rosbuild_add_executable(swiss_ranger ros/src/swiss_ranger.cpp)
-rosbuild_add_executable(swiss_ranger_show ros/src/swiss_ranger_show.cpp)
+rosbuild_add_executable(tof_camera ros/src/tof_camera.cpp)
+rosbuild_add_executable(tof_camera_viewer ros/src/tof_camera_viewer.cpp)
 rosbuild_add_executable(color_camera ros/src/color_camera.cpp)
-rosbuild_add_executable(color_camera_show ros/src/color_camera_show.cpp)
 
 # add include search paths
 #INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/common/include)
 
 # add compile flag
-rosbuild_add_compile_flags(swiss_ranger -D__LINUX__ -D__COB_ROS__)
-rosbuild_add_compile_flags(swiss_ranger_show -D__LINUX__ -D__COB_ROS__)
+rosbuild_add_compile_flags(tof_camera -D__LINUX__ -D__COB_ROS__)
+rosbuild_add_compile_flags(tof_camera_viewer -D__LINUX__ -D__COB_ROS__)
 rosbuild_add_compile_flags(color_camera -D__LINUX__ -D__COB_ROS__)
-rosbuild_add_compile_flags(color_camera_show -D__LINUX__ -D__COB_ROS__)
 
 # link libraries
-target_link_libraries(swiss_ranger dc1394 cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
-target_link_libraries(swiss_ranger_show cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
+target_link_libraries(tof_camera dc1394 cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
+target_link_libraries(tof_camera_viewer cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
 target_link_libraries(color_camera dc1394 cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)
-target_link_libraries(color_camera_show cv cxcore highgui mesasr Wm4Foundation cob_camera_sensors cob_vision_utils tinyxml)

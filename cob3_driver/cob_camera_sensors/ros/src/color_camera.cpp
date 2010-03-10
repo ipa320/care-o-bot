@@ -13,7 +13,7 @@
  *								
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *			
- * Author: Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de
+ * Author: Jan Fischer, email:jan.fischer@ipa.fhg.de
  * Supervised by: Jan Fischer, email:jan.fischer@ipa.fhg.de
  *
  * Date of creation: Jan 2010
@@ -58,15 +58,14 @@
 
 // ROS includes
 #include <ros/ros.h>
+#include <polled_camera/publication_server.h>
+#include <cv_bridge/CvBridge.h>
 
 // ROS message includes
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/fill_image.h>
 #include <sensor_msgs/SetCameraInfo.h>
-#include <image_transport/image_transport.h>
-#include <polled_camera/publication_server.h>
-#include <cv_bridge/CvBridge.h>
 
 // external includes
 #include <cob_camera_sensors/AbstractColorCamera.h>
@@ -78,7 +77,6 @@ class CobColorCameraNode
 {
 private:
 	ros::NodeHandle m_NodeHandle;
-	image_transport::ImageTransport m_ImageTransport;
 	polled_camera::PublicationServer m_ImagePollServer;
 
 	AbstractColorCamera* m_ColorCamera;	///< Color camera instance
@@ -93,7 +91,6 @@ private:
 public:
 	CobColorCameraNode(const ros::NodeHandle& node_handle)
 	: m_NodeHandle(node_handle),
-	  m_ImageTransport(m_NodeHandle),
 	  m_ColorCamera(0),
 	  m_IplImage(0)
 	{
@@ -105,6 +102,8 @@ public:
 		m_ImagePollServer.shutdown();
 		m_ColorCamera->Close();
 		ipa_CameraSensors::ReleaseColorCamera(m_ColorCamera);
+		
+		if (m_IplImage) cvReleaseImage(&m_IplImage);
 	} 
 
 	/// Opens the camera sensor
@@ -166,8 +165,8 @@ public:
 	bool SetCameraInfo(sensor_msgs::SetCameraInfo::Request& req,
 			sensor_msgs::SetCameraInfo::Response& rsp)
 	{
-		/// TODO: Enable the setting of intrinsic parameters
-		sensor_msgs::CameraInfo &info = req.camera_info;
+		/// @TODO: Enable the setting of intrinsic parameters
+		m_CameraInfoMessage = req.camera_info;
     
 		rsp.success = false;
 	        rsp.status_message = "Setting camera parameters through ROS not implemented";
@@ -177,7 +176,7 @@ public:
 
 	/// Callback function for image requests on topic 'request_image'
 	bool PollCallback(polled_camera::GetPolledImage::Request& req, 
-			sensor_msgs::Image& rosImage, sensor_msgs::CameraInfo& info)
+			sensor_msgs::Image& imageMsg, sensor_msgs::CameraInfo& info)
 	{
    		/// Release previously acquired IplImage 
 		if (m_IplImage) 
@@ -195,7 +194,7 @@ public:
 
 		try
   		{
-			rosImage = *(sensor_msgs::CvBridge::cvToImgMsg(m_IplImage, "bgr8"));
+			imageMsg = *(sensor_msgs::CvBridge::cvToImgMsg(m_IplImage, "bgr8"));
 		}
 		catch (sensor_msgs::CvBridgeException error)
 		{
@@ -203,7 +202,7 @@ public:
 		}
 	
 		/// Set time stamp
-		rosImage.header.stamp = ros::Time::now();    
+		imageMsg.header.stamp = ros::Time::now();    
 
 		info = m_CameraInfoMessage;
     		return true;

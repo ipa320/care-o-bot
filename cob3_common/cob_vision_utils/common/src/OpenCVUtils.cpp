@@ -413,7 +413,7 @@ unsigned long MaskImage(IplImage* source, IplImage* dest, IplImage* mask, IplIma
 		}
 		else
 		{
-			std::cout << "ERROR - OpenCVUtils::ConvertToShowImage:" << std::endl;
+			std::cout << "ERROR - OpenCVUtils::MaskImage:" << std::endl;
 			std::cout << "\t ... Image depth of source not supported.\n";
 			return RET_FAILED;
 		}
@@ -437,7 +437,7 @@ unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplIm
 			dest->width != source->width ||
 			dest->height != source->height)
 		{
-			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "WARNING - OpenCVUtils::MaskImage2:" << std::endl;
 			std::cout << "\t ... Destination image has wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
@@ -448,7 +448,7 @@ unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplIm
 			destMask->width != source->width ||
 			destMask->height != source->height)
 		{
-			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "WARNING - OpenCVUtils::MaskImage2:" << std::endl;
 			std::cout << "\t ... Destination mask image has wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
@@ -459,7 +459,7 @@ unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplIm
 			mask->width != source->width ||
 			mask->height != source->height)
 		{
-			std::cout << "WARNING - OpenCVUtils::MaskImage:" << std::endl;
+			std::cout << "WARNING - OpenCVUtils::MaskImage2:" << std::endl;
 			std::cout << "\t ... Mask image has wrong image attributes." << std::endl;
 			return RET_FAILED;
 		}
@@ -478,7 +478,7 @@ unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplIm
 		}
 		else
 		{
-			std::cerr << "ERROR - OpenCVUtils::MaskImage:" << std::endl;
+			std::cerr << "ERROR - OpenCVUtils::MaskImage2:" << std::endl;
 			std::cerr << "\t ... Parameter sourceChannel ('" << sourceChannel << "') out of range.\n";
 			return RET_FAILED;
 		}
@@ -546,7 +546,7 @@ unsigned long MaskImage2(IplImage* source, IplImage* dest, IplImage* mask, IplIm
 
 		else
 		{
-			std::cout << "ERROR - OpenCVUtils::ConvertToShowImage:" << std::endl;
+			std::cout << "ERROR - OpenCVUtils::MaskImage2:" << std::endl;
 			std::cout << "\t ... Image depth of source not supported.\n";
 			return RET_FAILED;
 		}

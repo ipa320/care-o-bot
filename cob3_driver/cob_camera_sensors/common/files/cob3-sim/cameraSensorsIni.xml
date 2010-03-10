@@ -213,12 +213,17 @@
 
 
 <!-- Range imaging sensors -->
-<Swissranger3000_0>
+<Swissranger_0>
   <!-- The master initializes and releases the camera library and is -->
   <!-- responsible for emitting the trigger signal to other cameras -->
   <!-- The slave is synchronizing its image acquisition with the trigger signal -->
   <!-- Valid roles: MASTER oR SLAVE -->
   <Role value="MASTER" />
+
+  <!-- Specifies the interface, the swissranger is connected to -->
+  <!-- 'ip' is only used when using ETHERNET -->
+  <!-- Valid values: USB or ETHERNET -->
+  <Interface value="USB" ip="XXX.XXX.XXX.XXX" />
 
   <!-- Sets the Amplitude Threshold of the camera -->
   <!-- Valid values: 0.. or AUTO and DEFAULT -->
@@ -289,7 +294,7 @@
   <!-- X_This = R * X_Other + T -->
   <ExtrinsicParameters>
   </ExtrinsicParameters>
-</Swissranger3000_0>
+</Swissranger_0>
 
 <!-- Range imaging sensors -->
 <PMDCamCube_0>
