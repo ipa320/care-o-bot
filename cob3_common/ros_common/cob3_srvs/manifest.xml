@@ -11,6 +11,7 @@
   
   <depend package="std_srvs"/>
   <depend package="std_msgs"/>
+  <depend package="cob3_msgs"/>
   <depend package="sensor_msgs"/>
 
   <export>

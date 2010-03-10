@@ -9,7 +9,6 @@
   <review status="unreviewed" notes=""/>
   <url>http://www.care-o-bot.org</url>
 
-  <depend stack="camera_drivers_experimental" /> <!-- libdc1394v2 -->
   <depend stack="cob3_common" /> <!-- cob3_msgs, cob3_srvs -->
   <depend stack="cob3_extern" /> <!-- libpcan, libm5api, libwm4, libntcan -->
   <depend stack="common" /> <!-- tinyxml -->
