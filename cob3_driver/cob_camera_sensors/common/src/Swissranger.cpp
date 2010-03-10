@@ -63,7 +63,7 @@ using namespace ipa_CameraSensors;
 #ifdef __cplusplus
 extern "C" {
 #endif
-__DLL_ABSTRACTRANGEIMAGINGSENSOR_H__ AbstractRangeImagingSensor* APIENTRY CreateRangeImagingSensor_SR3000()
+__DLL_ABSTRACTRANGEIMAGINGSENSOR_H__ AbstractRangeImagingSensor* APIENTRY CreateRangeImagingSensor_Swissranger()
 {
 	return (new Swissranger());
 }
@@ -354,21 +354,12 @@ unsigned long Swissranger::SetProperty(t_cameraProperty* cameraProperty)
 			}
 			else if (cameraProperty->propertyType & (ipa_CameraSensors::TYPE_SHORT | ipa_CameraSensors::TYPE_UNSIGNED))
 			{
-				if (cameraProperty->u_shortData < 0)
+				err =SR_SetAmplitudeThreshold(m_SRCam, cameraProperty->u_shortData);
+				if(err<0)
 				{
 					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
-					std::cerr << "\t ... Amplitude threshold must be >= 0" << std::endl;
+					std::cerr << "\t ... Could not set amplitude threshold to AUTO mode" << std::endl;
 					return RET_FAILED;
-				}
-				else
-				{
-					err =SR_SetAmplitudeThreshold(m_SRCam, cameraProperty->u_shortData);
-					if(err<0)
-					{
-						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
-						std::cerr << "\t ... Could not set amplitude threshold to AUTO mode" << std::endl;
-						return RET_FAILED;
-					}
 				}
 			}
 			else
@@ -404,28 +395,19 @@ unsigned long Swissranger::SetProperty(t_cameraProperty* cameraProperty)
 			}
 			else if (cameraProperty->propertyType & (ipa_CameraSensors::TYPE_CHARACTER | ipa_CameraSensors::TYPE_UNSIGNED))
 			{
-				if (cameraProperty->u_longData < 0 || cameraProperty->u_charData > 255)
+				err = SR_SetAutoExposure(m_SRCam, 0xff, 150, 5, 70);
+				if(err<0)
 				{
 					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
-					std::cerr << "\t ... Amplitude threshold must be between 0 and 255" << std::endl;
+					std::cerr << "\t ... Could not turn off auto exposure" << std::endl;
 					return RET_FAILED;
 				}
-				else
+				err = SR_SetIntegrationTime(m_SRCam, cameraProperty->u_charData);
+				if(err<0)
 				{
-					err = SR_SetAutoExposure(m_SRCam, 0xff, 150, 5, 70);
-					if(err<0)
-					{
-						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
-						std::cerr << "\t ... Could not turn off auto exposure" << std::endl;
-						return RET_FAILED;
-					}
-					err = SR_SetIntegrationTime(m_SRCam, cameraProperty->u_charData);
-					if(err<0)
-					{
-						std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
-						std::cerr << "\t ... Could not set amplitude threshold to '" << cameraProperty->u_charData << "'" << std::endl;
-						return RET_FAILED;
-					}
+					std::cerr << "ERROR - Swissranger::SetProperty:" << std::endl;
+					std::cerr << "\t ... Could not set amplitude threshold to '" << cameraProperty->u_charData << "'" << std::endl;
+					return RET_FAILED;
 				}
 			}
 			else
@@ -793,7 +775,7 @@ unsigned long Swissranger::AcquireImages(int widthStepOneChannel, char* rangeIma
 
 	unsigned int bytesRead	= 0;
 	bytesRead = SR_Acquire(m_SRCam);
-	if(bytesRead < 0)
+	if(bytesRead <= 0)
 	{
 		std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 		std::cerr << "\t ... Could not acquire image!" << std::endl;
@@ -803,7 +785,7 @@ unsigned long Swissranger::AcquireImages(int widthStepOneChannel, char* rangeIma
 	if (getLatestFrame == true)
 	{
 		bytesRead = SR_Acquire(m_SRCam);
-		if(bytesRead < 0)
+		if(bytesRead <= 0)
 		{
 			std::cerr << "ERROR - Swissranger::AcquireImages:" << std::endl;
 			std::cerr << "\t ... Could not acquire image!" << std::endl;
@@ -1265,18 +1247,18 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 		{
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000
+//	BEGIN LibCameraSensors->Swissranger
 //************************************************************************************
 			// Tag element "Swissranger3000" of Xml Inifile		
 			TiXmlElement *p_xmlElement_Root_SR31 = NULL;
 			std::stringstream ss;
-			ss << "Swissranger3000_" << cameraIndex;
+			ss << "Swissranger_" << cameraIndex;
 			p_xmlElement_Root_SR31 = p_xmlElement_Root->FirstChildElement( ss.str() );
 			if ( p_xmlElement_Root_SR31 )
 			{
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->Role
+//	BEGIN LibCameraSensors->Swissranger->Role
 //************************************************************************************
 				// Subtag element "Role" of Xml Inifile
 				TiXmlElement* p_xmlElement_Child = NULL;
@@ -1309,7 +1291,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 				
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->Interface
+//	BEGIN LibCameraSensors->Swissranger->Interface
 //************************************************************************************
 				// Subtag element "OperationMode" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1361,7 +1343,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 			
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->AmplitudeThreshold
+//	BEGIN LibCameraSensors->Swissranger->AmplitudeThreshold
 //************************************************************************************
 				// Subtag element "IntegrationTime" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1390,7 +1372,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->IntegrationTime
+//	BEGIN LibCameraSensors->Swissranger->IntegrationTime
 //************************************************************************************
 				// Subtag element "IntegrationTime" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1419,7 +1401,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->Modulation
+//	BEGIN LibCameraSensors->Swissranger->Modulation
 //************************************************************************************
 				// Subtag element "IntegrationTime" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1448,7 +1430,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->AcquireMode
+//	BEGIN LibCameraSensors->Swissranger->AcquireMode
 //************************************************************************************
 				// Subtag element "IntegrationTime" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1601,7 +1583,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->CalibrationMethod
+//	BEGIN LibCameraSensors->Swissranger->CalibrationMethod
 //************************************************************************************
 				// Subtag element "OperationMode" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1633,7 +1615,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 			
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->IntrinsicParameters
+//	BEGIN LibCameraSensors->Swissranger->IntrinsicParameters
 //************************************************************************************
 				// Subtag element "IntrinsicParameters" of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1676,7 +1658,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 
 //************************************************************************************
-//	BEGIN LibCameraSensors->Swissranger3000->DistortionCoeffs
+//	BEGIN LibCameraSensors->Swissranger->DistortionCoeffs
 //************************************************************************************
 				// Subtag element "DistortionCoeffs " of Xml Inifile
 				p_xmlElement_Child = NULL;
@@ -1719,7 +1701,7 @@ unsigned long Swissranger::LoadParameters(const char* filename, int cameraIndex)
 				}
 			}
 //************************************************************************************
-//	END LibCameraSensors->Swissranger3000
+//	END LibCameraSensors->Swissranger
 //************************************************************************************
 			else 
 			{

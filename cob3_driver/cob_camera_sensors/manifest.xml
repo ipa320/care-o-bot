@@ -4,7 +4,7 @@
      cob_camera_sensors
 
   </description>
-  <author>Florian Weisshardt, email:florian.weisshardt@ipa.fhg.de</author>
+  <author>Jan Fischer, email:jan.fischer@ipa.fhg.de</author>
   <license>LGPL</license>
   <review status="unreviewed" notes=""/>
   <url>http://www.care-o-bot.org</url>
@@ -24,5 +24,6 @@
   </export>
 
   <rosdep name="libdc1394"/>
+  <rosdep name="libmesasr"/>
 
 </package>
