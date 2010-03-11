@@ -74,7 +74,6 @@ PACKAGES_TO_BUILD=\
 	cob3_camera_sensors\
 	powercube_chain\
 	cob3_arm\
-	cob3_arm_ik\
 	cob3_platform\
 	cob3_tf_broadcaster\
 	cob3_teleop\
