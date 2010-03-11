@@ -68,8 +68,11 @@ cob3_dashboard,\
 cob3_test
 
 PACKAGES_COMMON=\
-cob3_msgs,\
-cob3_srvs
+cob_msgs,\
+cob_srvs,\
+generic_can,\
+canopen_motor,\
+cob_utilities
 
 PACKAGES_DRIVER=\
 sick_s300,\
@@ -80,6 +83,7 @@ cob_vision_utils,\
 powercube_chain,\
 cob3_arm,\
 cob3_platform,\
+base_drive_chain,\
 cob3_tf_broadcaster
 
 PACKAGES_EXTERN=\
