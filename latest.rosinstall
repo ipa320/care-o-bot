@@ -1,0 +1,2 @@
+- other: {local-name: /opt/ros/latest/ros}
+- other: {local-name: /opt/ros/latest/stacks}

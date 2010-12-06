@@ -1,0 +1,17 @@
+This is the open-source Care-O-bot repository.
+
+Connecting to the robot:
+sudo route add -net 192.168.0.0 netmask 255.255.0.0 gw cob3-1 dev eth0
+sudo route add -net 192.168.0.0 netmask 255.255.0.0 gw cob3-1 dev wlan0
+
+export ROS_MASTER_URI=http://192.168.0.101:11311
+
+add internal ip addresses to /etc/hosts
+192.168.0.101 cob3-1-pc1
+192.168.0.102 cob3-1-pc2
+192.168.0.103 cob3-1-pc3
+
+Connecting to the robot machines
+pc1: ssh -X -p2201 cob3-1
+pc2: ssh -X -p2202 cob3-1
+pc3: ssh -X -p2203 cob3-1
