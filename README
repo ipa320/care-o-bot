@@ -1,17 +1,11 @@
-This is the open-source Care-O-bot repository.
+This is the deprecated open-source Care-O-bot repository.
 
-Connecting to the robot:
-sudo route add -net 192.168.0.0 netmask 255.255.0.0 gw cob3-1 dev eth0
-sudo route add -net 192.168.0.0 netmask 255.255.0.0 gw cob3-1 dev wlan0
+The repository is now separated into multiple stacks:
 
-export ROS_MASTER_URI=http://192.168.0.101:11311
+https://github.com/ipa320/cob_extern
+https://github.com/ipa320/cob_common
+https://github.com/ipa320/cob_driver
+https://github.com/ipa320/cob_simulation
+https://github.com/ipa320/cob_apps
 
-add internal ip addresses to /etc/hosts
-192.168.0.101 cob3-1-pc1
-192.168.0.102 cob3-1-pc2
-192.168.0.103 cob3-1-pc3
-
-Connecting to the robot machines
-pc1: ssh -X -p2201 cob3-1
-pc2: ssh -X -p2202 cob3-1
-pc3: ssh -X -p2203 cob3-1
+Please follow the installation instructions on http://www.ros.org/wiki/care-o-bot.
