@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>care_o_bot_robot</name>
+  <version>0.5.0</version>
+  <description>The care-o-bot-robot meta-package</description>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/ipa320/care-o-bot</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>cob_extern</run_depend>
+  <run_depend>cob_common</run_depend>
+  <run_depend>cob_calibration_data</run_depend>
+  <run_depend>cob_environments</run_depend>
+  <run_depend>cob_substitute</run_depend>
+  <run_depend>cob_driver</run_depend>
+  <run_depend>schunk_modular_robotics</run_depend>
+  <run_depend>ipa_canopen</run_depend>
+  <run_depend>cob_command_tools</run_depend>
+  <run_depend>cob_robots</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

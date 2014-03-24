@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>care_o_bot_simulation</name>
+  <version>0.5.0</version>
+  <description>The care-o-bot-simulation meta-package</description>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/ipa320/care-o-bot</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>cob_simulation</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
