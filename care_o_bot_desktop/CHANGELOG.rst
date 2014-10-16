@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.2 (2014-10-16)
+------------------
 * add packages
 * Contributors: Florian Weisshardt
 
