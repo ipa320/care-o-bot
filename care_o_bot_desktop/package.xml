@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <name>care_o_bot_desktop</name>
+  <version>0.6.0</version>
+  <description>The care-o-bot-desktop meta-package</description>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/ipa320/care-o-bot</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>vim</run_depend>
+  <run_depend>tree</run_depend>
+  <run_depend>terminator</run_depend>
+  <run_depend>gitg</run_depend>
+  <run_depend>meld</run_depend>
+  <run_depend>language-pack-en</run_depend>
+  <run_depend>language-pack-de</run_depend>
+  <run_depend>openssh-server</run_depend>
+  <run_depend>chromium-browser</run_depend>
+  <run_depend>texmaker</run_depend>
+  <run_depend>gimp</run_depend>
+  <run_depend>blender</run_depend>
+  <run_depend>disper</run_depend>
+  
+  <run_depend>desktop_full</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
