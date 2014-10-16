@@ -25,6 +25,9 @@
   <run_depend>disper</run_depend>
   
   <run_depend>desktop_full</run_depend>
+  <run_depend>python-bloom</run_depend>
+  <run_depend>python-rosinstall</run_depend>
+  <run_depend>python-wstool</run_depend>
 
   <export>
     <metapackage/>
