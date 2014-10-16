@@ -2,11 +2,13 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.6.1 (2014-10-16)
-------------------
-* add meta package care-o-bot-desktop
+Forthcoming
+-----------
+* add packages
 * Contributors: Florian Weisshardt
 
+0.6.1 (2014-10-16)
+------------------
 * add meta package care-o-bot-desktop
 * Contributors: Florian Weisshardt
 
