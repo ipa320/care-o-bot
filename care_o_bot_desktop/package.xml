@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>care_o_bot_desktop</name>
-  <version>0.6.0</version>
+  <version>0.6.2</version>
   <description>The care-o-bot-desktop meta-package</description>
   <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
   <license>BSD</license>
@@ -25,6 +25,9 @@
   <run_depend>disper</run_depend>
   
   <run_depend>desktop_full</run_depend>
+  <run_depend>python-bloom</run_depend>
+  <run_depend>python-rosinstall</run_depend>
+  <run_depend>python-wstool</run_depend>
 
   <export>
     <metapackage/>
