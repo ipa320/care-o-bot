@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.3 (2015-01-07)
+------------------
 * modify deps
 * Contributors: Florian Weisshardt
 
