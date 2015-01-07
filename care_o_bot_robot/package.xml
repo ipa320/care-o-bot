@@ -17,7 +17,8 @@
   <run_depend>cob_substitute</run_depend>
   <run_depend>cob_driver</run_depend>
   <run_depend>schunk_modular_robotics</run_depend>
-  <run_depend>ipa_canopen</run_depend>
+  <run_depend>ros_canopen</run_depend>
+  <run_depend>cob_control</run_depend>
   <run_depend>cob_command_tools</run_depend>
   <run_depend>cob_robots</run_depend>
 
