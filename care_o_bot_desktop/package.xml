@@ -10,6 +10,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <run_depend>care_o_bot</run_depend>
+
   <run_depend>vim</run_depend>
   <run_depend>tree</run_depend>
   <run_depend>terminator</run_depend>
