@@ -1,6 +1,6 @@
-This is the deprecated open-source Care-O-bot repository.
+This is the deprecated open-source Care-O-bot repository. There is no source code here, it only serves to host meta-packages.
 
-The repository is now separated into multiple stacks:
+The repository is now separated into multiple repositories:
 
 https://github.com/ipa320/cob_extern
 https://github.com/ipa320/cob_common
