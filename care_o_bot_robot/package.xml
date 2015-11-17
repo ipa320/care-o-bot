@@ -10,17 +10,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <exec_depend>cob_extern</exec_depend>
-  <exec_depend>cob_common</exec_depend>
-  <exec_depend>cob_calibration_data</exec_depend>
-  <exec_depend>cob_environments</exec_depend>
-  <exec_depend>cob_substitute</exec_depend>
-  <exec_depend>cob_driver</exec_depend>
-  <exec_depend>schunk_modular_robotics</exec_depend>
-  <exec_depend>ros_canopen</exec_depend>
-  <exec_depend>cob_control</exec_depend>
-  <exec_depend>cob_command_tools</exec_depend>
-  <exec_depend>cob_robots</exec_depend>
+  <exec_depend>cob_bringup</exec_depend>
+  <exec_depend>cob_manipulation</exec_depend>
+  <exec_depend>cob_navigation</exec_depend>
 
   <export>
     <metapackage/>
