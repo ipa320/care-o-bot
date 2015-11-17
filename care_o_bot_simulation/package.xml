@@ -10,7 +10,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <exec_depend>cob_simulation</exec_depend>
+  <exec_depend>cob_bringup_sim</exec_depend>
+  <exec_depend>cob_manipulation</exec_depend>
+  <exec_depend>cob_navigation</exec_depend>
 
   <export>
     <metapackage/>
