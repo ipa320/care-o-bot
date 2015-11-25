@@ -8,10 +8,10 @@ sudo apt-get install -qq -y python-rosdep python-wstool
 sudo apt-get install -qq -y ros-${CI_ROS_DISTRO}-ros #needed as long as https://github.com/ros-infrastructure/rosdep/issues/430 is not fixed
 sudo rosdep init
 rosdep update
-source /opt/ros/$CI_ROS_DISTRO/setup.bash # source release
 
 # create empty underlay workspace
 mkdir -p $CATKIN_WS_UNDERLAY_SRC
+source /opt/ros/$CI_ROS_DISTRO/setup.bash # source release
 catkin_init_workspace $CATKIN_WS_UNDERLAY_SRC
 # populate underlay
 cd $CATKIN_WS_UNDERLAY
