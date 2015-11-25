@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ipa320/care-o-bot.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/care-o-bot)
+
 This is the deprecated open-source Care-O-bot repository. There is no source code here, it only serves to host meta-packages.
 
 The repository is now separated into multiple repositories:
