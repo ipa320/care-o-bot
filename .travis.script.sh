@@ -4,8 +4,8 @@ set -v
 # create empty overlay workspace
 mkdir -p $CATKIN_WS_SRC
 cd $CATKIN_WS
-catkin_init_workspace $CATKIN_WS_SRC
 source $CATKIN_WS_UNDERLAY/install/setup.bash # source install space of underlay
+catkin_init_workspace $CATKIN_WS_SRC
 catkin_make -DCMAKE_BUILD_TYPE=Release # build empty overlay
 # populate overlay
 ln -s $TRAVIS_BUILD_DIR $CATKIN_WS_SRC
