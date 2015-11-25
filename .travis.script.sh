@@ -1,4 +1,5 @@
 set -e
+set -v
 
 # create empty overlay workspace
 mkdir -p $CATKIN_WS_SRC
