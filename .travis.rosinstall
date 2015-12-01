@@ -39,6 +39,10 @@
     local-name: cob_manipulation
     version: indigo_dev
 - git:
+    uri: 'https://github.com/ipa320/cob_navigation.git'
+    local-name: cob_navigation
+    version: indigo_dev
+- git:
     uri: 'https://github.com/ipa320/cob_perception_common.git'
     local-name: cob_perception_common
     version: indigo_dev
