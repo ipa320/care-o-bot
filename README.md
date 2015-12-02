@@ -16,7 +16,7 @@ https://github.com/ipa320/cob_control.git [![Build Status](https://travis-ci.org
 
 https://github.com/ipa320/cob_driver.git [![Build Status](https://travis-ci.org/ipa320/cob_driver.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_driver)
 
-https://github.com/ipa320/cob_environment_peception.git [![Build Status](https://travis-ci.org/ipa320/cob_environment_peception.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_environment_peception)
+https://github.com/ipa320/cob_environment_perception.git [![Build Status](https://travis-ci.org/ipa320/cob_environment_perception.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_environment_perception)
 
 https://github.com/ipa320/cob_environments.git [![Build Status](https://travis-ci.org/ipa320/cob_environments.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_environments)
 
@@ -28,7 +28,7 @@ https://github.com/ipa320/cob_manipulation.git [![Build Status](https://travis-c
 
 https://github.com/ipa320/cob_navigation.git [![Build Status](https://travis-ci.org/ipa320/cob_navigation.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_navigation)
 
-https://github.com/ipa320/cob_object_peception.git [![Build Status](https://travis-ci.org/ipa320/cob_object_peception.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_object_peception)
+https://github.com/ipa320/cob_object_perception.git [![Build Status](https://travis-ci.org/ipa320/cob_object_perception.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_object_perception)
 
 https://github.com/ipa320/cob_people_perception.git [![Build Status](https://travis-ci.org/ipa320/cob_people_perception.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_people_perception)
 
