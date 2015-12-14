@@ -11,7 +11,7 @@ rosdep update
 
 # create empty underlay workspace
 mkdir -p $CATKIN_WS_UNDERLAY_SRC
-source /opt/ros/$CI_ROS_DISTRO/setup.bash # source release
+source /opt/ros/$CI_ROS_DISTRO/setup.bash > /dev/null # source release
 catkin_init_workspace $CATKIN_WS_UNDERLAY_SRC
 # populate underlay
 cd $CATKIN_WS_UNDERLAY
