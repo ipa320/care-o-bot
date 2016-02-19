@@ -20,6 +20,6 @@ if [ ! -f $TRAVIS_BUILD_DIR/.travis.rosinstall ]; then wstool init -j10 src $DEF
 # install dependencies from underlay
 rosdep install -q --from-paths $CATKIN_WS_UNDERLAY_SRC -i -y --rosdistro $CI_ROS_DISTRO
 # build devel space of underlay
-travis_wait catkin_make -DCMAKE_BUILD_TYPE=Release
+catkin_make -DCMAKE_BUILD_TYPE=Release
 # build install space of underlay
 catkin_make -DCMAKE_BUILD_TYPE=Release install > /dev/null
