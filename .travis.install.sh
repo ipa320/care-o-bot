@@ -1,6 +1,8 @@
 set -e
 set -v
 
+while true; do echo "INSTALL IS RUNNING" && sleep 5; done&
+
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update -qq > /dev/null 2>&1
@@ -23,3 +25,6 @@ rosdep install -q --from-paths $CATKIN_WS_UNDERLAY_SRC -i -y --rosdistro $CI_ROS
 catkin_make -DCMAKE_BUILD_TYPE=Release
 # build install space of underlay
 catkin_make -DCMAKE_BUILD_TYPE=Release install > /dev/null 2>&1
+ret=$?
+kill %%
+echo $ret
