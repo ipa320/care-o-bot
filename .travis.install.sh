@@ -22,4 +22,4 @@ rosdep install -q --from-paths $CATKIN_WS_UNDERLAY_SRC -i -y --rosdistro $CI_ROS
 # build devel space of underlay
 catkin_make -DCMAKE_BUILD_TYPE=Release
 # build install space of underlay
-catkin_make -DCMAKE_BUILD_TYPE=Release install > /dev/null
+catkin_make -DCMAKE_BUILD_TYPE=Release install
