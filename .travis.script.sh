@@ -1,6 +1,8 @@
 set -e
 set -v
 
+while true; do echo "SCRIPT IS RUNNING" && sleep 5; done&
+
 # create empty overlay workspace
 mkdir -p $CATKIN_WS_SRC
 source $CATKIN_WS_UNDERLAY/install/setup.bash > /dev/null 2>&1 # source install space of underlay
@@ -16,3 +18,6 @@ source $CATKIN_WS/devel/setup.bash > /dev/null 2>&1 # source devel space of over
 catkin_make -DCMAKE_BUILD_TYPE=Release
 catkin_make run_tests # test overlay
 catkin_test_results --verbose
+ret=$?
+kill %%
+echo $ret
