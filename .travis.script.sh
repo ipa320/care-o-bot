@@ -19,4 +19,4 @@ catkin_make test # test overlay
 catkin_test_results --verbose
 ret=$?
 kill %%
-echo $ret
+exit $ret
