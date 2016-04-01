@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.5 (2016-04-01)
+------------------
 * comment dependency
 * Contributors: ipa-fxm
 
