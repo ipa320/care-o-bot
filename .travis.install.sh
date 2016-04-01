@@ -27,4 +27,4 @@ catkin_make -DCMAKE_BUILD_TYPE=Release
 catkin_make -DCMAKE_BUILD_TYPE=Release install > /dev/null 2>&1
 ret=$?
 kill %%
-echo $ret
+exit $ret
