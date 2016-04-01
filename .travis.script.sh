@@ -1,4 +1,3 @@
-set -e
 set -v
 
 while true; do echo "SCRIPT IS RUNNING" && sleep 5; done&
