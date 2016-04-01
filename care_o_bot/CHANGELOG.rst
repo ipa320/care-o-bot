@@ -2,6 +2,9 @@
 Changelog for package care_o_bot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.6.4 (2016-04-01)
 ------------------
 * Migration to package format 2

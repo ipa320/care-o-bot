@@ -2,6 +2,9 @@
 Changelog for package care_o_bot_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.6.4 (2016-04-01)
 ------------------
 * simplify dependencies and add dep to manipulation and navigation

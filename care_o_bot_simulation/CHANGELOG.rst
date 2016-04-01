@@ -2,6 +2,9 @@
 Changelog for package care_o_bot_simulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.6.4 (2016-04-01)
 ------------------
 * simplify depedendencies and add dependency to navigation and manipulation
