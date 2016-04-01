@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.4 (2016-04-01)
+------------------
 * add texlive fonts
 * Migration to package format 2
 * Update package.xml
