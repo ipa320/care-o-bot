@@ -2,6 +2,13 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* add texlive fonts
+* Migration to package format 2
+* Update package.xml
+* Contributors: Florian Weisshardt, ipa-fmw, ipa-nhg
+
 0.6.3 (2015-01-07)
 ------------------
 

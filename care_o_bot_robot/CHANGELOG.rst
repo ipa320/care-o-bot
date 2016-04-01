@@ -2,6 +2,12 @@
 Changelog for package care_o_bot_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* simplify dependencies and add dep to manipulation and navigation
+* Migration to package format 2
+* Contributors: Florian Weisshardt, ipa-nhg
+
 0.6.3 (2015-01-07)
 ------------------
 * modify deps

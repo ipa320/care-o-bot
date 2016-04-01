@@ -2,6 +2,12 @@
 Changelog for package care_o_bot_simulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* simplify depedendencies and add dependency to navigation and manipulation
+* Migration to package format 2
+* Contributors: Florian Weisshardt, ipa-nhg
+
 0.6.3 (2015-01-07)
 ------------------
 

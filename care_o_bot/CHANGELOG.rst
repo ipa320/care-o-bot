@@ -2,6 +2,11 @@
 Changelog for package care_o_bot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Migration to package format 2
+* Contributors: ipa-nhg
+
 0.6.3 (2015-01-07)
 ------------------
 
