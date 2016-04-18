@@ -1,7 +1,7 @@
 set -e
 set -v
 
-while true; do echo "SCRIPT IS RUNNING" && sleep 5; done&
+while true; do echo "SCRIPT IS RUNNING" && sleep 60; done&
 
 # create empty overlay workspace
 mkdir -p $CATKIN_WS_SRC
