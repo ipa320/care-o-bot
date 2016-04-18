@@ -14,7 +14,7 @@ ln -s $TRAVIS_BUILD_DIR $CATKIN_WS_SRC
 # install dependencies from overlay
 rosdep install -q --from-paths $CATKIN_WS_SRC -i -y --rosdistro $CI_ROS_DISTRO > /dev/null #2>&1
 # build overlay
-source $CATKIN_WS/devel/setup.bash > /dev/null #2>&1 # source devel space of overlay
+source $CATKIN_WS/devel/setup.bash > /dev/null 2>&1 # source devel space of overlay
 catkin_make -DCMAKE_BUILD_TYPE=Release
 catkin_make test # test overlay
 catkin_test_results --verbose
