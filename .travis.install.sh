@@ -1,7 +1,7 @@
 set -e
 set -v
 
-while true; do echo "INSTALL IS RUNNING" && sleep 5; done&
+while true; do echo "INSTALL IS RUNNING" && sleep 60; done&
 
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
