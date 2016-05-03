@@ -15,13 +15,16 @@ rosdep update
 mkdir -p $CATKIN_WS_UNDERLAY_SRC
 source /opt/ros/$CI_ROS_DISTRO/setup.bash > /dev/null 2>&1 # source release
 catkin_init_workspace $CATKIN_WS_UNDERLAY_SRC
-# populate underlay
 cd $CATKIN_WS_UNDERLAY
+catkin_make -DCMAKE_BUILD_TYPE=Release # build empty underlay devel space
+catkin_make -DCMAKE_BUILD_TYPE=Release install # build empty underlay install space
+# populate underlay
 if [ -f $TRAVIS_BUILD_DIR/.travis.rosinstall ]; then wstool init -j10 src $TRAVIS_BUILD_DIR/.travis.rosinstall; fi
 if [ ! -f $TRAVIS_BUILD_DIR/.travis.rosinstall ]; then wstool init -j10 src $DEFAULT_ROSINSTALL; fi
 # install dependencies from underlay
 rosdep install -q --from-paths $CATKIN_WS_UNDERLAY_SRC -i -y --rosdistro $CI_ROS_DISTRO > /dev/null #2>&1
 # build devel space of underlay
+source $CATKIN_WS_UNDERLAY/devel/setup.bash > /dev/null 2>&1 # source devel space of underlay
 catkin_make -DCMAKE_BUILD_TYPE=Release
 # build install space of underlay
 catkin_make -DCMAKE_BUILD_TYPE=Release install > /dev/null #2>&1
