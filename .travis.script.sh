@@ -17,6 +17,7 @@ rosdep install -q --from-paths $CATKIN_WS_SRC -i -y --rosdistro $CI_ROS_DISTRO >
 source $CATKIN_WS/devel/setup.bash > /dev/null 2>&1 # source devel space of overlay
 catkin_make -DCMAKE_BUILD_TYPE=Release
 catkin_make -DCMAKE_BUILD_TYPE=Release install > /dev/null
+source $CATKIN_WS/install/setup.bash > /dev/null 2>&1 # source install space of overlay
 catkin_make test # test overlay
 catkin_test_results --verbose
 ret=$?
