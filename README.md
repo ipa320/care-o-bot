@@ -45,6 +45,8 @@ https://github.com/ros-industrial/ros_canopen.git [![Build Status](https://travi
 https://github.com/ipa320/schunk_modular_robotics.git [![Build Status](https://travis-ci.org/ipa320/schunk_modular_robotics.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/schunk_modular_robot
 ics)
 
+https://github.com/ipa320/softkinetic.git [![Build Status](https://travis-ci.org/ipa320/softkinetic.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/softkinetic)
+
 https://github.com/ros-industrial/universal_robot.git [![Build Status](https://travis-ci.org/ros-industrial/universal_robot.svg?branch=indigo-devel)](https://travis-ci.org/ros-industrial/universal_robot)
 
 and many more...
