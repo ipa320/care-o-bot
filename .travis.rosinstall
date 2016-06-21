@@ -67,6 +67,10 @@
     local-name: schunk_modular_robotics
     version: indigo_dev
 - git:
+    uri: 'https://github.com/ipa320/softkinetic.git'
+    local-name: softkinetic
+    version: indigo_dev
+- git:
     uri: 'https://github.com/ros-industrial/universal_robot.git'
     local-name: universal_robot
     version: indigo-devel
