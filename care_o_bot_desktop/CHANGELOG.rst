@@ -2,6 +2,18 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.6.5 (2016-04-01)
+------------------
+* comment dependency
+* Contributors: ipa-fxm
+
+0.6.4 (2016-04-01)
+------------------
+* add texlive fonts
+* Migration to package format 2
+* Update package.xml
+* Contributors: Florian Weisshardt, ipa-fmw, ipa-nhg
+
 0.6.3 (2015-01-07)
 ------------------
 
