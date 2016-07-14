@@ -20,7 +20,7 @@
   <exec_depend>language-pack-en</exec_depend>
   <exec_depend>language-pack-de</exec_depend>
   <exec_depend>openssh-server</exec_depend>
-  <!--exec_depend>chromium-browser</exec_depend-->
+  <exec_depend>chromium-browser</exec_depend>
   <exec_depend>texlive-fonts-recommended</exec_depend>
   <exec_depend>texmaker</exec_depend>
   <exec_depend>gimp</exec_depend>
