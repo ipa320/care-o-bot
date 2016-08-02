@@ -24,6 +24,9 @@ https://github.com/ipa320/cob_extern.git [![Build Status](https://travis-ci.org/
 
 https://github.com/ipa320/cob_gazebo_plugins.git [![Build Status](https://travis-ci.org/ipa320/cob_gazebo_plugins.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_gazebo_plugins)
 
+
+https://github.com/ipa320/cob_hand.git [![Build Status](https://travis-ci.org/ipa320/cob_hand.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_hand)
+
 https://github.com/ipa320/cob_manipulation.git [![Build Status](https://travis-ci.org/ipa320/cob_manipulation.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_manipulation)
 
 https://github.com/ipa320/cob_navigation.git [![Build Status](https://travis-ci.org/ipa320/cob_navigation.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_navigation)
