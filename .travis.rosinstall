@@ -35,6 +35,10 @@
     local-name: cob_gazebo_plugins
     version: indigo_dev
 - git:
+    uri: 'https://github.com/ipa320/cob_hand.git'
+    local-name: cob_hand
+    version: indigo_dev
+- git:
     uri: 'https://github.com/ipa320/cob_manipulation.git'
     local-name: cob_manipulation
     version: indigo_dev
