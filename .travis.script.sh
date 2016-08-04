@@ -21,6 +21,7 @@ source $CATKIN_WS/install/setup.bash > /dev/null 2>&1 # source install space of 
 if [ "$CATKIN_ENABLE_TESTING" == "OFF" ]; then
   echo "Testing disabled"
 else
+  mkdir -p $CATKIN_WS/build/test_results # create test_results directory to prevent concurrent tests to fail create it
   catkin_make run_tests $CATKIN_TEST_ARGUMENTS # test overlay
 fi
 catkin_test_results --verbose
