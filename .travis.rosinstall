@@ -71,8 +71,8 @@
     local-name: schunk_modular_robotics
     version: indigo_dev
 - git:
-    uri: 'https://github.com/sickag/sick_3vistort.git'
-    local-name: sick_3vistort
+    uri: 'https://github.com/SICKAG/sick_visionary_t.git'
+    local-name: sick_visionary_t
     version: indigo-devel
 - git:
     uri: 'https://github.com/ipa320/softkinetic.git'
