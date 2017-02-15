@@ -3,7 +3,7 @@ set -v
 
 while true; do echo "INSTALL IS RUNNING" && sleep 60; done&
 
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update -qq > /dev/null 2>&1
 sudo apt-get install -qq -y python-rosdep python-wstool > /dev/null 2>&1
