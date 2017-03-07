@@ -63,6 +63,10 @@
     local-name: cob_substitute
     version: indigo_dev
 - git:
+    uri: 'https://github.com/ipa320/cob_supported_robots.git'
+    local-name: cob_supported_robots
+    version: indigo_dev
+- git:
     uri: 'https://github.com/ros-industrial/ros_canopen.git'
     local-name: ros_canopen
     version: indigo-devel
