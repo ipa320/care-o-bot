@@ -29,6 +29,7 @@
 
   <exec_depend>desktop_full</exec_depend>
   <exec_depend>python-bloom</exec_depend>
+  <exec_depend>python-catkin-tools</exec_depend>
   <exec_depend>python-rosinstall</exec_depend>
   <exec_depend>python-wstool</exec_depend>
 
