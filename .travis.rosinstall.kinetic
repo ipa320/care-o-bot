@@ -77,10 +77,6 @@
     local-name: sick_visionary_t
     version: indigo-devel
 - git:
-    uri: 'https://github.com/ros-industrial/industrial_moveit.git'
-    local-name: industrial_moveit
-    version: kinetic-devel
-- git:
     uri: 'https://github.com/ros-industrial/universal_robot.git'
     local-name: universal_robot
     version: kinetic-devel
