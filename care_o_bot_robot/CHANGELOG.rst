@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.6 (2018-01-07)
+------------------
 * Merge pull request `#48 <https://github.com/ipa320/care-o-bot/issues/48>`_ from ipa-fxm/fix_travis_cron_job
   fix travis cron job
 * add robot tools to care-o-bot-robot variant
