@@ -17,7 +17,7 @@
 - git:
     uri: 'https://github.com/ipa320/cob_control.git'
     local-name: cob_control
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_driver.git'
     local-name: cob_driver
@@ -33,15 +33,15 @@
 - git:
     uri: 'https://github.com/ipa320/cob_gazebo_plugins.git'
     local-name: cob_gazebo_plugins
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_hand.git'
-    local-name: cob_hand
+    local-name: cob-hand
     version: indigo_dev
 - git:
     uri: 'https://github.com/ipa320/cob_manipulation.git'
     local-name: cob_manipulation
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_navigation.git'
     local-name: cob_navigation
@@ -70,7 +70,16 @@
     uri: 'https://github.com/ipa320/schunk_modular_robotics.git'
     local-name: schunk_modular_robotics
     version: indigo_dev
+
 - git:
     uri: 'https://github.com/ipa320/realsense.git'
     local-name: realsense
     version: indigo-devel
+- git:
+    uri: 'https://github.com/SICKAG/sick_visionary_t.git'
+    local-name: sick_visionary_t
+    version: indigo-devel
+- git:
+    uri: 'https://github.com/ros-industrial/universal_robot.git'
+    local-name: universal_robot
+    version: kinetic-devel

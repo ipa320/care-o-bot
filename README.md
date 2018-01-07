@@ -24,6 +24,8 @@ https://github.com/ipa320/cob_extern.git [![Build Status](https://travis-ci.org/
 
 https://github.com/ipa320/cob_gazebo_plugins.git [![Build Status](https://travis-ci.org/ipa320/cob_gazebo_plugins.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_gazebo_plugins)
 
+https://github.com/ipa320/cob_hand.git [![Build Status](https://travis-ci.org/ipa320/cob_hand.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_hand)
+
 https://github.com/ipa320/cob_manipulation.git [![Build Status](https://travis-ci.org/ipa320/cob_manipulation.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_manipulation)
 
 https://github.com/ipa320/cob_navigation.git [![Build Status](https://travis-ci.org/ipa320/cob_navigation.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_navigation)
@@ -40,14 +42,9 @@ https://github.com/ipa320/cob_simulation.git [![Build Status](https://travis-ci.
 
 https://github.com/ipa320/cob_substitute.git [![Build Status](https://travis-ci.org/ipa320/cob_substitute.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_substitute)
 
-https://github.com/ros-industrial/ros_canopen.git [![Build Status](https://travis-ci.org/ros-industrial/ros_canopen.svg?branch=indigo-devel)](https://travis-ci.org/ros-industrial/ros_canopen)
+https://github.com/ipa320/cob_supported_robots.git [![Build Status](https://travis-ci.org/ipa320/cob_supported_robots.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/cob_supported_robots)
 
-https://github.com/ipa320/schunk_modular_robotics.git [![Build Status](https://travis-ci.org/ipa320/schunk_modular_robotics.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/schunk_modular_robot
-ics)
-
-https://github.com/ipa320/softkinetic.git [![Build Status](https://travis-ci.org/ipa320/softkinetic.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/softkinetic)
-
-https://github.com/ros-industrial/universal_robot.git [![Build Status](https://travis-ci.org/ros-industrial/universal_robot.svg?branch=indigo-devel)](https://travis-ci.org/ros-industrial/universal_robot)
+https://github.com/ipa320/schunk_modular_robotics.git [![Build Status](https://travis-ci.org/ipa320/schunk_modular_robotics.svg?branch=indigo_dev)](https://travis-ci.org/ipa320/schunk_modular_robotics)
 
 and many more...
 
