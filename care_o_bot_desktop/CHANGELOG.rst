@@ -2,6 +2,9 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.6.7 (2019-03-14)
+------------------
+
 0.6.6 (2018-01-07)
 ------------------
 * Merge pull request `#44 <https://github.com/ipa320/care-o-bot/issues/44>`_ from ipa-fxm/APACHE_license
