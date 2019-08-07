@@ -13,7 +13,7 @@
 - git:
     uri: 'https://github.com/ipa320/cob_common.git'
     local-name: cob_common
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_control.git'
     local-name: cob_control
@@ -21,7 +21,7 @@
 - git:
     uri: 'https://github.com/ipa320/cob_driver.git'
     local-name: cob_driver
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_environments.git'
     local-name: cob_environments
@@ -53,11 +53,11 @@
 - git:
     uri: 'https://github.com/ipa320/cob_robots.git'
     local-name: cob_robots
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_simulation.git'
     local-name: cob_simulation
-    version: indigo_dev
+    version: kinetic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_substitute.git'
     local-name: cob_substitute
