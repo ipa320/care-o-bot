@@ -17,7 +17,7 @@
 - git:
     uri: 'https://github.com/ipa320/cob_control.git'
     local-name: cob_control
-    version: kinetic_dev
+    version: melodic_dev
 - git:
     uri: 'https://github.com/ipa320/cob_driver.git'
     local-name: cob_driver
@@ -68,6 +68,10 @@
     version: indigo_dev
 
 - git:
+    local-name: realsense_substitute
     uri: 'https://github.com/ipa320/realsense.git'
-    local-name: realsense
-    version: indigo-devel
+    version: realsense_substitute
+- git:
+    local-name: realsense2_substitute
+    uri: 'https://github.com/ipa320/realsense.git'
+    version: realsense2_substitute

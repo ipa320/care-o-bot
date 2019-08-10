@@ -66,19 +66,12 @@
     uri: 'https://github.com/ipa320/cob_supported_robots.git'
     local-name: cob_supported_robots
     version: indigo_dev
-- git:
-    uri: 'https://github.com/ipa320/schunk_modular_robotics.git'
-    local-name: schunk_modular_robotics
-    version: indigo_dev
+
 - git:
     uri: 'https://github.com/ipa320/realsense.git'
     local-name: realsense
     version: indigo-devel
 - git:
-    uri: 'https://github.com/SICKAG/sick_visionary_t.git'
-    local-name: sick_visionary_t
-    version: indigo-devel
-- git:
-    uri: 'https://github.com/ros-industrial/universal_robot.git'
-    local-name: universal_robot
-    version: kinetic-devel
+    local-name: realsense2_substitute
+    uri: 'https://github.com/ipa320/realsense.git'
+    version: realsense2_substitute
