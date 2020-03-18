@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>care_o_bot_robot</name>
-  <version>0.6.7</version>
+  <version>0.7.8</version>
   <description>The care-o-bot-robot meta-package</description>
   <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
   <license>Apache 2.0</license>
