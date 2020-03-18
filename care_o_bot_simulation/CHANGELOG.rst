@@ -2,6 +2,9 @@
 Changelog for package care_o_bot_simulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.6.7 (2019-03-14)
 ------------------
 
