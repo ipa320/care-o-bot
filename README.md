@@ -11,7 +11,7 @@ care-o-bot
 
 ## Travis - Continuous Integration
 
-Status: [![Build Status](https://travis-ci.com/ipa320/care-o-bot.svg?branch=indigo_dev)](https://travis-ci.com/ipa320/care-o-bot)
+Status: [![Build Status](https://travis-ci.com/ipa320/care-o-bot.svg?branch=kinetic_dev)](https://travis-ci.com/ipa320/care-o-bot)
 
 ## ROS Buildfarm
 
