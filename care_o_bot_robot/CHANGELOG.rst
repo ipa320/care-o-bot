@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.7.9 (2022-05-20)
+------------------
 * move tool dependencies
 * Contributors: fmessmer
 
