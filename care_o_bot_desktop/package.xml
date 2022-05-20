@@ -27,6 +27,14 @@
   <exec_depend>blender</exec_depend>
   <exec_depend>disper</exec_depend>
 
+  <exec_depend>htop</exec_depend>
+  <exec_depend>openssh-server</exec_depend>
+  <exec_depend>python-wstool</exec_depend>
+  <exec_depend>robot_upstart</exec_depend>
+  <exec_depend>tmux</exec_depend>
+  <exec_depend>tree</exec_depend>
+  <exec_depend>vim</exec_depend>
+
   <exec_depend>desktop_full</exec_depend>
   <exec_depend>python-bloom</exec_depend>
   <exec_depend>python-catkin-tools</exec_depend>
