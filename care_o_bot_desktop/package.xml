@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model
+  href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>care_o_bot_desktop</name>
   <version>0.7.9</version>
   <description>The care-o-bot-desktop meta-package</description>
@@ -12,34 +15,23 @@
 
   <exec_depend>care_o_bot</exec_depend>
 
-  <exec_depend>vim</exec_depend>
-  <exec_depend>tree</exec_depend>
-  <exec_depend>terminator</exec_depend>
+  <exec_depend>blender</exec_depend>
+  <exec_depend>chromium-browser</exec_depend>
+  <exec_depend>gimp</exec_depend>
   <exec_depend>gitg</exec_depend>
-  <exec_depend>meld</exec_depend>
+  <exec_depend>htop</exec_depend>
   <exec_depend>language-pack-en</exec_depend>
   <exec_depend>language-pack-de</exec_depend>
+  <exec_depend>meld</exec_depend>
   <exec_depend>openssh-server</exec_depend>
-  <exec_depend>chromium-browser</exec_depend>
+  <exec_depend>terminator</exec_depend>
   <exec_depend>texlive-fonts-recommended</exec_depend>
   <exec_depend>texmaker</exec_depend>
-  <exec_depend>gimp</exec_depend>
-  <exec_depend>blender</exec_depend>
-  <exec_depend>disper</exec_depend>
-
-  <exec_depend>htop</exec_depend>
-  <exec_depend>openssh-server</exec_depend>
-  <exec_depend>python-wstool</exec_depend>
-  <exec_depend>robot_upstart</exec_depend>
   <exec_depend>tmux</exec_depend>
   <exec_depend>tree</exec_depend>
   <exec_depend>vim</exec_depend>
 
   <exec_depend>desktop_full</exec_depend>
-  <exec_depend>python-bloom</exec_depend>
-  <exec_depend>python-catkin-tools</exec_depend>
-  <exec_depend>python-rosinstall</exec_depend>
-  <exec_depend>python-wstool</exec_depend>
 
   <export>
     <metapackage/>
