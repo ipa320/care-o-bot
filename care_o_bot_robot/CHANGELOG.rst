@@ -2,6 +2,16 @@
 Changelog for package care_o_bot_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge pull request `#63 <https://github.com/ipa320/care-o-bot/issues/63>`_ from fmessmer/fix/ci
+  update ci
+* update ci
+* Merge pull request `#62 <https://github.com/ipa320/care-o-bot/issues/62>`_ from fmessmer/fix/ci
+  fix ci
+* bump cmake version
+* Contributors: Felix Messmer, fmessmer
+
 0.7.9 (2022-05-20)
 ------------------
 * move tool dependencies
