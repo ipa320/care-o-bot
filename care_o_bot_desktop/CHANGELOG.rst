@@ -2,8 +2,8 @@
 Changelog for package care_o_bot_desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.7.10 (2023-01-04)
+-------------------
 * Merge pull request `#63 <https://github.com/ipa320/care-o-bot/issues/63>`_ from fmessmer/fix/ci
   update ci
 * update ci
